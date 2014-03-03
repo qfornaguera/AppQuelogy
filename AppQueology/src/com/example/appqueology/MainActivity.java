@@ -4,11 +4,16 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnDragListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+
 
 public class MainActivity extends Activity {
 
@@ -17,7 +22,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        View square = new View(getApplicationContext());
+        Artifact touchedArtifact = null;
+        Artifact square = new Artifact(getApplicationContext(),touchedArtifact);
         
         Point size = new Point();
 		getWindowManager().getDefaultDisplay().getSize(size);
@@ -28,6 +34,8 @@ public class MainActivity extends Activity {
         
         RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
         Rel.addView(square, 100, 100);
+        
+        Rel.setOnDragListener(new OnDragArtifact(touchedArtifact));
     }
 
 
