@@ -8,12 +8,13 @@ import android.view.View;
 
 public class Artifact extends View{
 	
+	Artifact touchedArtifact;
 	
-	public Artifact(Context context) {
+	public Artifact(Context context,Artifact touchedArtifact) {
 		super(context);
-		Global.touchedArtifact = this;
+		this.touchedArtifact = touchedArtifact;
 		// TODO Auto-generated constructor stub
-		this.setOnTouchListener(new OnTouchArtifact());
+		this.setOnTouchListener(new OnTouchArtifact(touchedArtifact));
 	}
 
 }

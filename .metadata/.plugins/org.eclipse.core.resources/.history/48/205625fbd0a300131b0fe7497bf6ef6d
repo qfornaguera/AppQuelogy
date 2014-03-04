@@ -25,8 +25,8 @@ public class OnDragArtifact implements OnDragListener{
 			  break;
 			case DragEvent.ACTION_DROP:
 				Global.touchedArtifact.setBackgroundColor(Color.BLACK);
-				Global.touchedArtifact.setX(event.getX()-50);
-				Global.touchedArtifact.setY(event.getY()-50);
+				Global.touchedArtifact.setX(event.getX());
+				Global.touchedArtifact.setY(event.getY());
 			  break;
 			case DragEvent.ACTION_DRAG_ENDED:
 			  default:

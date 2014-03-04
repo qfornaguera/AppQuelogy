@@ -9,20 +9,22 @@ import android.view.View.OnTouchListener;
 
 public class OnTouchArtifact implements OnTouchListener{
 	
+	Artifact touchedArtifact;
 	
-	public OnTouchArtifact(){
-
+	public OnTouchArtifact(Artifact touchedArtifact){
+		this.touchedArtifact = touchedArtifact;
 	}
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
 		if(event.getAction()==MotionEvent.ACTION_DOWN){
-			Global.touchedArtifact = (Artifact) v;
-			Global.touchedArtifact.setBackgroundColor(Color.CYAN);
+			v.setBackgroundColor(Color.CYAN);
+			touchedArtifact = (Artifact) v;
 			ClipData data = ClipData.newPlainText("", "");
-			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder();
-			Global.touchedArtifact.startDrag(data, shadowBuilder, Global.touchedArtifact, 0);
+			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(touchedArtifact);
+			touchedArtifact.startDrag(data, shadowBuilder, touchedArtifact, 0);
+			
 		}
 		
 		
