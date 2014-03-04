@@ -6,7 +6,6 @@
 <fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
 <fullyQualifiedTypeName name="android.view.MotionEvent"/>
 <fullyQualifiedTypeName name="android.view.View"/>
-<fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup"/>
 <fullyQualifiedTypeName name="android.graphics.drawable.Drawable"/>
 <fullyQualifiedTypeName name="android.view.View.OnDragListener"/>
@@ -14,4 +13,7 @@
 <fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
 <fullyQualifiedTypeName name="com.example.appqueology.OnDragArtifact"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="android.content.ClipData"/>
+<fullyQualifiedTypeName name="android.view.View.DragShadowBuilder"/>
+<fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 </qualifiedTypeNameHistroy>
