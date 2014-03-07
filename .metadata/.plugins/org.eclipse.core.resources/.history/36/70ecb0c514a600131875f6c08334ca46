@@ -10,8 +10,7 @@
         android:id="@+id/slidingDrawer"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+
         android:content="@+id/content"
         android:handle="@+id/handle"
         android:rotation="180"

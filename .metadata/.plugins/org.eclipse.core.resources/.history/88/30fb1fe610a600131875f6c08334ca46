@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:layout_below="@+id/slidingDrawer"
     android:id="@+id/activity_main" >
 
     <SlidingDrawer
@@ -15,6 +14,7 @@
         android:content="@+id/content"
         android:handle="@+id/handle"
         android:rotation="180"
+        android:layout_above="@+id/activity_main"
         android:orientation="horizontal" >
 
         <Button
@@ -32,7 +32,6 @@
             android:background="#AAAAAA"
             android:orientation="vertical" >
         </LinearLayout>
-        
     </SlidingDrawer>
 
 </RelativeLayout>

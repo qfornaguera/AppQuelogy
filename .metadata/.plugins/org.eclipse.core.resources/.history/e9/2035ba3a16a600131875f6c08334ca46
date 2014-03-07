@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
-import android.widget.SlidingDrawer;
 
 
 public class MainActivity extends Activity {
@@ -36,9 +35,7 @@ public class MainActivity extends Activity {
         
         RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
         Rel.addView(square, 100, 100);
-        
-        findViewById(R.id.slidingDrawer).bringToFront();
-        
+
         Rel.setOnDragListener(new OnDragArtifact());
         
         Rel.setOnTouchListener(new OnTouchListener() {

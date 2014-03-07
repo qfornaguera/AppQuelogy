@@ -14,8 +14,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.SlidingDrawer;
 
 
 public class MainActivity extends Activity {
@@ -34,11 +34,9 @@ public class MainActivity extends Activity {
         square.setY(size.y/2 - 100);
         square.setBackgroundColor(Color.BLACK);
         
-        RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
+        FrameLayout Rel = (FrameLayout)findViewById(R.id.activity_main);
         Rel.addView(square, 100, 100);
-        
-        findViewById(R.id.slidingDrawer).bringToFront();
-        
+
         Rel.setOnDragListener(new OnDragArtifact());
         
         Rel.setOnTouchListener(new OnTouchListener() {
