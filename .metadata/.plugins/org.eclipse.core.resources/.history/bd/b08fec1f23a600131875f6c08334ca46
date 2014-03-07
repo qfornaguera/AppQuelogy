@@ -42,9 +42,6 @@ public class OnDragArtifact implements OnDragListener{
 					}else{//else 
 						touchedArtifact.setBackgroundColor(Color.BLACK);
 					}
-
-					View slideDrawer = (View)owner.getParent();//ensure the SlideDrawer overlaps all the views
-					slideDrawer.bringToFront();
 					
 				}else{
 					touchedArtifact.setX(event.getX()-50);

@@ -2704,3 +2704,128 @@ java.lang.NullPointerException
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:629)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:584)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1438)
+
+!ENTRY org.eclipse.jdt.core 4 4 2014-03-07 18:45:17.243
+!MESSAGE JavaBuilder handling CoreException while cleaning: AppQueology
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Problems encountered while deleting resources.
+	at org.eclipse.core.internal.resources.Resource.delete(Resource.java:816)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.cleanOutputFolders(BatchImageBuilder.java:114)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.clean(JavaBuilder.java:291)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:422)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog.doClean(CleanDialog.java:313)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog$1.runInWorkspace(CleanDialog.java:151)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: Could not delete '/AppQueology/bin/classes/com'.
+org.eclipse.core.internal.resources.ResourceException: Problems encountered while deleting resources.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.delete(FileSystemResourceManager.java:352)
+	at org.eclipse.core.internal.resources.ResourceTree.internalDeleteFolder(ResourceTree.java:352)
+	at org.eclipse.core.internal.resources.ResourceTree.standardDeleteFolder(ResourceTree.java:798)
+	at org.eclipse.core.internal.resources.Resource.unprotectedDelete(Resource.java:1977)
+	at org.eclipse.core.internal.resources.Resource.delete(Resource.java:803)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.cleanOutputFolders(BatchImageBuilder.java:114)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.clean(JavaBuilder.java:291)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:422)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog.doClean(CleanDialog.java:313)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog$1.runInWorkspace(CleanDialog.java:151)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: Problems encountered while deleting files.
+Contains: Could not delete: C:\Users\Usuario\Documents\GitHub\AppQuelogy\AppQueology\bin\classes\com\example.
+Contains: Could not delete: C:\Users\Usuario\Documents\GitHub\AppQuelogy\AppQueology\bin\classes\com.
+!SUBENTRY 1 org.eclipse.core.resources 4 273 2014-03-07 18:45:17.243
+!MESSAGE Problems encountered while deleting resources.
+!SUBENTRY 2 org.eclipse.core.resources 4 273 2014-03-07 18:45:17.243
+!MESSAGE Could not delete '/AppQueology/bin/classes/com'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Problems encountered while deleting resources.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.delete(FileSystemResourceManager.java:352)
+	at org.eclipse.core.internal.resources.ResourceTree.internalDeleteFolder(ResourceTree.java:352)
+	at org.eclipse.core.internal.resources.ResourceTree.standardDeleteFolder(ResourceTree.java:798)
+	at org.eclipse.core.internal.resources.Resource.unprotectedDelete(Resource.java:1977)
+	at org.eclipse.core.internal.resources.Resource.delete(Resource.java:803)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.cleanOutputFolders(BatchImageBuilder.java:114)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.clean(JavaBuilder.java:291)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:199)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:239)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:292)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:295)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:351)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:374)
+	at org.eclipse.core.internal.resources.Workspace.buildInternal(Workspace.java:513)
+	at org.eclipse.core.internal.resources.Workspace.build(Workspace.java:422)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog.doClean(CleanDialog.java:313)
+	at org.eclipse.ui.internal.ide.dialogs.CleanDialog$1.runInWorkspace(CleanDialog.java:151)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Contains: Problems encountered while deleting files.
+Contains: Could not delete: C:\Users\Usuario\Documents\GitHub\AppQuelogy\AppQueology\bin\classes\com\example.
+Contains: Could not delete: C:\Users\Usuario\Documents\GitHub\AppQuelogy\AppQueology\bin\classes\com.
+!SUBENTRY 3 org.eclipse.core.resources 4 273 2014-03-07 18:45:17.244
+!MESSAGE Problems encountered while deleting resources.
+!SUBENTRY 4 org.eclipse.core.filesystem 4 273 2014-03-07 18:45:17.244
+!MESSAGE Problems encountered while deleting files.
+!SUBENTRY 5 org.eclipse.core.filesystem 4 273 2014-03-07 18:45:17.244
+!MESSAGE Could not delete: C:\Users\Usuario\Documents\GitHub\AppQuelogy\AppQueology\bin\classes\com\example.
+!SUBENTRY 5 org.eclipse.core.filesystem 4 273 2014-03-07 18:45:17.244
+!MESSAGE Could not delete: C:\Users\Usuario\Documents\GitHub\AppQuelogy\AppQueology\bin\classes\com.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:13.544
+!MESSAGE activity_main.xml: Dimension "5" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:13.939
+!MESSAGE activity_main.xml: Dimension "50" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:19.223
+!MESSAGE activity_main.xml: Dimension "3" in attribute "layout_width" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:19.223
+!MESSAGE activity_main.xml: Dimension "50" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:19.605
+!MESSAGE activity_main.xml: Dimension "50" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:20.045
+!MESSAGE activity_main.xml: Dimension "5" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:23.463
+!MESSAGE activity_main.xml: Dimension "5" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:23.502
+!MESSAGE activity_main.xml: Dimension "50" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:23.541
+!MESSAGE activity_main.xml: Dimension "3" in attribute "layout_width" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:23.541
+!MESSAGE activity_main.xml: Dimension "50" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:23.578
+!MESSAGE activity_main.xml: Dimension "50" in attribute "layout_height" is missing unit!
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-03-07 19:17:23.653
+!MESSAGE activity_main.xml: Dimension "5" in attribute "layout_height" is missing unit!
