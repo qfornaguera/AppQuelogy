@@ -18,10 +18,11 @@ public class OnTouchArtifact implements OnTouchListener{
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
 		if(event.getAction()==MotionEvent.ACTION_DOWN){
-			v.setBackgroundColor(Color.CYAN);
+			Global.touchedArtifact = (Artifact) v;
+			Global.touchedArtifact.setBackgroundColor(Color.CYAN);
 			ClipData data = ClipData.newPlainText("", "");
 			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder();
-			v.startDrag(data, shadowBuilder, v, 0);
+			Global.touchedArtifact.startDrag(data, shadowBuilder, Global.touchedArtifact, 0);
 		}
 		
 		
