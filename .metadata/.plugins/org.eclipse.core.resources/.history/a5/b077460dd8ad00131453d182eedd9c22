@@ -1,0 +1,19 @@
+package com.example.appqueology;
+
+import android.graphics.PointF;
+
+import com.mindfusion.diagramming.DiagramAdapter;
+import com.mindfusion.diagramming.DiagramNode;
+import com.mindfusion.diagramming.NodeEvent;
+import com.mindfusion.diagramming.ShapeNode;
+
+
+public class AppqueologyDiagramAdapter extends DiagramAdapter{
+	
+	public AppqueologyDiagramAdapter(){
+		
+	}
+	
+	
+
+}

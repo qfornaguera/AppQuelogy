@@ -1,13 +1,21 @@
 package com.example.appqueology;
 
 import java.security.acl.Owner;
+import java.util.ArrayList;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.PointF;
+import android.graphics.RectF;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnDragListener;
+import android.webkit.WebView;
 import android.webkit.WebView.FindListener;
 import android.widget.RelativeLayout;
 
@@ -28,17 +36,22 @@ public class OnDragArtifact implements OnDragListener{
 			case DragEvent.ACTION_DRAG_EXITED:        
 			  break;
 			case DragEvent.ACTION_DROP:
-				View touchedArtifact = (View) event.getLocalState();
+				Artifact touchedArtifact = (Artifact) event.getLocalState();
 				View owner = (View)touchedArtifact.getParent();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					if(event.getX() > owner.getWidth()){//Check if it has been dropped to main frame
-						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
-						square.setX(event.getX());
-				        square.setY(event.getY());
-				        square.setBackgroundColor(Color.BLACK);
+						Artifact square = new Artifact(v.getContext(),Global.ID);//then create a new Artifact at the main frame where it was dropped
+				        Global.ID++;
+						square.setBackgroundColor(Color.BLACK);
 				        RelativeLayout Rel = (RelativeLayout)v;
 				        Rel.addView(square,100,100);
+				        square.setX(event.getX()-touchedArtifact.getWidth()/2);
+				        square.setY(event.getY()-touchedArtifact.getHeight()/2);
+				        square.setTag("node");
+				        //square.seekFather(Rel);
+				        recalculateLines(Rel);
 				        touchedArtifact.setBackgroundColor(Color.BLACK);
+				        
 					}else{//else 
 						touchedArtifact.setBackgroundColor(Color.BLACK);
 					}
@@ -47,10 +60,17 @@ public class OnDragArtifact implements OnDragListener{
 					slideDrawer.bringToFront();
 					
 				}else{
-					touchedArtifact.setX(event.getX()-50);
-					touchedArtifact.setY(event.getY()-50);
+					RelativeLayout Rel = (RelativeLayout)v;
+					touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
+					touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
 					touchedArtifact.setBackgroundColor(Color.BLACK);
+					//touchedArtifact.seekFather(Rel);
+					recalculateLines(Rel);
 					
+					touchedArtifact.bringToFront();
+					
+					View slideDrawer = (View)Rel.findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
+					slideDrawer.bringToFront();
 					
 				}
 	
@@ -61,6 +81,36 @@ public class OnDragArtifact implements OnDragListener{
 		}
 		return true;
 			
+	}
+	
+	public void recalculateLines(RelativeLayout Rel){
+		while(Rel.findViewWithTag("line") != null){
+			Rel.removeView(Rel.findViewWithTag("line"));
+		}
+		ArrayList<Artifact> nodeList = new ArrayList<Artifact>();
+		for(int i=0;i<Rel.getChildCount();i++){
+			if(Rel.getChildAt(i).getTag() != null){
+				if(Rel.getChildAt(i).getTag().toString().compareTo("node") == 0){
+					nodeList.add((Artifact)Rel.getChildAt(i));
+					nodeList.get(nodeList.size()-1).seekFather(Rel);
+				}
+			}
+			
+		}
+		
+		for(int j=0;j<nodeList.size();j++){
+				Artifact node = nodeList.get(j);
+				if(node.getFather() != null){
+					Line line = new Line(Rel.getContext(),new PointF(node.getCenterX(),node.getCenterY()),new PointF(node.getFather().getCenterX(),node.getFather().getCenterY()));
+					line.setTag("line");
+					Rel.addView(line);
+					node.bringToFront();
+					node.getFather().bringToFront();
+					View slideDrawer = (View)Rel.findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
+					slideDrawer.bringToFront();
+				}
+			}
+		
 	}
 
 }

@@ -1,0 +1,35 @@
+package com.example.appqueology;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.view.MotionEvent;
+import android.view.View;
+
+
+
+public class Artifact extends View{
+	
+	
+	public Artifact(Context context) {
+		super(context);
+		Global.touchedArtifact = this;
+		// TODO Auto-generated constructor stub
+		this.setOnTouchListener(new OnTouchArtifact());
+	}
+	
+	
+	public void onDraw(Canvas c){
+		Path p = new Path();
+		p.moveTo(this.getX(), this.getY());
+		p.lineTo(100, 100);
+		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(2);
+		paint.setColor(Color.BLACK);
+		c.drawPath(p, paint);
+	}
+
+}

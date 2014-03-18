@@ -1,0 +1,24 @@
+package com.example.appqueology;
+
+import javax.xml.transform.TransformerException;
+
+import org.w3c.dom.Element;
+
+import android.graphics.Canvas;
+
+
+
+import com.mindfusion.diagramming.RenderOptions;
+import com.mindfusion.diagramming.ShapeNode;
+import com.mindfusion.diagramming.XmlException;
+import com.mindfusion.diagramming.XmlPersistContext;
+
+public class ArtifactNode extends ShapeNode{
+	
+	public ArtifactNode(){
+		super();
+	}
+	
+	
+
+}

@@ -1,0 +1,5 @@
+package com.example.appqueology;
+
+public class Global {
+	public static int ID = 0;
+}

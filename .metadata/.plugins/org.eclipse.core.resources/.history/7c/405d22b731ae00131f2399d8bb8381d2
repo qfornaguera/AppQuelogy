@@ -1,0 +1,103 @@
+package com.example.appqueology;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
+
+
+
+public class Artifact extends View{
+	
+	ArrayList <Artifact> sons = null;
+	Artifact father = null;
+	
+	public Artifact(Context context) {
+		super(context);
+		sons = new ArrayList<Artifact>();
+		Global.touchedArtifact = this;
+		// TODO Auto-generated constructor stub
+		this.setOnTouchListener(new OnTouchArtifact());
+	}
+	
+	public float getCenterX(){
+		return this.getX() + this.getWidth()/2;
+	}
+	
+	public float getCenterY(){
+		return this.getY() + this.getHeight()/2;
+	}
+	
+	public void setFather(Artifact father){
+		this.father = father;
+	}
+	
+	public void addSon(Artifact son){
+		sons.add(son);
+	}
+	
+	public void removeSon(Artifact son){
+		sons.remove(son);
+	}
+	
+	public void removeAllSons(){
+		sons = new ArrayList<Artifact>();
+	}
+	
+	public Artifact getFather(){
+		return father;
+	}
+	
+	public ArrayList<Artifact> getSons(){
+		return sons;
+	}
+	
+	public void removeSon(int index){
+		sons.remove(index);
+	}
+	
+	public void seekFather(RelativeLayout Rel){
+		Artifact father = null;
+		float minDist = Float.MAX_VALUE;
+		for(int i=0;i<Rel.getChildCount();i++){
+			View maybeFather = Rel.getChildAt(i);
+			if(Rel.getChildAt(i).getTag() != null){
+				if(maybeFather.getTag().toString().compareTo("node") == 0 && !this.equals(maybeFather)){
+					float dist = (float)Math.sqrt(Math.pow(maybeFather.getX(),2)+Math.pow(maybeFather.getY(),2));
+					if(minDist > dist){
+						minDist = dist;
+						father = (Artifact) maybeFather;
+					}
+				}
+			}
+		}
+		if(father!=null){
+			if(Math.abs(father.getCenterY()-this.getCenterY()) < 10 || father.getCenterY() > this.getCenterY())
+				father = null;
+			else{
+				Log.v("mira mis hijos", "father found "+father.toString());
+				this.father = father;
+				father.addSon(this);
+			}
+		}
+		
+		letSonsDown(Rel);
+		
+	}
+	
+	
+	public void letSonsDown(RelativeLayout Rel){
+		for(int i = 0;i<sons.size();i++){
+			sons.get(i).seekFather(Rel);
+		}
+		removeAllSons();
+	}
+
+}
