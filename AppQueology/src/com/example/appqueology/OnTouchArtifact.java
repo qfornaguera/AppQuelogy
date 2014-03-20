@@ -20,9 +20,11 @@ public class OnTouchArtifact implements OnTouchListener{
 		if(event.getAction()==MotionEvent.ACTION_DOWN){
 			v.setBackgroundColor(Color.CYAN);
 			ClipData data = ClipData.newPlainText("", "");
-			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder();
+			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
 			v.startDrag(data, shadowBuilder, v, 0);
+			
 		}
+		
 		
 		
 		return true;

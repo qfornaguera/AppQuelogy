@@ -11,7 +11,6 @@
 <fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
 <fullyQualifiedTypeName name="android.widget.FrameLayout"/>
-<fullyQualifiedTypeName name="android.widget.SlidingDrawer"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
 <fullyQualifiedTypeName name="java.security.acl.Owner"/>
 <fullyQualifiedTypeName name="android.view.View.DragShadowBuilder"/>
@@ -32,7 +31,6 @@
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.BehaviorBase"/>
 <fullyQualifiedTypeName name="com.example.appqueology.AppqueologyBehaviorBase"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.Behavior"/>
-<fullyQualifiedTypeName name="android.view.MotionEvent"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.InteractionState"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.DiagramAdapter"/>
 <fullyQualifiedTypeName name="com.example.appqueology.AppqueologyDiagramAdapter"/>
@@ -58,4 +56,6 @@
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Global"/>
+<fullyQualifiedTypeName name="android.view.MotionEvent"/>
+<fullyQualifiedTypeName name="android.widget.SlidingDrawer"/>
 </qualifiedTypeNameHistroy>

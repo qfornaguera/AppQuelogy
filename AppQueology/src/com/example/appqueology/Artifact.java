@@ -19,6 +19,7 @@ public class Artifact extends View{
 	ArrayList <Artifact> sons = null;
 	Artifact father = null;
 	int id;
+	float width,heigth;
 	
 	public Artifact(Context context,int id) {
 		super(context);
@@ -29,12 +30,20 @@ public class Artifact extends View{
 		this.setOnTouchListener(new OnTouchArtifact());
 	}
 	
+	public void setWidth(float width){
+		this.width = width;
+	}
+	
+	public void setHeight(float heigth){
+		this.heigth = heigth;
+	}
+	
 	public float getCenterX(){
-		return this.getX() + this.getWidth()/2;
+		return this.getX() + this.width/2;
 	}
 	
 	public float getCenterY(){
-		return this.getY() + this.getHeight()/2;
+		return this.getY() + this.heigth/2;
 	}
 	
 	public void setFather(Artifact father){
@@ -73,8 +82,8 @@ public class Artifact extends View{
 			if(maybeFather.getTag() != null){
 				if(maybeFather.getTag().toString().compareTo("node") == 0 && this != maybeFather){
 					float dist = (float)Math.sqrt(Math.pow(maybeFather.getX()-this.getX(),2)+Math.pow(maybeFather.getY()-this.getY(),2));
-					if(minDist > dist && maybeFather.getY() < this.getY()){// || Math.abs(maybeFather.getY()-this.getY()) >= 40
-						if(Math.abs(maybeFather.getY()-this.getY()) >= 50){
+					if(minDist > dist && maybeFather.getY() < this.getY()){
+						if(Math.abs(maybeFather.getY()-this.getY()) >= 100){
 							minDist = dist;
 							father = (Artifact) maybeFather;
 						}
@@ -98,13 +107,13 @@ public class Artifact extends View{
 	}
 	
 	
-	public void letSonsDown(RelativeLayout Rel){
+	/*public void letSonsDown(RelativeLayout Rel){
 		ArrayList <Artifact> sonsToLetDown = this.sons;
 		removeAllSons();
 		for(int i = 0;i<sonsToLetDown.size();i++){
 			sonsToLetDown.get(i).seekFather(Rel);
 		}
 		
-	}
+	}*/
 
 }

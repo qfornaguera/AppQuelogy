@@ -45,8 +45,10 @@ public class OnDragArtifact implements OnDragListener{
 						square.setBackgroundColor(Color.BLACK);
 				        RelativeLayout Rel = (RelativeLayout)v;
 				        Rel.addView(square,100,100);
-				        square.setX(event.getX()-touchedArtifact.getWidth()/2);
-				        square.setY(event.getY()-touchedArtifact.getHeight()/2);
+				        square.setWidth(100);
+				        square.setHeight(100);
+				        square.setX(event.getX()-50);
+				        square.setY(event.getY()-50/2);
 				        square.setTag("node");
 				        //square.seekFather(Rel);
 				        recalculateLines(Rel);
@@ -66,7 +68,6 @@ public class OnDragArtifact implements OnDragListener{
 					touchedArtifact.setBackgroundColor(Color.BLACK);
 					//touchedArtifact.seekFather(Rel);
 					recalculateLines(Rel);
-					
 					touchedArtifact.bringToFront();
 					
 					View slideDrawer = (View)Rel.findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views

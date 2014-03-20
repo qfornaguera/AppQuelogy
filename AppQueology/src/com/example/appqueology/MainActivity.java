@@ -36,6 +36,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
           
         RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
+        Rel.getLayoutParams().height = Rel.getHeight() + 2000;
+        Rel.getLayoutParams().width = Rel.getWidth() + 2000;
+        /*SlidingDrawer sd = (SlidingDrawer)findViewById(R.id.slidingDrawer);
+        sd.getLayoutParams().height = getWindow().getAttributes().height;*/
+        
         
         findViewById(R.id.slidingDrawer).bringToFront();
         
@@ -44,11 +49,45 @@ public class MainActivity extends Activity {
         Rel.setOnDragListener(new OnDragArtifact());
         
         Rel.setOnTouchListener(new OnTouchListener() {
-			
+			float lastX;
+			float lastY;
+        	
+        	
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				Global.touchedArtifact = null;
+				switch(event.getAction()){
+					case MotionEvent.ACTION_DOWN:
+						lastX = event.getX();
+						lastY = event.getY();
+					break;
+					
+					case  MotionEvent.ACTION_MOVE:
+						SlidingDrawer sd = (SlidingDrawer)v.findViewById(R.id.slidingDrawer);
+						float distX = Math.abs(event.getX()-v.getX());
+						float distY = Math.abs(event.getY()-v.getY());
+						float relDistX = distX/(distX+distY);
+						float relDistY = distY/(distX+distY);
+						if(lastX > event.getX()){
+							v.setX(v.getX()-50*relDistX);
+							sd.setX(sd.getX()+50*relDistX);
+						}else if(lastX < event.getX() && v.getX()+50*relDistX<0){
+							v.setX(v.getX()+50*relDistX);
+							sd.setX(sd.getX()-50*relDistX);
+						}
+						
+						if(lastY > event.getY()){
+							v.setY(v.getY()-50*relDistY);
+							sd.setY(sd.getY()+50*relDistY);
+						}else if(lastY < event.getY() && v.getY()+50*relDistY<0){
+							v.setY(v.getY()+50*relDistY);
+							sd.setY(sd.getY()-50*relDistY);
+						}
+						
+					break;
+				}
+				
 				
 				return true;
 			}
