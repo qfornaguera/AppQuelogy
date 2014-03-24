@@ -5,18 +5,25 @@ package com.example.appqueology;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,23 +44,27 @@ import android.widget.ZoomControls;
 
 public class MainActivity extends Activity {
 
-    @Override
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Global.ID = 0;
         RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
+        RelativeLayout Main = (RelativeLayout)findViewById(R.id.main);
         
-        Rel.getLayoutParams().height = Rel.getHeight() + 10000;
-        Rel.getLayoutParams().width = Rel.getWidth() + 10000;
-        
+        Main.getLayoutParams().height = 10000;
+        Main.getLayoutParams().width = 10000;
+        Rel.getLayoutParams().height = 10000;
+        Rel.getLayoutParams().width = 10000;
+
         ZoomControls zoom = (ZoomControls)findViewById(R.id.zoomControls1);
         ArrayList <View> zoomButtons = zoom.getTouchables();
         zoomButtons.get(0).getLayoutParams().width = 100;
         zoomButtons.get(1).getLayoutParams().width = 100;
         zoomButtons.get(0).getLayoutParams().height = 100;
         zoomButtons.get(1).getLayoutParams().height = 100;
-        
+	 
+
         
         findViewById(R.id.slidingDrawer).bringToFront();
         
@@ -77,25 +88,22 @@ public class MainActivity extends Activity {
 					break;
 					
 					case  MotionEvent.ACTION_MOVE:
-						SlidingDrawer sd = (SlidingDrawer)v.findViewById(R.id.slidingDrawer);
-						float distX = Math.abs(event.getX()-v.getX());
-						float distY = Math.abs(event.getY()-v.getY());
+						float distX = Math.abs(event.getX()-lastX);
+						float distY = Math.abs(event.getY()-lastY);
 						float relDistX = distX/(distX+distY);
 						float relDistY = distY/(distX+distY);
-						if(lastX > event.getX()){
-							v.setX(v.getX()-50*relDistX);
-							sd.setX(sd.getX()+50*relDistX);
-						}else if(lastX < event.getX() && v.getX()+50*relDistX<0){
-							v.setX(v.getX()+50*relDistX);
-							sd.setX(sd.getX()-50*relDistX);
+						float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
+						
+						if(lastX > event.getX() && v.getX()-dist*relDistX*v.getScaleX()>v.getWidth()*-1){
+							v.setX(v.getX()-dist*relDistX*v.getScaleX());
+						}else if(lastX < event.getX() && v.getX()+dist*relDistX*v.getScaleX()<0){
+							v.setX(v.getX()+dist*relDistX*v.getScaleX());
 						}
 						
-						if(lastY > event.getY()){
-							v.setY(v.getY()-50*relDistY);
-							sd.setY(sd.getY()+50*relDistY);
-						}else if(lastY < event.getY() && v.getY()+50*relDistY<0){
-							v.setY(v.getY()+50*relDistY);
-							sd.setY(sd.getY()-50*relDistY);
+						if(lastY > event.getY() && v.getY()-dist*relDistY*v.getScaleY()>v.getHeight()*-1){
+							v.setY(v.getY()-dist*relDistY*v.getScaleY());
+						}else if(lastY < event.getY() && v.getY()+dist*relDistY*v.getScaleY()<0){
+							v.setY(v.getY()+dist*relDistY*v.getScaleY());
 						}
 						
 					break;
@@ -108,17 +116,20 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				
 				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
-				SlidingDrawer sd = (SlidingDrawer)findViewById(R.id.slidingDrawer);
+				
+				DisplayMetrics displaymetrics = new DisplayMetrics();
+		        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+		        Rel.setPivotY(displaymetrics.heightPixels/2);
+		        Rel.setPivotX(displaymetrics.widthPixels/2);
 				// TODO Auto-generated method stub
 				if(Rel.getScaleX()-(float)0.1 >= 0 && Rel.getScaleY()-(float)0.1 >= 0){
 					Rel.setScaleX(Rel.getScaleX()-(float)0.1);
 					Rel.setScaleY(Rel.getScaleY()-(float)0.1);
-					sd.setScaleX(sd.getScaleX()+(float)0.1);
-					sd.setScaleY(sd.getScaleY()+(float)0.1);
+					Rel.invalidate();
 				}
-				Log.v("X"," "+Rel.getX());
-				Log.v("Y"," "+Rel.getY());
+				
 			}
 		});
 
@@ -127,13 +138,11 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
-				SlidingDrawer sd = (SlidingDrawer)findViewById(R.id.slidingDrawer);
 				// TODO Auto-generated method stub
-				if(sd.getScaleX()-(float)0.1 >= 0 && sd.getScaleY()-(float)0.1 >= 0){
+				if(Rel.getScaleX()+(float)0.1 <= 5 && Rel.getScaleY()+(float)0.1 <= 5){
 					Rel.setScaleX(Rel.getScaleX()+(float)0.1);
 					Rel.setScaleY(Rel.getScaleY()+(float)0.1);
-					sd.setScaleX(sd.getScaleX()-(float)0.1);
-					sd.setScaleY(sd.getScaleY()-(float)0.1);
+					Rel.invalidate();
 				}
 			}
 		});
@@ -148,7 +157,30 @@ public class MainActivity extends Activity {
         square.setY(50);
         LinearLayout slideContent = (LinearLayout)findViewById(R.id.content);
         slideContent.addView(square, 50, 50);
+
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.save:
+                
+                return true;
+            case R.id.load:
+                
+                return true;
+            default:
+            	return true;
+            
+        }
         
-    	
     }
 }

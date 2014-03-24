@@ -3,6 +3,7 @@ package com.example.appqueology;
 import java.security.acl.Owner;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -27,19 +28,19 @@ public class OnDragArtifact implements OnDragListener{
 	
 	@Override
 	public boolean onDrag(View v, DragEvent event) {
-		
 		switch (event.getAction()) {
 			case DragEvent.ACTION_DRAG_STARTED:
 			  break;
 			case DragEvent.ACTION_DRAG_ENTERED:
 			  break;
-			case DragEvent.ACTION_DRAG_EXITED:        
+			case DragEvent.ACTION_DRAG_EXITED:
 			  break;
 			case DragEvent.ACTION_DROP:
 				Artifact touchedArtifact = (Artifact) event.getLocalState();
 				View owner = (View)touchedArtifact.getParent();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
-					if(event.getX() > owner.getWidth()){//Check if it has been dropped to main frame
+					Log.v(""+owner.getWidth(),""+event.getX());
+					if(v.getX()+event.getX() > owner.getWidth()){//Check if it has been dropped to main frame 
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
 						square.setBackgroundColor(Color.BLACK);
 				        RelativeLayout Rel = (RelativeLayout)v;
@@ -68,8 +69,7 @@ public class OnDragArtifact implements OnDragListener{
 					touchedArtifact.setBackgroundColor(Color.BLACK);
 					recalculateLines(Rel);
 					touchedArtifact.bringToFront();
-					
-					View slideDrawer = (View)Rel.findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
+					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
 					slideDrawer.bringToFront();
 					
 				}
@@ -106,7 +106,7 @@ public class OnDragArtifact implements OnDragListener{
 					Rel.addView(line);
 					node.bringToFront();
 					node.getFather().bringToFront();
-					View slideDrawer = (View)Rel.findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
+					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
 					slideDrawer.bringToFront();
 				}
 			}
