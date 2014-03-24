@@ -2,6 +2,8 @@ package com.example.appqueology;
 
 
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -13,10 +15,14 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.DragEvent;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
+import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -26,6 +32,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
+import android.widget.ZoomControls;
 
 
 public class MainActivity extends Activity {
@@ -34,12 +41,18 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-          
+        Global.ID = 0;
         RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
-        Rel.getLayoutParams().height = Rel.getHeight() + 2000;
-        Rel.getLayoutParams().width = Rel.getWidth() + 2000;
-        /*SlidingDrawer sd = (SlidingDrawer)findViewById(R.id.slidingDrawer);
-        sd.getLayoutParams().height = getWindow().getAttributes().height;*/
+        
+        Rel.getLayoutParams().height = Rel.getHeight() + 10000;
+        Rel.getLayoutParams().width = Rel.getWidth() + 10000;
+        
+        ZoomControls zoom = (ZoomControls)findViewById(R.id.zoomControls1);
+        ArrayList <View> zoomButtons = zoom.getTouchables();
+        zoomButtons.get(0).getLayoutParams().width = 100;
+        zoomButtons.get(1).getLayoutParams().width = 100;
+        zoomButtons.get(0).getLayoutParams().height = 100;
+        zoomButtons.get(1).getLayoutParams().height = 100;
         
         
         findViewById(R.id.slidingDrawer).bringToFront();
@@ -87,17 +100,49 @@ public class MainActivity extends Activity {
 						
 					break;
 				}
-				
-				
 				return true;
 			}
-			
 		});
+        
+        zoomButtons.get(0).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
+				SlidingDrawer sd = (SlidingDrawer)findViewById(R.id.slidingDrawer);
+				// TODO Auto-generated method stub
+				if(Rel.getScaleX()-(float)0.1 >= 0 && Rel.getScaleY()-(float)0.1 >= 0){
+					Rel.setScaleX(Rel.getScaleX()-(float)0.1);
+					Rel.setScaleY(Rel.getScaleY()-(float)0.1);
+					sd.setScaleX(sd.getScaleX()+(float)0.1);
+					sd.setScaleY(sd.getScaleY()+(float)0.1);
+				}
+				Log.v("X"," "+Rel.getX());
+				Log.v("Y"," "+Rel.getY());
+			}
+		});
+
+		zoomButtons.get(1).setOnClickListener(new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
+				SlidingDrawer sd = (SlidingDrawer)findViewById(R.id.slidingDrawer);
+				// TODO Auto-generated method stub
+				if(sd.getScaleX()-(float)0.1 >= 0 && sd.getScaleY()-(float)0.1 >= 0){
+					Rel.setScaleX(Rel.getScaleX()+(float)0.1);
+					Rel.setScaleY(Rel.getScaleY()+(float)0.1);
+					sd.setScaleX(sd.getScaleX()-(float)0.1);
+					sd.setScaleY(sd.getScaleY()-(float)0.1);
+				}
+			}
+		});
+        
     }
     
     
     public void startSlider(){
-    	Artifact square = new Artifact(getApplicationContext(),-1);
+    	Artifact square = new Artifact(getApplicationContext());
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
         square.setY(50);

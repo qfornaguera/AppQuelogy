@@ -11,30 +11,29 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 
-public class Artifact extends View{
+public class Artifact extends TextView{
 	
 	ArrayList <Artifact> sons = null;
 	Artifact father = null;
-	int id;
 	float width,heigth;
 	
-	public Artifact(Context context,int id) {
+	public Artifact(Context context) {
 		super(context);
 		sons = new ArrayList<Artifact>();
 		Global.touchedArtifact = this;
-		this.id = id;
 		// TODO Auto-generated constructor stub
 		this.setOnTouchListener(new OnTouchArtifact());
 	}
 	
-	public void setWidth(float width){
+	public void setPrevWidth(float width){
 		this.width = width;
 	}
 	
-	public void setHeight(float heigth){
+	public void setPrevHeight(float heigth){
 		this.heigth = heigth;
 	}
 	

@@ -40,17 +40,17 @@ public class OnDragArtifact implements OnDragListener{
 				View owner = (View)touchedArtifact.getParent();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					if(event.getX() > owner.getWidth()){//Check if it has been dropped to main frame
-						Artifact square = new Artifact(v.getContext(),Global.ID);//then create a new Artifact at the main frame where it was dropped
-				        Global.ID++;
+						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
 						square.setBackgroundColor(Color.BLACK);
 				        RelativeLayout Rel = (RelativeLayout)v;
 				        Rel.addView(square,100,100);
-				        square.setWidth(100);
-				        square.setHeight(100);
+				        square.setPrevWidth(100);
+				        square.setPrevHeight(100);
 				        square.setX(event.getX()-50);
-				        square.setY(event.getY()-50/2);
+				        square.setY(event.getY()-50);
 				        square.setTag("node");
-				        //square.seekFather(Rel);
+				        square.setId(Global.ID);
+				        Global.ID++;
 				        recalculateLines(Rel);
 				        touchedArtifact.setBackgroundColor(Color.BLACK);
 				        
@@ -66,7 +66,6 @@ public class OnDragArtifact implements OnDragListener{
 					touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
 					touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
 					touchedArtifact.setBackgroundColor(Color.BLACK);
-					//touchedArtifact.seekFather(Rel);
 					recalculateLines(Rel);
 					touchedArtifact.bringToFront();
 					
