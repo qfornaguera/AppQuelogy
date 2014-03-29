@@ -83,7 +83,7 @@ public class OnDragArtifact implements OnDragListener{
 			
 	}
 	
-	public void recalculateLines(RelativeLayout Rel){
+	public static void recalculateLines(RelativeLayout Rel){
 		while(Rel.findViewWithTag("line") != null){
 			Rel.removeView(Rel.findViewWithTag("line"));
 		}

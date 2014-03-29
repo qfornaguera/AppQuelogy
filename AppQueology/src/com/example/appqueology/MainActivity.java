@@ -49,8 +49,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Global.ID = 0;
-        RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
-        RelativeLayout Main = (RelativeLayout)findViewById(R.id.main);
+        RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+        RelativeLayout Main = (RelativeLayout)findViewById(R.id.activity_main);
         
         Main.getLayoutParams().height = 10000;
         Main.getLayoutParams().width = 10000;
@@ -94,13 +94,13 @@ public class MainActivity extends Activity {
 						float relDistY = distY/(distX+distY);
 						float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
 						
-						if(lastX > event.getX() && v.getX()-dist*relDistX*v.getScaleX()>v.getWidth()*-1){
+						if(lastX > event.getX()){
 							v.setX(v.getX()-dist*relDistX*v.getScaleX());
 						}else if(lastX < event.getX() && v.getX()+dist*relDistX*v.getScaleX()<0){
 							v.setX(v.getX()+dist*relDistX*v.getScaleX());
 						}
 						
-						if(lastY > event.getY() && v.getY()-dist*relDistY*v.getScaleY()>v.getHeight()*-1){
+						if(lastY > event.getY()){
 							v.setY(v.getY()-dist*relDistY*v.getScaleY());
 						}else if(lastY < event.getY() && v.getY()+dist*relDistY*v.getScaleY()<0){
 							v.setY(v.getY()+dist*relDistY*v.getScaleY());
@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
+				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
 				
 				DisplayMetrics displaymetrics = new DisplayMetrics();
 		        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -137,7 +137,7 @@ public class MainActivity extends Activity {
 	
 			@Override
 			public void onClick(View v) {
-				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.activity_main);
+				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
 				// TODO Auto-generated method stub
 				if(Rel.getScaleX()+(float)0.1 <= 5 && Rel.getScaleY()+(float)0.1 <= 5){
 					Rel.setScaleX(Rel.getScaleX()+(float)0.1);
@@ -170,12 +170,13 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+    	XmlReadWriter xmlRW = new XmlReadWriter((RelativeLayout)findViewById(R.id.graph));
         switch (item.getItemId()) {
             case R.id.save:
-                
+                xmlRW.writeXML(getFilesDir()+"graf.xml");
                 return true;
             case R.id.load:
-                
+            	xmlRW.readXML(getFilesDir()+"graf.xml");
                 return true;
             default:
             	return true;

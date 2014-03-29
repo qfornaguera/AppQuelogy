@@ -5,6 +5,6 @@
     </item>
     
     <item android:id="@+id/load"
-          android:title="File" >
+          android:title="Load" >
     </item>
 </menu>

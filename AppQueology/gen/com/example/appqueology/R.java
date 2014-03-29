@@ -1000,7 +1000,7 @@ containing a value of this type.
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
         public static final int activity_chooser_view_content=0x7f050025;
-        public static final int activity_main=0x7f05003d;
+        public static final int activity_main=0x7f05003c;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
         public static final int checkbox=0x7f05002d;
@@ -1014,6 +1014,7 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
+        public static final int graph=0x7f05003d;
         public static final int handle=0x7f050040;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
@@ -1023,7 +1024,6 @@ containing a value of this type.
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
         public static final int load=0x7f050043;
-        public static final int main=0x7f05003c;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;

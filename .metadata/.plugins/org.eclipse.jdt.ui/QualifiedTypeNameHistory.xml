@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
-<fullyQualifiedTypeName name="android.widget.FrameLayout"/>
-<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
-<fullyQualifiedTypeName name="java.security.acl.Owner"/>
-<fullyQualifiedTypeName name="android.view.View.DragShadowBuilder"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.DiagramLink"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.DiagramView"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.LayeredLayout"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.jlayout.LayeredLayout"/>
-<fullyQualifiedTypeName name="android.graphics.RectF"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.Utilities"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.NodeView"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.RenderOptions"/>
-<fullyQualifiedTypeName name="android.renderscript.Element"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.XmlPersistContext"/>
-<fullyQualifiedTypeName name="android.sax.Element"/>
-<fullyQualifiedTypeName name="org.w3c.dom.Element"/>
 <fullyQualifiedTypeName name="com.example.appqueology.ArtifactNode"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.BehaviorBase"/>
 <fullyQualifiedTypeName name="com.example.appqueology.AppqueologyBehaviorBase"/>
@@ -39,13 +23,9 @@
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.graphics.PointF"/>
 <fullyQualifiedTypeName name="java.lang.Float"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
-<fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Global"/>
 <fullyQualifiedTypeName name="android.view.MotionEvent"/>
 <fullyQualifiedTypeName name="android.widget.SlidingDrawer"/>
-<fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.id"/>
@@ -57,7 +37,27 @@
 <fullyQualifiedTypeName name="android.webkit.WebView.FindListener"/>
 <fullyQualifiedTypeName name="android.app.Activity"/>
 <fullyQualifiedTypeName name="com.example.appqueology.MainActivity"/>
-<fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
 <fullyQualifiedTypeName name="android.graphics.drawable.ShapeDrawable"/>
 <fullyQualifiedTypeName name="android.graphics.Paint.Style"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="android.sax.Element"/>
+<fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilder"/>
+<fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilderFactory"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="org.w3c.dom.Document"/>
+<fullyQualifiedTypeName name="org.w3c.dom.Element"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="org.w3c.dom.NodeList"/>
+<fullyQualifiedTypeName name="org.w3c.dom.Attr"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.w3c.dom.Node"/>
+<fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="com.example.appqueology.XmlReadWriter"/>
+<fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
+<fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
+<fullyQualifiedTypeName name="javax.xml.transform.stream.StreamResult"/>
+<fullyQualifiedTypeName name="javax.xml.transform.TransformerFactory"/>
+<fullyQualifiedTypeName name="javax.xml.transform.Transformer"/>
+<fullyQualifiedTypeName name="javax.xml.transform.dom.DOMSource"/>
 </qualifiedTypeNameHistroy>
