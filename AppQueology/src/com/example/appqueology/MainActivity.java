@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -184,4 +185,17 @@ public class MainActivity extends Activity {
         }
         
     }
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+    	super.onConfigurationChanged(newConfig);
+    	Display display = getWindowManager().getDefaultDisplay();
+    	if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+    		findViewById(R.id.slidingDrawer).getLayoutParams().height = 600;
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        	findViewById(R.id.slidingDrawer).getLayoutParams().height = 1000;
+        }
+        
+    }
+    
 }

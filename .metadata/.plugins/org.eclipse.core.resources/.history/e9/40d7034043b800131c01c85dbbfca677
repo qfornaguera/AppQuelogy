@@ -18,7 +18,7 @@ public class Line extends View{
 		this.p1=p1;
 		this.p2=p2;
 		paint.setColor(Color.BLACK);
-		paint.setStrokeWidth(5);
+		paint.setStrokeWidth(20);
 	}
 	
 	@Override
