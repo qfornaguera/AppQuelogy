@@ -22,10 +22,7 @@ public class OnTouchArtifact implements OnTouchListener{
 			ClipData data = ClipData.newPlainText("", "");
 			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
 			v.startDrag(data, shadowBuilder, v, 0);
-		}
-		
-		
-		
+		}	
 		return true;
 	}
 	

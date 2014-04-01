@@ -57,6 +57,11 @@ public class MainActivity extends Activity {
         Main.getLayoutParams().width = 10000;
         Rel.getLayoutParams().height = 10000;
         Rel.getLayoutParams().width = 10000;
+        
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        Rel.setPivotY(displaymetrics.heightPixels/2);
+        Rel.setPivotX(displaymetrics.widthPixels/2);
 
         ZoomControls zoom = (ZoomControls)findViewById(R.id.zoomControls1);
         ArrayList <View> zoomButtons = zoom.getTouchables();
@@ -74,8 +79,10 @@ public class MainActivity extends Activity {
         Rel.setOnDragListener(new OnDragArtifact());
         
         Rel.setOnTouchListener(new OnTouchListener() {
-			float lastX;
-			float lastY;
+			float lastX,lastX2,Xstart;
+			float lastY,lastY2,Ystart;
+			float lastDist;
+			RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
         	
         	
 			@Override
@@ -84,28 +91,62 @@ public class MainActivity extends Activity {
 				Global.touchedArtifact = null;
 				switch(event.getAction()){
 					case MotionEvent.ACTION_DOWN:
-						lastX = event.getX();
-						lastY = event.getY();
+						Xstart = event.getX(0);
+						Ystart = event.getY(0);
+					break;
+					
+					case MotionEvent.ACTION_POINTER_DOWN:
+						lastX = event.getX(0);
+						lastY = event.getY(0);
+						lastX2 = event.getX(1);
+						lastY2 = event.getY(1);
+						lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));
 					break;
 					
 					case  MotionEvent.ACTION_MOVE:
-						float distX = Math.abs(event.getX()-lastX);
-						float distY = Math.abs(event.getY()-lastY);
-						float relDistX = distX/(distX+distY);
-						float relDistY = distY/(distX+distY);
-						float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
 						
-						if(lastX > event.getX()){
-							v.setX(v.getX()-dist*relDistX*v.getScaleX());
-						}else if(lastX < event.getX() && v.getX()+dist*relDistX*v.getScaleX()<0){
-							v.setX(v.getX()+dist*relDistX*v.getScaleX());
+						if(event.getPointerCount() == 1){
+							float distX = Math.abs(event.getX()-Xstart);
+							float distY = Math.abs(event.getY()-Ystart);
+							float relDistX = distX/(distX+distY);
+							float relDistY = distY/(distX+distY);
+							float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
+							
+							if(Xstart > event.getX()){
+								v.setX(v.getX()-dist*relDistX*v.getScaleX());
+							}else if(Xstart < event.getX() && v.getX()+dist*relDistX*v.getScaleX()<0){
+								v.setX(v.getX()+dist*relDistX*v.getScaleX());
+							}
+							
+							if(Ystart > event.getY()){
+								v.setY(v.getY()-dist*relDistY*v.getScaleY());
+							}else if(Ystart < event.getY() && v.getY()+dist*relDistY*v.getScaleY()<0){
+								v.setY(v.getY()+dist*relDistY*v.getScaleY());
+							}
+						}else if(event.getPointerCount() == 2){
+							float distX = Math.abs(event.getX(0)-event.getX(1));
+							float distY = Math.abs(event.getY(0)-event.getY(1));
+							float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
+							float sensibility = Math.abs(lastDist - dist)*Rel.getScaleX();
+							Log.v("scale "+Rel.getScaleX(),"sens "+sensibility);
+							if(sensibility > 10){	
+								if(lastDist < dist && Rel.getScaleY()+(float)0.01 <= 5){
+									Rel.setScaleX(Rel.getScaleX()+(float)0.01);
+									Rel.setScaleY(Rel.getScaleY()+(float)0.01);
+									lastDist = dist;
+									Rel.invalidate();
+								}else if(lastDist > dist && Rel.getScaleY()-(float)0.01 >= 0){
+									Rel.setScaleX(Rel.getScaleX()-(float)0.01);
+									Rel.setScaleY(Rel.getScaleY()-(float)0.01);
+									lastDist = dist;
+								}
+							}		
 						}
 						
-						if(lastY > event.getY()){
-							v.setY(v.getY()-dist*relDistY*v.getScaleY());
-						}else if(lastY < event.getY() && v.getY()+dist*relDistY*v.getScaleY()<0){
-							v.setY(v.getY()+dist*relDistY*v.getScaleY());
-						}
+						
+					break;
+					
+					case  MotionEvent.ACTION_UP:
 						
 					break;
 				}
@@ -119,11 +160,6 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				
 				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
-				
-				DisplayMetrics displaymetrics = new DisplayMetrics();
-		        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-		        Rel.setPivotY(displaymetrics.heightPixels/2);
-		        Rel.setPivotX(displaymetrics.widthPixels/2);
 				// TODO Auto-generated method stub
 				if(Rel.getScaleX()-(float)0.1 >= 0 && Rel.getScaleY()-(float)0.1 >= 0){
 					Rel.setScaleX(Rel.getScaleX()-(float)0.1);
