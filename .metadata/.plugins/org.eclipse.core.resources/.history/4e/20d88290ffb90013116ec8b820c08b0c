@@ -86,11 +86,11 @@ public class MainActivity extends Activity {
 			float lastDist;
 			RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
 
+        	
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				Global.touchedArtifact = null;
-				
 				switch(event.getAction()){
 					case MotionEvent.ACTION_DOWN:
 						Xstart = event.getX();
@@ -141,10 +141,13 @@ public class MainActivity extends Activity {
 							}
 							lastDist = dist;
 	
-						}					
+						}
+						
+						
 					break;
 					
 					case  MotionEvent.ACTION_UP:
+						
 					break;
 				}
 				return true;

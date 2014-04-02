@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
 			float lastX,lastX2,Xstart;
 			float lastY,lastY2,Ystart;
 			float lastDist;
+			boolean zoom = false;
 			RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
 
 			@Override
@@ -103,11 +104,12 @@ public class MainActivity extends Activity {
 						lastX2 = event.getX(1);
 						lastY2 = event.getY(1);
 						lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));
+						zoom = true;
 					break;
 					
 					case  MotionEvent.ACTION_MOVE:
 						
-						if(event.getPointerCount() == 1){
+						if(event.getPointerCount() == 1 && !zoom){
 							float distX = Math.abs(event.getX()-Xstart);
 							float distY = Math.abs(event.getY()-Ystart);
 							if(Xstart > event.getX(0)){
@@ -141,10 +143,14 @@ public class MainActivity extends Activity {
 							}
 							lastDist = dist;
 	
-						}					
+						}
+						
+						
 					break;
 					
 					case  MotionEvent.ACTION_UP:
+						if(event.getPointerCount() == 2)
+							zoom = false;
 					break;
 				}
 				return true;

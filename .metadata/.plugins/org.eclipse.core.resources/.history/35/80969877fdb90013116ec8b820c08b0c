@@ -67,14 +67,7 @@ public class MainActivity extends Activity {
         Rel.setPivotY(displaymetrics.heightPixels/2);
         Rel.setPivotX(displaymetrics.widthPixels/2);
         
-        
-        
         findViewById(R.id.slidingDrawer).bringToFront();
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        
-    	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y-100;
         
         startSlider();
         
@@ -86,11 +79,11 @@ public class MainActivity extends Activity {
 			float lastDist;
 			RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
 
+        	
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				Global.touchedArtifact = null;
-				
 				switch(event.getAction()){
 					case MotionEvent.ACTION_DOWN:
 						Xstart = event.getX();
@@ -110,6 +103,9 @@ public class MainActivity extends Activity {
 						if(event.getPointerCount() == 1){
 							float distX = Math.abs(event.getX()-Xstart);
 							float distY = Math.abs(event.getY()-Ystart);
+							float relDistX = distX/(distX+distY);
+							float relDistY = distY/(distX+distY);
+							float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
 							if(Xstart > event.getX(0)){
 								Rel.setX(Rel.getX()-distX);
 							}else if(Xstart < event.getX(0) && Rel.getX()+distX<0){
@@ -141,10 +137,13 @@ public class MainActivity extends Activity {
 							}
 							lastDist = dist;
 	
-						}					
+						}
+						
+						
 					break;
 					
 					case  MotionEvent.ACTION_UP:
+						
 					break;
 				}
 				return true;
@@ -193,10 +192,11 @@ public class MainActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
     	super.onConfigurationChanged(newConfig);
     	Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-    	
-    	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y-100;
+    	if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+    		findViewById(R.id.slidingDrawer).getLayoutParams().height = 600;
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        	findViewById(R.id.slidingDrawer).getLayoutParams().height = 1000;
+        }
         
     }
     

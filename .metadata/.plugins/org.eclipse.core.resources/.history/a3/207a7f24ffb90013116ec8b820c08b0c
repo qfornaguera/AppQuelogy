@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
         Point size = new Point();
         display.getSize(size);
         
-    	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y-100;
+    	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y;
         
         startSlider();
         
@@ -86,11 +86,11 @@ public class MainActivity extends Activity {
 			float lastDist;
 			RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
 
+        	
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				Global.touchedArtifact = null;
-				
 				switch(event.getAction()){
 					case MotionEvent.ACTION_DOWN:
 						Xstart = event.getX();
@@ -141,10 +141,13 @@ public class MainActivity extends Activity {
 							}
 							lastDist = dist;
 	
-						}					
+						}
+						
+						
 					break;
 					
 					case  MotionEvent.ACTION_UP:
+						
 					break;
 				}
 				return true;
@@ -196,7 +199,7 @@ public class MainActivity extends Activity {
         Point size = new Point();
         display.getSize(size);
     	
-    	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y-100;
+    	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y;
         
     }
     
