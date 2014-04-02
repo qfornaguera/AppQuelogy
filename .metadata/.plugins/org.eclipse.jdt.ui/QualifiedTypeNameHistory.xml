@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.example.appqueology.ArtifactNode"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.BehaviorBase"/>
 <fullyQualifiedTypeName name="com.example.appqueology.AppqueologyBehaviorBase"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.Behavior"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.InteractionState"/>
@@ -49,7 +47,6 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.w3c.dom.Node"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
-<fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="com.example.appqueology.XmlReadWriter"/>
 <fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
 <fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="com.example.appqueology.R.layout"/>
 <fullyQualifiedTypeName name="com.example.appqueology.OnDragArtifact"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.view.ScaleGestureDetector"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="android.view.WindowManager"/>
 </qualifiedTypeNameHistroy>

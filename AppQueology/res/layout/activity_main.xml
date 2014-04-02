@@ -44,11 +44,6 @@
             android:orientation="vertical"
             android:rotation="180" >
 
-            <ZoomControls
-                android:id="@+id/zoomControls1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
         </LinearLayout>
     </SlidingDrawer>
 

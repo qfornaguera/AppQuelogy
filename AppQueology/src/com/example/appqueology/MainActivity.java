@@ -61,18 +61,11 @@ public class MainActivity extends Activity {
         Rel.getLayoutParams().height = 10000;
         Rel.getLayoutParams().width = 10000;
         
+        
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         Rel.setPivotY(displaymetrics.heightPixels/2);
         Rel.setPivotX(displaymetrics.widthPixels/2);
-
-        ZoomControls zoom = (ZoomControls)findViewById(R.id.zoomControls1);
-        ArrayList <View> zoomButtons = zoom.getTouchables();
-        zoomButtons.get(0).getLayoutParams().width = 100;
-        zoomButtons.get(1).getLayoutParams().width = 100;
-        zoomButtons.get(0).getLayoutParams().height = 100;
-        zoomButtons.get(1).getLayoutParams().height = 100;
-
         
         findViewById(R.id.slidingDrawer).bringToFront();
         
@@ -85,7 +78,7 @@ public class MainActivity extends Activity {
 			float lastY,lastY2,Ystart;
 			float lastDist;
 			RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
-        	
+
         	
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -93,8 +86,8 @@ public class MainActivity extends Activity {
 				Global.touchedArtifact = null;
 				switch(event.getAction()){
 					case MotionEvent.ACTION_DOWN:
-						Xstart = event.getX(0);
-						Ystart = event.getY(0);
+						Xstart = event.getX();
+						Ystart = event.getY();
 					break;
 					
 					case MotionEvent.ACTION_POINTER_DOWN:
@@ -113,36 +106,37 @@ public class MainActivity extends Activity {
 							float relDistX = distX/(distX+distY);
 							float relDistY = distY/(distX+distY);
 							float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
-							
-							if(Xstart > event.getX()){
-								v.setX(v.getX()-dist*relDistX*v.getScaleX());
-							}else if(Xstart < event.getX() && v.getX()+dist*relDistX*v.getScaleX()<0){
-								v.setX(v.getX()+dist*relDistX*v.getScaleX());
+							if(Xstart > event.getX(0)){
+								Rel.setX(Rel.getX()-distX);
+							}else if(Xstart < event.getX(0) && Rel.getX()+distX<0){
+								Rel.setX(Rel.getX()+distX);
 							}
 							
-							if(Ystart > event.getY()){
-								v.setY(v.getY()-dist*relDistY*v.getScaleY());
-							}else if(Ystart < event.getY() && v.getY()+dist*relDistY*v.getScaleY()<0){
-								v.setY(v.getY()+dist*relDistY*v.getScaleY());
+							if(Ystart > event.getY(0)){
+								Rel.setY(Rel.getY()-distY);
+								
+							}else if(Ystart < event.getY(0) && Rel.getY()+distY<0){
+								Rel.setY(Rel.getY()+distY);
 							}
+							Xstart = event.getX();
+							Ystart = event.getY();
+							
 						}else if(event.getPointerCount() == 2){
 							float distX = Math.abs(event.getX(0)-event.getX(1));
 							float distY = Math.abs(event.getY(0)-event.getY(1));
 							float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
-							float sensibility = Math.abs(lastDist - dist)*Rel.getScaleX();
 							Log.v("LastDist "+lastDist,"Dist "+dist);
-							//if(sensibility > 10){	
-								if(lastDist < dist && Rel.getScaleY()+(float)0.01 <= 5){
-									Rel.setScaleX(Rel.getScaleX()+(float)0.01);
-									Rel.setScaleY(Rel.getScaleY()+(float)0.01);
+							if(lastDist < dist && Rel.getScaleY()+(float)0.01 <= 5){
+								Rel.setScaleX(Rel.getScaleX()+(float)0.01);
+								Rel.setScaleY(Rel.getScaleY()+(float)0.01);
 
-									Rel.invalidate();
-								}else if(lastDist > dist && Rel.getScaleY()-(float)0.01 >= 0.2){
-									Rel.setScaleX(Rel.getScaleX()-(float)0.01);
-									Rel.setScaleY(Rel.getScaleY()-(float)0.01);
-								}
-								lastDist = dist;
-							//}		
+								Rel.invalidate();
+							}else if(lastDist > dist && Rel.getScaleY()-(float)0.01 >= 0.2){
+								Rel.setScaleX(Rel.getScaleX()-(float)0.01);
+								Rel.setScaleY(Rel.getScaleY()-(float)0.01);
+							}
+							lastDist = dist;
+	
 						}
 						
 						
@@ -153,36 +147,6 @@ public class MainActivity extends Activity {
 					break;
 				}
 				return true;
-			}
-		});
-        
-        zoomButtons.get(0).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
-				// TODO Auto-generated method stub
-				if(Rel.getScaleX()-(float)0.1 >= 0 && Rel.getScaleY()-(float)0.1 >= 0){
-					Rel.setScaleX(Rel.getScaleX()-(float)0.1);
-					Rel.setScaleY(Rel.getScaleY()-(float)0.1);
-					Rel.invalidate();
-				}
-				
-			}
-		});
-
-		zoomButtons.get(1).setOnClickListener(new OnClickListener() {
-	
-			@Override
-			public void onClick(View v) {
-				RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
-				// TODO Auto-generated method stub
-				if(Rel.getScaleX()+(float)0.1 <= 5 && Rel.getScaleY()+(float)0.1 <= 5){
-					Rel.setScaleX(Rel.getScaleX()+(float)0.1);
-					Rel.setScaleY(Rel.getScaleY()+(float)0.1);
-					Rel.invalidate();
-				}
 			}
 		});
         
