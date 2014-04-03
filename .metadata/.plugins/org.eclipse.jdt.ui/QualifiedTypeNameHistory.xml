@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.DiagramNode"/>
 <fullyQualifiedTypeName name="com.mindfusion.graphs.PointF"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.ShapeNode"/>
 <fullyQualifiedTypeName name="android.graphics.Point"/>
@@ -38,17 +37,13 @@
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="org.w3c.dom.NodeList"/>
 <fullyQualifiedTypeName name="org.w3c.dom.Attr"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.w3c.dom.Node"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
-<fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
-<fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
 <fullyQualifiedTypeName name="javax.xml.transform.stream.StreamResult"/>
 <fullyQualifiedTypeName name="javax.xml.transform.TransformerFactory"/>
 <fullyQualifiedTypeName name="javax.xml.transform.Transformer"/>
 <fullyQualifiedTypeName name="javax.xml.transform.dom.DOMSource"/>
 <fullyQualifiedTypeName name="com.example.appqueology.R.layout"/>
-<fullyQualifiedTypeName name="com.example.appqueology.OnDragArtifact"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.view.ScaleGestureDetector"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
@@ -60,4 +55,9 @@
 <fullyQualifiedTypeName name="android.view.View.OnLongClickListener"/>
 <fullyQualifiedTypeName name="java.util.Timer"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="android.view.DragEvent"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.example.appqueology.OnDragArtifact"/>
+<fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
+<fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
 </qualifiedTypeNameHistroy>

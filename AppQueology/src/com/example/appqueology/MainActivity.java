@@ -129,7 +129,6 @@ public class MainActivity extends Activity {
 							float distX = Math.abs(event.getX(0)-event.getX(1));
 							float distY = Math.abs(event.getY(0)-event.getY(1));
 							float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
-							Log.v("LastDist "+lastDist,"Dist "+dist);
 							if(lastDist < dist && Rel.getScaleY()+(float)0.01 <= 5){
 								Rel.setScaleX(Rel.getScaleX()+(float)0.01);
 								Rel.setScaleY(Rel.getScaleY()+(float)0.01);
@@ -182,6 +181,9 @@ public class MainActivity extends Activity {
             case R.id.load:
             	xmlRW.readXML(getFilesDir()+"graf.xml");
                 return true;
+                
+            case R.id.beautify:
+            	OnDragArtifact.beautifygraph((RelativeLayout)findViewById(R.id.graph));
             default:
             	return true;
             

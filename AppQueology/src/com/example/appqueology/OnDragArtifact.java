@@ -57,6 +57,7 @@ public class OnDragArtifact implements OnDragListener{
 				        square.setTag("node");
 				        square.setId(Global.ID);
 				        Global.ID++;
+				        square.seekFather(Rel);
 				        recalculateLines(Rel);
 				        touchedArtifact.setBackgroundColor(Color.BLACK);
 				        
@@ -71,11 +72,12 @@ public class OnDragArtifact implements OnDragListener{
 					RelativeLayout Rel = (RelativeLayout)v;
 					touchedArtifact.setBackgroundColor(Color.BLACK);
 					Log.v("x "+Math.abs(startX-event.getX()),"y "+Math.abs(startY-event.getY()));
-					if(System.currentTimeMillis()-startTime > 1500 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){
+					if(System.currentTimeMillis()-startTime > 1200 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){//onlongClick on artifacts
 						touchedArtifact.setBackgroundColor(Color.RED);
 					}
 					touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
 					touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
+					touchedArtifact.seekFather(Rel);
 					recalculateLines(Rel);
 					touchedArtifact.bringToFront();
 					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
@@ -103,7 +105,7 @@ public class OnDragArtifact implements OnDragListener{
 			if(Rel.getChildAt(i).getTag() != null){
 				if(Rel.getChildAt(i).getTag().toString().compareTo("node") == 0){
 					nodeList.add((Artifact)Rel.getChildAt(i));
-					nodeList.get(nodeList.size()-1).seekFather(Rel);
+					//nodeList.get(nodeList.size()-1).seekFather(Rel);
 				}
 			}
 			
@@ -120,8 +122,44 @@ public class OnDragArtifact implements OnDragListener{
 					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
 					slideDrawer.bringToFront();
 				}
-			}
+		}
 		
+	}
+	
+	public static void beautifygraph(RelativeLayout Rel){
+		ArrayList<Artifact> nodeList = new ArrayList<Artifact>();
+		for(int i=0;i<Rel.getChildCount();i++){
+			if(Rel.getChildAt(i).getTag() != null){
+				if(Rel.getChildAt(i).getTag().toString().compareTo("node") == 0){
+					Artifact node = (Artifact)Rel.getChildAt(i);
+					if(node.getFather() == null)
+						nodeList.add(node);
+				}
+			}
+			
+		}
+		for(int j=0;j<nodeList.size();j++){
+			Artifact node = nodeList.get(j);
+			setNodePosition(node,j+1,1);
+		}
+		recalculateLines(Rel);
+		
+	}
+	
+	public static void setNodePosition(Artifact node,int treeNum,int level){
+		if(node.getFather() == null){
+			node.setX(treeNum*3000);
+			node.setY(500*level);
+		}else{
+			
+			node.setX((node.getFather().getCenterX()-1000)+(500*node.getFather().getSons().indexOf(node)));
+			node.setY(500*level);
+		}
+		
+		ArrayList<Artifact> sons = node.getSons();
+		for(int i=0;i<sons.size();i++){
+			setNodePosition(sons.get(i),treeNum,level+1);
+		}
 	}
 
 }

@@ -7,4 +7,7 @@
     <item android:id="@+id/load"
           android:title="Load" >
     </item>
+    <item android:id="@+id/beautify"
+          android:title="Beautify" >
+    </item>
 </menu>

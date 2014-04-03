@@ -69,21 +69,22 @@ public class XmlReadWriter {
         		}  
         		
         	}
+        	Log.v("artifacttable",""+artifactTable.containsKey(0));
         	Iterator it = artifactTable.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pairs = (Map.Entry)it.next();
                 NodeList sonsList = nodeTable.get(pairs.getKey()).getElementsByTagName("son");
-                for (int j = 0; j < sonsList.getLength(); j++) {
-                	artifactTable.get(pairs.getKey()).addSon(artifactTable.get(Integer.parseInt(sonsList.item(j).getTextContent())));
-
+                if(sonsList != null){
+	                for (int j = 0; j < sonsList.getLength(); j++) {
+	                	artifactTable.get(pairs.getKey()).addSon(artifactTable.get(Integer.parseInt(sonsList.item(j).getTextContent())));
+	                }
                 }
                 String father = nodeTable.get(pairs.getKey()).getElementsByTagName("father").item(0).getTextContent();
                 if(father.compareTo("null") != 0){
                 	artifactTable.get(pairs.getKey()).setFather(artifactTable.get(Integer.parseInt(father)));
                 }
-                it.remove(); // avoids a ConcurrentModificationException
             }
-            
+            //OnDragArtifact.beautifygraph(Rel);
             
         	
         	OnDragArtifact.recalculateLines(Rel);
