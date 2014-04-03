@@ -69,6 +69,7 @@ public class XmlReadWriter {
         		}  
         		
         	}
+        	Log.v("artifacttable",""+artifactTable.containsKey(0));
         	Iterator it = artifactTable.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pairs = (Map.Entry)it.next();
@@ -93,7 +94,7 @@ public class XmlReadWriter {
         }catch(Exception e){
         	Log.v("error reading xml",e.toString());
         }
-		Global.ID = maxId+1;
+		Global.ID = maxId;
 	}
 	
 	public void writeXML(String xml){

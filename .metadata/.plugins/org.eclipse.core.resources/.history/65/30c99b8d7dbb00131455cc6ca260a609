@@ -79,8 +79,10 @@ public class XmlReadWriter {
 	                }
                 }
                 String father = nodeTable.get(pairs.getKey()).getElementsByTagName("father").item(0).getTextContent();
+                Log.v(artifactTable.get(pairs.getKey()).getId()+"",""+father);
                 if(father.compareTo("null") != 0){
                 	artifactTable.get(pairs.getKey()).setFather(artifactTable.get(Integer.parseInt(father)));
+                	Log.v(artifactTable.get(pairs.getKey()).getId()+" inside if",""+artifactTable.get(pairs.getKey()).getFather().getId());
                 }
                 
             }
