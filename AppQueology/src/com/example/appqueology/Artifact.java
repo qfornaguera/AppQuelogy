@@ -27,6 +27,7 @@ public class Artifact extends TextView{
 		Global.touchedArtifact = this;
 		// TODO Auto-generated constructor stub
 		this.setOnTouchListener(new OnTouchArtifact());
+		
 	}
 	
 	public void setPrevWidth(float width){

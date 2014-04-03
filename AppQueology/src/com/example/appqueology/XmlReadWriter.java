@@ -2,6 +2,9 @@ package com.example.appqueology;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,9 +44,11 @@ public class XmlReadWriter {
         	Document doc = documentBuilder.parse(xmlFile);  
         	doc.getDocumentElement().normalize();
         	NodeList nodeList = doc.getElementsByTagName("node");
+        	HashMap<Integer,Artifact> artifactTable = new HashMap<Integer, Artifact>();
+        	HashMap<Integer,Element> nodeTable = new HashMap<Integer, Element>();
       
-        	for (int temp = 0; temp < nodeList.getLength(); temp++) {  
-        		Node xmlItem = nodeList.item(temp);
+        	for (int i = 0; i < nodeList.getLength(); i++) {  
+        		Node xmlItem = nodeList.item(i);
         		if (xmlItem.getNodeType() == Node.ELEMENT_NODE) {  
         			Element node = (Element) xmlItem;
         			Artifact newNode = new Artifact(Rel.getContext());
@@ -56,15 +61,31 @@ public class XmlReadWriter {
         			newNode.setX(Float.parseFloat(node.getElementsByTagName("X").item(0).getTextContent()));
         			newNode.setY(Float.parseFloat(node.getElementsByTagName("Y").item(0).getTextContent()));
         			newNode.setText(node.getElementsByTagName("label").item(0).getTextContent());
-        			
-        			
-        			
+        			artifactTable.put(newNode.getId(), newNode);
+        			nodeTable.put(newNode.getId(), node);
         			if(Integer.parseInt(node.getElementsByTagName("id").item(0).getTextContent())>maxId){
         				maxId = Integer.parseInt(node.getElementsByTagName("id").item(0).getTextContent());
         			}
         		}  
         		
         	}
+        	Iterator it = artifactTable.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pairs = (Map.Entry)it.next();
+                NodeList sonsList = nodeTable.get(pairs.getKey()).getElementsByTagName("son");
+                for (int j = 0; j < sonsList.getLength(); j++) {
+                	artifactTable.get(pairs.getKey()).addSon(artifactTable.get(Integer.parseInt(sonsList.item(j).getTextContent())));
+
+                }
+                String father = nodeTable.get(pairs.getKey()).getElementsByTagName("father").item(0).getTextContent();
+                if(father.compareTo("null") != 0){
+                	artifactTable.get(pairs.getKey()).setFather(artifactTable.get(Integer.parseInt(father)));
+                }
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+            
+            
+        	
         	OnDragArtifact.recalculateLines(Rel);
             
             

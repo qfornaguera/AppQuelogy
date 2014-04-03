@@ -2,6 +2,7 @@ package com.example.appqueology;
 
 import java.security.acl.Owner;
 import java.util.ArrayList;
+import java.util.Timer;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -21,25 +22,29 @@ import android.webkit.WebView.FindListener;
 import android.widget.RelativeLayout;
 
 public class OnDragArtifact implements OnDragListener{
-	
+	float startX,startY;
+	long startTime;
 	public OnDragArtifact() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public boolean onDrag(View v, DragEvent event) {
+		Artifact touchedArtifact = (Artifact) event.getLocalState();
 		switch (event.getAction()) {
 			case DragEvent.ACTION_DRAG_STARTED:
+				startX = touchedArtifact.getX();
+				startY = touchedArtifact.getY();
+				startTime = System.currentTimeMillis();
 			  break;
 			case DragEvent.ACTION_DRAG_ENTERED:
 			  break;
+			  
 			case DragEvent.ACTION_DRAG_EXITED:
 			  break;
 			case DragEvent.ACTION_DROP:
-				Artifact touchedArtifact = (Artifact) event.getLocalState();
 				View owner = (View)touchedArtifact.getParent();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
-					Log.v(""+owner.getWidth(),""+event.getX());
 					if(v.getX()+event.getX() > owner.getWidth()){//Check if it has been dropped to main frame 
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
 						square.setBackgroundColor(Color.BLACK);
@@ -64,9 +69,13 @@ public class OnDragArtifact implements OnDragListener{
 					
 				}else{
 					RelativeLayout Rel = (RelativeLayout)v;
+					touchedArtifact.setBackgroundColor(Color.BLACK);
+					Log.v("x "+Math.abs(startX-event.getX()),"y "+Math.abs(startY-event.getY()));
+					if(System.currentTimeMillis()-startTime > 1500 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){
+						touchedArtifact.setBackgroundColor(Color.RED);
+					}
 					touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
 					touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
-					touchedArtifact.setBackgroundColor(Color.BLACK);
 					recalculateLines(Rel);
 					touchedArtifact.bringToFront();
 					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
@@ -78,6 +87,8 @@ public class OnDragArtifact implements OnDragListener{
 			case DragEvent.ACTION_DRAG_ENDED:
 			  default:
 			  break;
+			  
+			  
 		}
 		return true;
 			

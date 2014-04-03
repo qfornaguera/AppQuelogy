@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.example.appqueology.AppqueologyBehaviorBase"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.Behavior"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.InteractionState"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.DiagramAdapter"/>
-<fullyQualifiedTypeName name="com.example.appqueology.AppqueologyDiagramAdapter"/>
-<fullyQualifiedTypeName name="com.mindfusion.diagramming.NodeEvent"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.DiagramNode"/>
 <fullyQualifiedTypeName name="com.mindfusion.graphs.PointF"/>
 <fullyQualifiedTypeName name="com.mindfusion.diagramming.ShapeNode"/>
@@ -47,7 +41,6 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.w3c.dom.Node"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
-<fullyQualifiedTypeName name="com.example.appqueology.XmlReadWriter"/>
 <fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
 <fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
 <fullyQualifiedTypeName name="javax.xml.transform.stream.StreamResult"/>
@@ -60,4 +53,11 @@
 <fullyQualifiedTypeName name="android.view.ScaleGestureDetector"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="android.view.WindowManager"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.example.appqueology.XmlReadWriter"/>
+<fullyQualifiedTypeName name="android.view.View.OnLongClickListener"/>
+<fullyQualifiedTypeName name="java.util.Timer"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>
