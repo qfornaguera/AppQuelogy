@@ -58,8 +58,6 @@ public class XmlReadWriter {
         			newNode.setPrevHeight(100);
         			newNode.setBackgroundColor(Color.BLACK);
         			newNode.setTag("node");
-        			newNode.setX(Float.parseFloat(node.getElementsByTagName("X").item(0).getTextContent()));
-        			newNode.setY(Float.parseFloat(node.getElementsByTagName("Y").item(0).getTextContent()));
         			newNode.setText(node.getElementsByTagName("label").item(0).getTextContent());
         			artifactTable.put(newNode.getId(), newNode);
         			nodeTable.put(newNode.getId(), node);
@@ -84,7 +82,7 @@ public class XmlReadWriter {
                 }
                 
             }
-            //OnDragArtifact.beautifygraph(Rel);
+            OnDragArtifact.beautifygraph(Rel);
             
         	
         	OnDragArtifact.recalculateLines(Rel);
@@ -133,12 +131,6 @@ public class XmlReadWriter {
 						
 						Element label = addAttribute("label", artifact.getText()+"", document);
 						node.appendChild(label);
-						
-						Element Xpos = addAttribute("X", artifact.getX()+"", document);
-						node.appendChild(Xpos);
-						
-						Element Ypos = addAttribute("Y", artifact.getY()+"", document);
-						node.appendChild(Ypos);
 
 					}
 				}

@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 public class OnDragArtifact implements OnDragListener{
 	float startX,startY;
 	long startTime;
+	static float nodeCounter,posX;
 	public OnDragArtifact() {
 		// TODO Auto-generated constructor stub
 	}
@@ -71,18 +72,17 @@ public class OnDragArtifact implements OnDragListener{
 				}else{
 					RelativeLayout Rel = (RelativeLayout)v;
 					touchedArtifact.setBackgroundColor(Color.BLACK);
-					Log.v("x "+Math.abs(startX-event.getX()),"y "+Math.abs(startY-event.getY()));
-					if(System.currentTimeMillis()-startTime > 1200 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){//onlongClick on artifacts
+					if(System.currentTimeMillis()-startTime > 500 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){//onlongClick artifacts event
 						touchedArtifact.setBackgroundColor(Color.RED);
+					}else{
+						touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
+						touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
+						touchedArtifact.seekFather(Rel);
+						recalculateLines(Rel);
+						touchedArtifact.bringToFront();
+						View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
+						slideDrawer.bringToFront();
 					}
-					touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
-					touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
-					touchedArtifact.seekFather(Rel);
-					recalculateLines(Rel);
-					touchedArtifact.bringToFront();
-					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
-					slideDrawer.bringToFront();
-					
 				}
 	
 			  break;
@@ -97,9 +97,11 @@ public class OnDragArtifact implements OnDragListener{
 	}
 	
 	public static void recalculateLines(RelativeLayout Rel){
+		
 		while(Rel.findViewWithTag("line") != null){
 			Rel.removeView(Rel.findViewWithTag("line"));
 		}
+		
 		ArrayList<Artifact> nodeList = new ArrayList<Artifact>();
 		for(int i=0;i<Rel.getChildCount();i++){
 			if(Rel.getChildAt(i).getTag() != null){
@@ -127,6 +129,7 @@ public class OnDragArtifact implements OnDragListener{
 	}
 	
 	public static void beautifygraph(RelativeLayout Rel){
+		nodeCounter = 0;
 		ArrayList<Artifact> nodeList = new ArrayList<Artifact>();
 		for(int i=0;i<Rel.getChildCount();i++){
 			if(Rel.getChildAt(i).getTag() != null){
@@ -135,31 +138,37 @@ public class OnDragArtifact implements OnDragListener{
 					if(node.getFather() == null)
 						nodeList.add(node);
 				}
-			}
-			
+			}	
 		}
+		posX = 0;
 		for(int j=0;j<nodeList.size();j++){
 			Artifact node = nodeList.get(j);
-			setNodePosition(node,j+1,1);
+			setNodePosition(node,j,1);
+			posX = posX + 1000;
 		}
 		recalculateLines(Rel);
 		
 	}
 	
-	public static void setNodePosition(Artifact node,int treeNum,int level){
-		if(node.getFather() == null){
-			node.setX(treeNum*3000);
-			node.setY(500*level);
-		}else{
-			
-			node.setX((node.getFather().getCenterX()-1000)+(500*node.getFather().getSons().indexOf(node)));
-			node.setY(500*level);
-		}
-		
+	public static void setNodePosition(Artifact node,int treeNum,int level){		
 		ArrayList<Artifact> sons = node.getSons();
 		for(int i=0;i<sons.size();i++){
 			setNodePosition(sons.get(i),treeNum,level+1);
+			if((sons.size()-1)/2 == i){
+				if(sons.size()%2 != 0)
+					node.setX(posX);
+				else{
+					posX = posX + 200;
+					node.setX(posX);
+				}
+			}
 		}
+		if(sons.size() == 0){
+			posX = posX + 200;
+			node.setX(posX);
+		}
+		node.setY(level*300);
+
 	}
 
 }
