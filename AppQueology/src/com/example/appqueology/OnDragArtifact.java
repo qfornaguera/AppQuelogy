@@ -1,10 +1,12 @@
 package com.example.appqueology;
 
+import java.io.Serializable;
 import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.Timer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +14,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
@@ -73,7 +76,11 @@ public class OnDragArtifact implements OnDragListener{
 					RelativeLayout Rel = (RelativeLayout)v;
 					touchedArtifact.setBackgroundColor(Color.BLACK);
 					if(System.currentTimeMillis()-startTime > 500 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){//onlongClick artifacts event
-						touchedArtifact.setBackgroundColor(Color.RED);
+						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
+						toArtifactActivity.putExtra("id",touchedArtifact.getId());
+						toArtifactActivity.putExtra("text",touchedArtifact.getText());
+						Activity a = (Activity)Rel.getContext();
+						a.startActivityForResult(toArtifactActivity, 0);
 					}else{
 						touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
 						touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);

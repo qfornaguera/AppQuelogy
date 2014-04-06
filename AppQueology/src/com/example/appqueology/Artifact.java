@@ -1,12 +1,17 @@
 package com.example.appqueology;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +32,7 @@ public class Artifact extends TextView{
 		Global.touchedArtifact = this;
 		// TODO Auto-generated constructor stub
 		this.setOnTouchListener(new OnTouchArtifact());
+		this.setTextColor(Color.WHITE);
 		
 	}
 	
@@ -102,18 +108,15 @@ public class Artifact extends TextView{
 		
 		this.father = father;
 		
-		//letSonsDown(Rel);
-		
 	}
 	
-	
-	/*public void letSonsDown(RelativeLayout Rel){
-		ArrayList <Artifact> sonsToLetDown = this.sons;
-		removeAllSons();
-		for(int i = 0;i<sonsToLetDown.size();i++){
-			sonsToLetDown.get(i).seekFather(Rel);
+	public void kill(RelativeLayout Rel){
+		ArrayList <Artifact> aux = (ArrayList<Artifact>) sons.clone();
+		for(int i = 0;i<aux.size();i++){
+			aux.get(i).seekFather(Rel);
 		}
-		
-	}*/
+		OnDragArtifact.recalculateLines(Rel);
+		removeAllSons();
+	}
 
 }

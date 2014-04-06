@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -197,9 +198,27 @@ public class MainActivity extends Activity {
     	Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-    	
     	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y-100;
-        
+    }
+    
+    @Override 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	//super.onActivityResult(requestCode, resultCode, data);
+    	RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+        Artifact artifact = (Artifact)Rel.findViewById(data.getIntExtra("id", -1));
+        switch(requestCode) {
+        	case 0:
+        		if (resultCode == Activity.RESULT_OK) { 
+        			if(data.getStringExtra("option").compareTo("save") == 0){
+        				artifact.setText(data.getStringExtra("text"));
+        			}else if(data.getStringExtra("option").compareTo("delete") == 0){
+        				Rel.removeView(artifact);
+        				artifact.kill(Rel);
+        			}
+        		} 
+        	break; 
+        } 
+         
     }
     
 }
