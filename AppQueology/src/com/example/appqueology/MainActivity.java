@@ -160,6 +160,7 @@ public class MainActivity extends Activity {
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
         square.setY(50);
+        square.setBackgroundResource(R.drawable.anfora);
         LinearLayout slideContent = (LinearLayout)findViewById(R.id.content);
         slideContent.addView(square, 50, 50);
 

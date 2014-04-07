@@ -33,7 +33,8 @@ public class Artifact extends TextView{
 		Global.touchedArtifact = this;
 		// TODO Auto-generated constructor stub
 		this.setOnTouchListener(new OnTouchArtifact());
-		this.setTextColor(Color.BLACK);
+		this.setBackgroundResource(R.drawable.anfora);
+		this.setTextColor(Color.WHITE);
 		this.setPadding(10,10,10,10);
 		this.setGravity(Gravity.CENTER);
 		

@@ -57,7 +57,7 @@ public class XmlReadWriter {
         			newNode.setId(Integer.parseInt(node.getElementsByTagName("id").item(0).getTextContent()));
         			newNode.setPrevWidth(100);
         			newNode.setPrevHeight(100);
-        			newNode.setBackgroundColor(Color.BLACK);
+        			newNode.setBackgroundResource(R.drawable.anfora);
         			newNode.setTag("node");
         			newNode.setText(node.getElementsByTagName("label").item(0).getTextContent());
         			if("".compareTo((String) newNode.getText()) != 0){

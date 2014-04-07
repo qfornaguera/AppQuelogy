@@ -51,7 +51,7 @@ public class OnDragArtifact implements OnDragListener{
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					if(v.getX()+event.getX() > owner.getWidth()){//Check if it has been dropped to main frame 
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
-						square.setBackgroundColor(Color.BLACK);
+						square.setBackgroundResource(R.drawable.anfora);
 				        RelativeLayout Rel = (RelativeLayout)v;
 				        Rel.addView(square,100,100);
 				        square.setPrevWidth(100);
@@ -63,10 +63,10 @@ public class OnDragArtifact implements OnDragListener{
 				        Global.ID++;
 				        square.seekFather(Rel);
 				        recalculateLines(Rel);
-				        touchedArtifact.setBackgroundColor(Color.BLACK);
+				        touchedArtifact.setBackgroundResource(R.drawable.anfora);
 				        
 					}else{//else 
-						touchedArtifact.setBackgroundColor(Color.BLACK);
+						touchedArtifact.setBackgroundResource(R.drawable.anfora);
 					}
 
 					View slideDrawer = (View)owner.getParent();//ensure the SlideDrawer overlaps all the views
@@ -74,7 +74,7 @@ public class OnDragArtifact implements OnDragListener{
 					
 				}else{
 					RelativeLayout Rel = (RelativeLayout)v;
-					touchedArtifact.setBackgroundColor(Color.BLACK);
+					touchedArtifact.setBackgroundResource(R.drawable.anfora);
 					if(System.currentTimeMillis()-startTime > 500 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){//onlongClick artifacts event
 						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
 						toArtifactActivity.putExtra("id",touchedArtifact.getId());
