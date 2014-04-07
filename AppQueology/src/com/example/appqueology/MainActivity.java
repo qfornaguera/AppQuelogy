@@ -22,6 +22,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.DragEvent;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -211,10 +212,14 @@ public class MainActivity extends Activity {
         		if (resultCode == Activity.RESULT_OK) { 
         			if(data.getStringExtra("option").compareTo("save") == 0){
         				artifact.setText(data.getStringExtra("text"));
+        				if("".compareTo((String) artifact.getText()) != 0){
+        					artifact.matchWithText();
+    					}
         			}else if(data.getStringExtra("option").compareTo("delete") == 0){
         				Rel.removeView(artifact);
         				artifact.kill(Rel);
         			}
+        			OnDragArtifact.recalculateLines(Rel);
         		} 
         	break; 
         } 

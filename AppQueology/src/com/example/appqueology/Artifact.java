@@ -13,6 +13,7 @@ import android.graphics.Path;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -33,15 +34,19 @@ public class Artifact extends TextView{
 		// TODO Auto-generated constructor stub
 		this.setOnTouchListener(new OnTouchArtifact());
 		this.setTextColor(Color.WHITE);
+		this.setPadding(10,10,10,10);
+		this.setGravity(Gravity.CENTER);
 		
 	}
 	
 	public void setPrevWidth(float width){
 		this.width = width;
+		getLayoutParams().width = (int) width;
 	}
 	
 	public void setPrevHeight(float heigth){
 		this.heigth = heigth;
+		getLayoutParams().height = (int) heigth;
 	}
 	
 	public float getCenterX(){
@@ -117,6 +122,19 @@ public class Artifact extends TextView{
 		}
 		OnDragArtifact.recalculateLines(Rel);
 		removeAllSons();
+	}
+	
+	public void matchWithText(){
+		String text = (String) getText();
+		String[] words = text.split(" ");
+		int maxLength = 0;
+		for(int i=0;i<words.length;i++){
+			maxLength = Math.max(maxLength, words[i].length());
+		}
+		Log.v("maxLength "+maxLength,"words "+words.length);
+		setPrevWidth(maxLength*15+getPaddingLeft()+getPaddingRight());
+		setPrevHeight(words.length*35+getPaddingTop()+getPaddingBottom());
+		requestLayout();
 	}
 
 }

@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 
 import android.graphics.Color;
 import android.util.Log;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 
 public class XmlReadWriter {
@@ -59,6 +60,9 @@ public class XmlReadWriter {
         			newNode.setBackgroundColor(Color.BLACK);
         			newNode.setTag("node");
         			newNode.setText(node.getElementsByTagName("label").item(0).getTextContent());
+        			if("".compareTo((String) newNode.getText()) != 0){
+        				newNode.matchWithText();
+        			}
         			artifactTable.put(newNode.getId(), newNode);
         			nodeTable.put(newNode.getId(), node);
         			if(Integer.parseInt(node.getElementsByTagName("id").item(0).getTextContent())>maxId){

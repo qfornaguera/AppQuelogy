@@ -14,6 +14,7 @@
         android:layout_alignBottom="@+id/textView1"
         android:layout_alignParentRight="true"
         android:layout_marginRight="14dp"
+        android:maxLength="25"
         android:ems="10" >
 
         <requestFocus />

@@ -162,9 +162,13 @@ public class OnDragArtifact implements OnDragListener{
 		for(int i=0;i<sons.size();i++){
 			setNodePosition(sons.get(i),treeNum,level+1);
 			if((sons.size()-1)/2 == i){
-				if(sons.size()%2 != 0)
-					node.setX(posX);
-				else{
+				if(sons.size()%2 != 0){
+					if(sons.size() == 1){
+						node.setX(posX-(node.width-sons.get(i).width)/2);//align in case of just one son (this puts father and son at the same center X)
+					}else{
+						node.setX(posX);
+					}
+				}else{
 					posX = posX + 200;
 					node.setX(posX);
 				}
@@ -174,7 +178,7 @@ public class OnDragArtifact implements OnDragListener{
 			posX = posX + 200;
 			node.setX(posX);
 		}
-		node.setY(level*300);
+		node.setY(level*400);
 
 	}
 
