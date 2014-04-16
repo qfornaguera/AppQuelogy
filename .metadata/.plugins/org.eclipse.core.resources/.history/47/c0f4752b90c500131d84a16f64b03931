@@ -54,7 +54,32 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initMainActivity();
+        Global.ID = 0;
+        RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+        RelativeLayout Main = (RelativeLayout)findViewById(R.id.activity_main);
+        
+        Main.getLayoutParams().height = 10000;
+        Main.getLayoutParams().width = 10000;
+        Rel.getLayoutParams().height = 10000;
+        Rel.getLayoutParams().width = 10000;
+        
+        
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        Rel.setPivotY(displaymetrics.heightPixels/2);
+        Rel.setPivotX(displaymetrics.widthPixels/2);
+        
+        
+        
+        findViewById(R.id.slidingDrawer).bringToFront();
+        resizeSlidingDrawer();
+        
+        startSlider();
+        
+        Rel.setOnDragListener(new OnDragArtifact());
+        
+        Main.setOnTouchListener(new OnTouchZoomandMove(Rel));
+        
     }
     
     
@@ -151,13 +176,9 @@ public class MainActivity extends Activity {
          Rel.setPivotY(displaymetrics.heightPixels/2);
          Rel.setPivotX(displaymetrics.widthPixels/2);
          
+         
+         
          findViewById(R.id.slidingDrawer).bringToFront();
          resizeSlidingDrawer();
-         
-         startSlider();
-         
-         Rel.setOnDragListener(new OnDragArtifact());
-         
-         Main.setOnTouchListener(new OnTouchZoomandMove(Rel));
     }
 }

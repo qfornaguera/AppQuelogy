@@ -54,7 +54,100 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initMainActivity();
+        Global.ID = 0;
+        RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+        RelativeLayout Main = (RelativeLayout)findViewById(R.id.activity_main);
+        
+        Main.getLayoutParams().height = 10000;
+        Main.getLayoutParams().width = 10000;
+        Rel.getLayoutParams().height = 10000;
+        Rel.getLayoutParams().width = 10000;
+        
+        
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        Rel.setPivotY(displaymetrics.heightPixels/2);
+        Rel.setPivotX(displaymetrics.widthPixels/2);
+        
+        
+        
+        findViewById(R.id.slidingDrawer).bringToFront();
+        resizeSlidingDrawer();
+        
+        startSlider();
+        
+        Rel.setOnDragListener(new OnDragArtifact());
+        
+        Main.setOnTouchListener(new OnTouchListener() {
+			float lastX,lastX2,Xstart;
+			float lastY,lastY2,Ystart;
+			float lastDist;
+			RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				Global.touchedArtifact = null;
+				
+				switch(event.getAction()){
+					case MotionEvent.ACTION_DOWN:
+						Xstart = event.getX();
+						Ystart = event.getY();
+					break;
+					
+					case MotionEvent.ACTION_POINTER_DOWN:
+						lastX = event.getX(0);
+						lastY = event.getY(0);
+						lastX2 = event.getX(1);
+						lastY2 = event.getY(1);
+						lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));
+					break;
+					
+					case  MotionEvent.ACTION_MOVE:
+						
+						if(event.getPointerCount() == 1){
+							float distX = Math.abs(event.getX()-Xstart);
+							float distY = Math.abs(event.getY()-Ystart);
+							if(Xstart > event.getX(0)){
+								Rel.setX(Rel.getX()-distX);
+							}else if(Xstart < event.getX(0) && Rel.getX()+distX<0){
+								Rel.setX(Rel.getX()+distX);
+							}
+							
+							if(Ystart > event.getY(0)){
+								Rel.setY(Rel.getY()-distY);
+								
+							}else if(Ystart < event.getY(0) && Rel.getY()+distY<0){
+								Rel.setY(Rel.getY()+distY);
+							}
+							Xstart = event.getX();
+							Ystart = event.getY();
+							
+						}else if(event.getPointerCount() == 2){
+							float distX = Math.abs(event.getX(0)-event.getX(1));
+							float distY = Math.abs(event.getY(0)-event.getY(1));
+							float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
+							if(lastDist < dist && Rel.getScaleY()+(float)0.01 <= 5){
+								Rel.setScaleX(Rel.getScaleX()+(float)0.01);
+								Rel.setScaleY(Rel.getScaleY()+(float)0.01);
+
+								Rel.invalidate();
+							}else if(lastDist > dist && Rel.getScaleY()-(float)0.01 >= 0.2){
+								Rel.setScaleX(Rel.getScaleX()-(float)0.01);
+								Rel.setScaleY(Rel.getScaleY()-(float)0.01);
+							}
+							lastDist = dist;
+	
+						}					
+					break;
+					
+					case  MotionEvent.ACTION_UP:
+					break;
+				}
+				return true;
+			}
+		});
+        
     }
     
     
@@ -151,13 +244,9 @@ public class MainActivity extends Activity {
          Rel.setPivotY(displaymetrics.heightPixels/2);
          Rel.setPivotX(displaymetrics.widthPixels/2);
          
+         
+         
          findViewById(R.id.slidingDrawer).bringToFront();
          resizeSlidingDrawer();
-         
-         startSlider();
-         
-         Rel.setOnDragListener(new OnDragArtifact());
-         
-         Main.setOnTouchListener(new OnTouchZoomandMove(Rel));
     }
 }
