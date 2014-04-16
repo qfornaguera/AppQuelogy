@@ -220,7 +220,7 @@ public class MainActivity extends Activity {
         				Rel.removeView(artifact);
         				artifact.kill(Rel);
         			}
-        			Utility.recalculateLines(Rel);
+        			OnDragArtifact.recalculateLines(Rel);
         		} 
         	break; 
         } 

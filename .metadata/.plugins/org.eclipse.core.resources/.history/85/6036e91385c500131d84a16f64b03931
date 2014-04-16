@@ -186,7 +186,7 @@ public class MainActivity extends Activity {
                 return true;
                 
             case R.id.beautify:
-            	Utility.beautifygraph((RelativeLayout)findViewById(R.id.graph));
+            	OnDragArtifact.beautifygraph((RelativeLayout)findViewById(R.id.graph));
             default:
             	return true;
             
@@ -220,7 +220,7 @@ public class MainActivity extends Activity {
         				Rel.removeView(artifact);
         				artifact.kill(Rel);
         			}
-        			Utility.recalculateLines(Rel);
+        			OnDragArtifact.recalculateLines(Rel);
         		} 
         	break; 
         } 

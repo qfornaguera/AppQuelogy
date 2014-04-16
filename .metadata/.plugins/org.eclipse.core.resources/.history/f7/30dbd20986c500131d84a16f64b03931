@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 public class OnDragArtifact implements OnDragListener{
 	float startX,startY;
 	long startTime;
+	static float nodeCounter,posX;
 	public OnDragArtifact() {
 		// TODO Auto-generated constructor stub
 	}
