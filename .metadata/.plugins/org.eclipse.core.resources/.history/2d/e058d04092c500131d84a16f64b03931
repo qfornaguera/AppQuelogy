@@ -28,13 +28,12 @@ public class OnTouchZoomandMove implements OnTouchListener {
 			break;
 			
 			case MotionEvent.ACTION_POINTER_DOWN:
-				RelativeLayout graph = (RelativeLayout) Rel.findViewById(R.id.graph);
 				lastX = event.getX(0);
 				lastY = event.getY(0);
 				lastX2 = event.getX(1);
 				lastY2 = event.getY(1);
-				Rel.setPivotY(-1*graph.getX()+((event.getX(0)+event.getX(1))/2));
-		        Rel.setPivotX(-1*graph.getY()+((event.getY(0)+event.getY(1))/2));
+				Rel.setPivotY((event.getX(0)+event.getX(1))/2);
+		        Rel.setPivotX((event.getY(0)+event.getY(1))/2);
 				lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));
 			break;
 			
@@ -45,14 +44,14 @@ public class OnTouchZoomandMove implements OnTouchListener {
 					float distY = Math.abs(event.getY()-Ystart);
 					if(Xstart > event.getX(0)){
 						Rel.setX(Rel.getX()-distX);
-					}else if(Xstart < event.getX(0)){
+					}else if(Xstart < event.getX(0) && Rel.getX()+distX<0){
 						Rel.setX(Rel.getX()+distX);
 					}
 					
 					if(Ystart > event.getY(0)){
 						Rel.setY(Rel.getY()-distY);
 						
-					}else if(Ystart < event.getY(0)){
+					}else if(Ystart < event.getY(0) && Rel.getY()+distY<0){
 						Rel.setY(Rel.getY()+distY);
 					}
 					Xstart = event.getX();

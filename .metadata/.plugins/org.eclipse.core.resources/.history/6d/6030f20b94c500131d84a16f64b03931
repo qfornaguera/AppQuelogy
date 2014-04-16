@@ -28,7 +28,6 @@ public class OnTouchZoomandMove implements OnTouchListener {
 			break;
 			
 			case MotionEvent.ACTION_POINTER_DOWN:
-				RelativeLayout graph = (RelativeLayout) Rel.findViewById(R.id.graph);
 				lastX = event.getX(0);
 				lastY = event.getY(0);
 				lastX2 = event.getX(1);
@@ -59,6 +58,7 @@ public class OnTouchZoomandMove implements OnTouchListener {
 					Ystart = event.getY();
 					
 				}else if(event.getPointerCount() == 2){
+					RelativeLayout graph = (RelativeLayout) Rel.findViewById(R.id.graph);
 					float distX = Math.abs(event.getX(0)-event.getX(1));
 					float distY = Math.abs(event.getY(0)-event.getY(1));
 					float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));

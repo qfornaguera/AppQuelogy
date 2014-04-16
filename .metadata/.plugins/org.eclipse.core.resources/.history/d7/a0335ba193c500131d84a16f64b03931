@@ -33,8 +33,6 @@ public class OnTouchZoomandMove implements OnTouchListener {
 				lastY = event.getY(0);
 				lastX2 = event.getX(1);
 				lastY2 = event.getY(1);
-				Rel.setPivotY(-1*graph.getX()+((event.getX(0)+event.getX(1))/2));
-		        Rel.setPivotX(-1*graph.getY()+((event.getY(0)+event.getY(1))/2));
 				lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));
 			break;
 			
@@ -62,6 +60,8 @@ public class OnTouchZoomandMove implements OnTouchListener {
 					float distX = Math.abs(event.getX(0)-event.getX(1));
 					float distY = Math.abs(event.getY(0)-event.getY(1));
 					float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
+					Rel.setPivotY(-1*graph.getX()+((event.getX(0)+event.getX(1))/2));
+			        Rel.setPivotX(-1*graph.getY()+((event.getY(0)+event.getY(1))/2));
 					if(lastDist < dist && Rel.getScaleY()+(float)0.01 <= 5){
 						Rel.setScaleX(Rel.getScaleX()+(float)0.01);
 						Rel.setScaleY(Rel.getScaleY()+(float)0.01);
