@@ -1,5 +1,6 @@
 package com.example.appqueology;
 
+import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import android.support.v7.app.ActionBarActivity;
@@ -45,7 +46,20 @@ public class ArtifactActivity extends ActionBarActivity {
 		text = getIntent().getStringExtra("text");
 		EditText t = (EditText)findViewById(R.id.editText1);
 		t.setText(text);
+		text = getIntent().getStringExtra("father");
+		TextView tv = (TextView)findViewById(R.id.textView3);
+		tv.setText(text);
+		text = "";
+		tv = (TextView)findViewById(R.id.textView5);
+		ArrayList <String> below = getIntent().getStringArrayListExtra("sons");
+		for(int i = 0;i<below.size();i++){
+			text = text + " | " + below.get(i);
+		}
 		
+		if(below.size() == 0)
+			tv.setText("Nothing");
+		else
+			tv.setText(text);
 		findViewById(R.id.save).setOnTouchListener(new OnTouchListener() {
 			
 			@Override

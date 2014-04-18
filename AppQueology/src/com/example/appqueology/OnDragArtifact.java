@@ -90,6 +90,15 @@ public class OnDragArtifact implements OnDragListener{
 						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
 						toArtifactActivity.putExtra("id",touchedArtifact.getId());
 						toArtifactActivity.putExtra("text",touchedArtifact.getText());
+						if(touchedArtifact.getFather() == null)
+							toArtifactActivity.putExtra("father", "Nothing");
+						else
+							toArtifactActivity.putExtra("father", touchedArtifact.getFather().getText());
+						ArrayList <String> sonsText = new ArrayList<String>();
+						for(int i=0;i<touchedArtifact.getSons().size();i++){
+							sonsText.add((String) touchedArtifact.getSons().get(i).getText());
+						}
+						toArtifactActivity.putStringArrayListExtra("sons", sonsText);
 						Activity a = (Activity)Rel.getContext();
 						a.startActivityForResult(toArtifactActivity, 0);
 					}else{//else we want to move the artifact

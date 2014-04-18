@@ -239,7 +239,7 @@ public class Artifact extends TextView{
 			maxLength = Math.max(maxLength, words[i].length());
 		}
 		Log.v("maxLength "+maxLength,"words "+words.length);
-		setPrevWidth(maxLength*15+getPaddingLeft()+getPaddingRight());
+		setPrevWidth(maxLength*16+getPaddingLeft()+getPaddingRight());
 		setPrevHeight(words.length*35+getPaddingTop()+getPaddingBottom());
 		requestLayout();
 	}
