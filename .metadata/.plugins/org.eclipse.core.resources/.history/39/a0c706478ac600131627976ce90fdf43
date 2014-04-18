@@ -204,33 +204,16 @@ public class Artifact extends TextView{
 		
 	}
 	
-	/**
-	 * kill
-	 * 
-	 * this method makes the artifact to tell sons to find a new father
-	 * and and tell it's father to remove this artifact from sons list
-	 * then the lines are recalculated
-	 * 
-	 * @param Rel is the board where the artifact is
-	 */
+	
 	public void kill(RelativeLayout Rel){
 		ArrayList <Artifact> aux = (ArrayList<Artifact>) sons.clone();
 		for(int i = 0;i<aux.size();i++){
 			aux.get(i).seekFather(Rel);
 		}
-		
-		if(this.father != null)//and if the artifact has a current father
-			this.father.removeSon(this);//report the father to remove this artifact from his son list
-		
 		Utility.recalculateLines(Rel);
 		removeAllSons();
 	}
 	
-	/**
-	 * matchWithText
-	 * 
-	 * Changes the with and the height of the artifact to match with the inner text
-	 */
 	public void matchWithText(){
 		String text = (String) getText();
 		String[] words = text.split(" ");

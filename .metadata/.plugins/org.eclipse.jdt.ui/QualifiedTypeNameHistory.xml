@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.view.Display"/>
-<fullyQualifiedTypeName name="android.util.DisplayMetrics"/>
 <fullyQualifiedTypeName name="android.view.MenuInflater"/>
 <fullyQualifiedTypeName name="android.view.MenuItem"/>
 <fullyQualifiedTypeName name="android.webkit.WebView.FindListener"/>
@@ -48,8 +46,6 @@
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
-<fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
-<fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 <fullyQualifiedTypeName name="android.view.MotionEvent"/>
 <fullyQualifiedTypeName name="java.util.zip.Inflater"/>
 <fullyQualifiedTypeName name="com.example.appqueology.R.layout"/>
@@ -60,4 +56,8 @@
 <fullyQualifiedTypeName name="android.view.Gravity"/>
 <fullyQualifiedTypeName name="com.example.appqueology.OnDragArtifact"/>
 <fullyQualifiedTypeName name="com.example.appqueology.R.drawable"/>
+<fullyQualifiedTypeName name="com.example.appqueology.Utility"/>
+<fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
+<fullyQualifiedTypeName name="com.example.appqueology.OnTouchZoomandMove"/>
+<fullyQualifiedTypeName name="android.widget.RelativeLayout"/>
 </qualifiedTypeNameHistroy>

@@ -45,22 +45,11 @@ import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.ZoomControls;
 
-/**
- * @author Joaquim Fornaguera
- * 
- * MainActivity
- * 
- * This class is the activity that contains the board where the graph is printed and modified. Is the key of the app
- * 
- * */
+
 public class MainActivity extends Activity {
 	ScaleGestureDetector mScaleDetector;
 
-	/**
-	 * OnCreate method
-	 * 
-	 * Initiates the activity 
-	 */
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +58,6 @@ public class MainActivity extends Activity {
     }
     
     
-	/**
-	 * StartSlider method
-	 * 
-	 * Starts the SlidingDrawer view and its tools
-	 */
     public void startSlider(){
     	Artifact square = new Artifact(getApplicationContext());
         square.setBackgroundColor(Color.BLACK);
@@ -85,12 +69,6 @@ public class MainActivity extends Activity {
 
     }
     
-    
-    /**
-     * onCreateOptionsMenu method
-     * 
-     * Initiates the menu
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -98,12 +76,6 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    
-    /**
-     * onOptionsItemSelected method
-     * 
-     * Execute the actions depending on the option chosen by the user at the menu
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -125,25 +97,12 @@ public class MainActivity extends Activity {
         
     }
     
-    
-    /**
-     * onConfigurationChanged method
-     * 
-     * Executed when configuration changes, actually when the window size or orientation changes
-     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
     	super.onConfigurationChanged(newConfig);
     	resizeSlidingDrawer();
     }
     
-    
-    /**
-     * onActivityResult method
-     * 
-     * Executed when an other activity launched from this activity returns a result. The method acts at consequence of the result
-     *
-     */
     @Override 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	//super.onActivityResult(requestCode, resultCode, data);
@@ -168,11 +127,6 @@ public class MainActivity extends Activity {
          
     }
     
-    /**
-     * resizeSlidingDrawer method
-     * 
-     * Resize the SlidingDrawer. It's called when the orientation at configurations changes
-     */
     public void resizeSlidingDrawer(){
     	Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -180,13 +134,7 @@ public class MainActivity extends Activity {
     	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y-100;
     }
     
-    /**
-     * initMainactivity method
-     * 
-     * Initialize the activity assets that it need to go on with the app.
-     * assigns the width and height of the board, the listeners and the set of the its tools
-     * 
-     */
+    
     public void initMainActivity(){
     	 Global.ID = 0;
          RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);

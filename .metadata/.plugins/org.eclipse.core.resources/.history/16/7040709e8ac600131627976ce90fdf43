@@ -226,11 +226,6 @@ public class Artifact extends TextView{
 		removeAllSons();
 	}
 	
-	/**
-	 * matchWithText
-	 * 
-	 * Changes the with and the height of the artifact to match with the inner text
-	 */
 	public void matchWithText(){
 		String text = (String) getText();
 		String[] words = text.split(" ");

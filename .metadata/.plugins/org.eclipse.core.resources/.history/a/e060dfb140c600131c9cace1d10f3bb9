@@ -46,8 +46,6 @@ import android.widget.SlidingDrawer;
 import android.widget.ZoomControls;
 
 /**
- * @author Joaquim Fornaguera
- * 
  * MainActivity
  * 
  * This class is the activity that contains the board where the graph is printed and modified. Is the key of the app

@@ -11,8 +11,6 @@ import android.view.View;
  * 
  * 
  * @author Joaquim Fornaguera
- * 
- * This custom class extends view and in the board and draws a line point to point
  *
  */
 public class Line extends View{
