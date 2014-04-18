@@ -24,18 +24,6 @@ import android.webkit.WebView;
 import android.webkit.WebView.FindListener;
 import android.widget.RelativeLayout;
 
-/**
- * 
- * @author Joaquim Fornaguera
- * 
- * this custom OnDragListener that implements the drag and drop of the artifact views. From the slidingDrawer to create a new node
- * and for the creation of a new artifact, from the board to move the artifact. 
- * 
- * Also detects the long click to modify an artifact properties 
- * 
- * Is set at the graph RelativeLayout of MainActivity class 
- *
- */
 public class OnDragArtifact implements OnDragListener{
 	float startX,startY;
 	long startTime;
@@ -47,7 +35,7 @@ public class OnDragArtifact implements OnDragListener{
 	public boolean onDrag(View v, DragEvent event) {
 		Artifact touchedArtifact = (Artifact) event.getLocalState();
 		switch (event.getAction()) {
-			case DragEvent.ACTION_DRAG_STARTED://when the artifact launches its drag action
+			case DragEvent.ACTION_DRAG_STARTED:
 				startX = touchedArtifact.getX();
 				startY = touchedArtifact.getY();
 				startTime = System.currentTimeMillis();
@@ -57,10 +45,10 @@ public class OnDragArtifact implements OnDragListener{
 			  
 			case DragEvent.ACTION_DRAG_EXITED:
 			  break;
-			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
+			case DragEvent.ACTION_DROP:
 				View owner = (View)touchedArtifact.getParent();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
-					if(v.getX()+event.getX() > owner.getWidth()){//Check if it has been dropped on the board
+					if(v.getX()+event.getX() > owner.getWidth()){//Check if it has been dropped to main frame 
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
 						square.setBackgroundResource(R.drawable.anfora);
 				        RelativeLayout Rel = (RelativeLayout)v;
@@ -83,7 +71,7 @@ public class OnDragArtifact implements OnDragListener{
 					View slideDrawer = (View)owner.getParent();//ensure the SlideDrawer overlaps all the views
 					slideDrawer.bringToFront();
 					
-				}else{//else means we want to move or long click the artifact
+				}else{
 					RelativeLayout Rel = (RelativeLayout)v;
 					touchedArtifact.setBackgroundResource(R.drawable.anfora);
 					if(System.currentTimeMillis()-startTime > 500 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){//onlongClick artifacts event
@@ -92,7 +80,7 @@ public class OnDragArtifact implements OnDragListener{
 						toArtifactActivity.putExtra("text",touchedArtifact.getText());
 						Activity a = (Activity)Rel.getContext();
 						a.startActivityForResult(toArtifactActivity, 0);
-					}else{//else we want to move the artifact
+					}else{
 						touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
 						touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
 						touchedArtifact.seekFather(Rel);

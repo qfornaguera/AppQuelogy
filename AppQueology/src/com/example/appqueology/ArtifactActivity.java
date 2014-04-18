@@ -22,6 +22,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.os.Build;
 
+/**
+ * 
+ * @author Joaquim Fornaguera
+ * 
+ * At this activity we are able to check the properties of and artifact and modify some of them
+ * 
+ * We can save the properties or delete the artifact
+ *
+ */
 public class ArtifactActivity extends ActionBarActivity {
 	int id;
 	String text;

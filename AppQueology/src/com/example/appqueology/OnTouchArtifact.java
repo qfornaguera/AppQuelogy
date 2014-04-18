@@ -7,6 +7,13 @@ import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.view.View.OnTouchListener;
 
+/**
+ * 
+ * @author Joaquim Fornaguera
+ * 
+ * this custom onTouchListener is set for all artifacts and make all artifacts able to drag and drop
+ *
+ */
 public class OnTouchArtifact implements OnTouchListener{
 	
 	

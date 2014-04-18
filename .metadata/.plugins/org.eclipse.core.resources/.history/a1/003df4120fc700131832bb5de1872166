@@ -148,10 +148,10 @@ public class MainActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	//super.onActivityResult(requestCode, resultCode, data);
     	RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+        Artifact artifact = (Artifact)Rel.findViewById(data.getIntExtra("id", -1));
         switch(requestCode) {
         	case 0:
-        		if (resultCode == Activity.RESULT_OK) {
-        			Artifact artifact = (Artifact)Rel.findViewById(data.getIntExtra("id", -1));
+        		if (resultCode == Activity.RESULT_OK) { 
         			if(data.getStringExtra("option").compareTo("save") == 0){
         				artifact.setText(data.getStringExtra("text"));
         				if("".compareTo((String) artifact.getText()) != 0){
