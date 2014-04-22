@@ -265,7 +265,6 @@ public class Artifact extends TextView{
 			if(this == next){
 				return false;
 			}
-			next = next.getFather();
 		}
 		
 		return true;

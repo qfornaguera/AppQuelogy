@@ -121,8 +121,7 @@ public class OnDragArtifact implements OnDragListener{
 								}
 							});
 							alertDialog.show();
-							touchedArtifact.setX(startX);
-							touchedArtifact.setY(startY);
+							
 						}
 					}
 				}

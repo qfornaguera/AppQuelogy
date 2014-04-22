@@ -254,7 +254,7 @@ public class Artifact extends TextView{
 	 * avoids that a node could be father of a node already related with. this is made to avoid a infinite buckle at beautify
 	 * recursion
 	 * 
-	 * @return returns True if node and maybeFather are not related or if is a node without siblings, returns False if yes 
+	 * @return returns True if node and maybeFather are not related, returns False if yes 
 	 */
 	
 	public boolean McFlyYouHadOneJob(Artifact maybeFather){
@@ -265,7 +265,6 @@ public class Artifact extends TextView{
 			if(this == next){
 				return false;
 			}
-			next = next.getFather();
 		}
 		
 		return true;
