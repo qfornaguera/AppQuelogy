@@ -40,6 +40,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
@@ -134,7 +135,7 @@ public class MainActivity extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
     	super.onConfigurationChanged(newConfig);
-    	resizeSlidingDrawer();
+    	configurationsChanged();
     }
     
     
@@ -169,15 +170,21 @@ public class MainActivity extends Activity {
     }
     
     /**
-     * resizeSlidingDrawer method
+     * configurationsChanged method
      * 
-     * Resize the SlidingDrawer. It's called when the orientation at configurations changes
+     * It's called when the orientation at configurations changes. Resize the SlidingDrawer, reassign Lock button position etc
      */
-    public void resizeSlidingDrawer(){
+    public void configurationsChanged(){
+    	Configuration config = getResources().getConfiguration();
+    	Button lockUnlock = (Button)findViewById(R.id.button1);
     	Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
     	findViewById(R.id.slidingDrawer).getLayoutParams().height = size.y-100;
+    	findViewById(R.id.slidingDrawer).bringToFront();
+    	lockUnlock.bringToFront();
+    	lockUnlock.setX(size.x-150);
+        lockUnlock.setY(size.y-250);
     }
     
     /**
@@ -191,6 +198,7 @@ public class MainActivity extends Activity {
     	 Global.ID = 0;
          RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
          RelativeLayout Main = (RelativeLayout)findViewById(R.id.activity_main);
+         Button lockUnlock = (Button)findViewById(R.id.button1);
          
          Main.getLayoutParams().height = 10000;
          Main.getLayoutParams().width = 10000;
@@ -198,18 +206,35 @@ public class MainActivity extends Activity {
          Rel.getLayoutParams().width = 10000;
          
          
-         DisplayMetrics displaymetrics = new DisplayMetrics();
+         /*DisplayMetrics displaymetrics = new DisplayMetrics();
          getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
          Rel.setPivotY(displaymetrics.heightPixels/2);
-         Rel.setPivotX(displaymetrics.widthPixels/2);
+         Rel.setPivotX(displaymetrics.widthPixels/2);*/
          
-         findViewById(R.id.slidingDrawer).bringToFront();
-         resizeSlidingDrawer();
+         configurationsChanged();
          
          startSlider();
          
          Rel.setOnDragListener(new OnDragArtifact());
          
          Main.setOnTouchListener(new OnTouchZoomandMove(Rel));
+         
+         lockUnlock.setOnClickListener(new OnClickListener() {
+        	RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Button b = (Button)v;
+				String innerText = (String)b.getText();
+				if(innerText.compareTo("LOCK") == 0){
+					b.setText("UNLOCK");
+					Rel.setEnabled(false);
+				}else{
+					b.setText("LOCK");
+					Rel.setEnabled(true);
+				}
+				
+			}
+		});
     }
 }
