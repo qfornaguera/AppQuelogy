@@ -64,7 +64,7 @@ public class OnDragArtifact implements OnDragListener{
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					Log.v("if: "+(v.getX()+event.getX()), "board: "+v.getX()+" event: "+event.getX());
 					Log.v("if: "+(v.getX()+(event.getX()/v.getScaleX())), "board: "+v.getX()+" event: "+(event.getX()/v.getScaleX()));
-					if(v.getX()+event.getX() > owner.getWidth()){//Check if it has been dropped on the board
+					if(Global.exited){//Check if it has been dropped on the board(aca exited from the slading drawer)
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
 						square.setBackgroundResource(R.drawable.anfora);
 				        RelativeLayout Rel = (RelativeLayout)v;
@@ -79,7 +79,7 @@ public class OnDragArtifact implements OnDragListener{
 				        square.seekFather(Rel);
 				        Utility.recalculateLines(Rel);
 				        touchedArtifact.setBackgroundResource(R.drawable.anfora);
-				        
+				        Global.exited = false;
 					}else{//else 
 						touchedArtifact.setBackgroundResource(R.drawable.anfora);
 					}
@@ -131,8 +131,10 @@ public class OnDragArtifact implements OnDragListener{
 	
 			  break;
 			case DragEvent.ACTION_DRAG_ENDED:
-			  default:
-			  break;
+			break;
+				
+			default:
+			break;
 			  
 			  
 		}

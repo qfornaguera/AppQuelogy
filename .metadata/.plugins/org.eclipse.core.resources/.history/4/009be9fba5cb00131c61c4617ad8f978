@@ -1,0 +1,67 @@
+package com.example.appqueology;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.View;
+import android.view.View.OnDragListener;
+import android.widget.RelativeLayout;
+
+public class OnDragSladingDrawer implements OnDragListener{
+	boolean exited = false;
+	@Override
+	public boolean onDrag(View v, DragEvent event) {
+		Artifact touchedArtifact = (Artifact) event.getLocalState();
+		
+		switch (event.getAction()) {
+			case DragEvent.ACTION_DRAG_STARTED://when the artifact launches its drag action
+			  break;
+			case DragEvent.ACTION_DRAG_ENTERED:
+				exited = false;
+			  break;
+			  
+			case DragEvent.ACTION_DRAG_EXITED:
+				exited = true;
+			  break;
+			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
+				Log.v("if: "+(v.getX()+event.getX()), "board: "+v.getX()+" event: "+event.getX());
+				if(exited){//Check if it has been dropped on the board
+					Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
+					square.setBackgroundResource(R.drawable.anfora);
+			        RelativeLayout Rel = (RelativeLayout)v.getParent();
+			        RelativeLayout graph = (RelativeLayout) Rel.findViewById(R.id.graph);
+			        graph.addView(square,100,100);
+			        square.setPrevWidth(100);
+			        square.setPrevHeight(100);
+			        square.setX((event.getX()+graph.getX())-50);
+			        square.setY((event.getY()+graph.getX())-50);
+			        square.setTag("node");
+			        square.setId(Global.ID);
+			        Global.ID++;
+			        square.seekFather(Rel);
+			        Utility.recalculateLines(Rel);
+			        touchedArtifact.setBackgroundResource(R.drawable.anfora);
+			        exited = false;
+				}else{//else 
+					touchedArtifact.setBackgroundResource(R.drawable.anfora);
+				}
+
+				//ensure the SlideDrawer overlaps all the views
+				v.bringToFront();
+				
+			  break;
+			case DragEvent.ACTION_DRAG_ENDED:
+			  default:
+			  break;
+			  
+			  
+		}
+		return true;
+	}
+
+}
