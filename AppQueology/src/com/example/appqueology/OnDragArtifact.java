@@ -62,6 +62,8 @@ public class OnDragArtifact implements OnDragListener{
 			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
 				View owner = (View)touchedArtifact.getParent();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
+					Log.v("if: "+(v.getX()+event.getX()), "board: "+v.getX()+" event: "+event.getX());
+					Log.v("if: "+(v.getX()+(event.getX()/v.getScaleX())), "board: "+v.getX()+" event: "+(event.getX()/v.getScaleX()));
 					if(v.getX()+event.getX() > owner.getWidth()){//Check if it has been dropped on the board
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
 						square.setBackgroundResource(R.drawable.anfora);

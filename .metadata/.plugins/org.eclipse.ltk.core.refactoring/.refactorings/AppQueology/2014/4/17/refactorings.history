@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;AppQueology/res/drawable-mdpi/LOCK.png&apos; to &apos;lock.png&apos;" description="Rename resource &apos;LOCK.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/drawable-mdpi/LOCK.png" name="lock.png" stamp="1398269915450" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;AppQueology/res/drawable-mdpi/UNLOCK.png&apos; to &apos;unlock.png&apos;" description="Rename resource &apos;UNLOCK.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/drawable-mdpi/UNLOCK.png" name="unlock.png" stamp="1398269925594" updateReferences="true"/>
+</session>

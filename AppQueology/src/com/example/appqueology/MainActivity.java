@@ -205,11 +205,14 @@ public class MainActivity extends Activity {
          Rel.getLayoutParams().height = 10000;
          Rel.getLayoutParams().width = 10000;
          
+         Rel.setPivotY(0);
+         Rel.setPivotX(0);
          
-         /*DisplayMetrics displaymetrics = new DisplayMetrics();
-         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-         Rel.setPivotY(displaymetrics.heightPixels/2);
-         Rel.setPivotX(displaymetrics.widthPixels/2);*/
+         lockUnlock.getLayoutParams().height = 100;
+         lockUnlock.getLayoutParams().width = 100;
+         
+         lockUnlock.setTag("UNLOCKED");
+         lockUnlock.setBackgroundResource(R.drawable.unlock);
          
          configurationsChanged();
          
@@ -225,12 +228,14 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Button b = (Button)v;
-				String innerText = (String)b.getText();
-				if(innerText.compareTo("LOCK") == 0){
-					b.setText("UNLOCK");
+				String tag = (String)b.getTag();
+				if(tag.compareTo("UNLOCKED") == 0){
+					b.setBackgroundResource(R.drawable.lock);
+					b.setTag("LOCKED");
 					Rel.setEnabled(false);
 				}else{
-					b.setText("LOCK");
+					b.setBackgroundResource(R.drawable.unlock);
+					b.setTag("UNLOCKED");
 					Rel.setEnabled(true);
 				}
 				

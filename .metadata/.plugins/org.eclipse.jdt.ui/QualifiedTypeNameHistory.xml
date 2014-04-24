@@ -44,8 +44,6 @@
 <fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
 <fullyQualifiedTypeName name="android.app.ActionBar.LayoutParams"/>
 <fullyQualifiedTypeName name="android.view.Gravity"/>
-<fullyQualifiedTypeName name="com.example.appqueology.OnDragArtifact"/>
-<fullyQualifiedTypeName name="com.example.appqueology.R.drawable"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Utility"/>
 <fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 <fullyQualifiedTypeName name="com.example.appqueology.OnTouchZoomandMove"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.content.res.Configuration"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.example.appqueology.R.drawable"/>
+<fullyQualifiedTypeName name="com.example.appqueology.OnDragArtifact"/>
 </qualifiedTypeNameHistroy>
