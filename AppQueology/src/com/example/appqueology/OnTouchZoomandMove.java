@@ -1,5 +1,6 @@
 package com.example.appqueology;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -29,7 +30,6 @@ public class OnTouchZoomandMove implements OnTouchListener {
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
 		Global.touchedArtifact = null;
-		RelativeLayout graph = (RelativeLayout) Rel.findViewById(R.id.graph);
 		switch(event.getAction()){
 			case MotionEvent.ACTION_DOWN://when one pointer is down(initialize the move of the board)
 				Xstart = event.getX();
@@ -37,13 +37,14 @@ public class OnTouchZoomandMove implements OnTouchListener {
 			break;
 			
 			case MotionEvent.ACTION_POINTER_DOWN://when two pointers are down(initialize the pinch zoom in or out)
-				lastX = event.getX(0);
+				/*lastX = event.getX(0);
 				lastY = event.getY(0);
 				lastX2 = event.getX(1);
 				lastY2 = event.getY(1);
-				Rel.setPivotY(-1*graph.getX()+(event.getX(0)+event.getX(1))/2);
-		        Rel.setPivotX(-1*graph.getY()+(event.getY(0)+event.getY(1))/2);
-				lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));
+				Rel.setPivotX(-1*Rel.getX()*Rel.getScaleX()+(event.getX(0)+event.getX(1))/2);
+		        Rel.setPivotY(-1*Rel.getY()*Rel.getScaleY()+(event.getY(0)+event.getY(1))/2);
+		        Log.v("pivotX "+Rel.getPivotX(),"pivotY "+Rel.getPivotY());
+				lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));*/
 			break;
 			
 			case  MotionEvent.ACTION_MOVE://when the pointer(or pointers) move
@@ -51,16 +52,16 @@ public class OnTouchZoomandMove implements OnTouchListener {
 				if(event.getPointerCount() == 1){//if just one pointer down move the board
 					float distX = Math.abs(event.getX()-Xstart);
 					float distY = Math.abs(event.getY()-Ystart);
-					if(Xstart > event.getX(0)){
+					if(Xstart > event.getX()){
 						Rel.setX(Rel.getX()-distX);
 					}else if(Xstart < event.getX(0)){
 						Rel.setX(Rel.getX()+distX);
 					}
 					
-					if(Ystart > event.getY(0)){
+					if(Ystart > event.getY()){
 						Rel.setY(Rel.getY()-distY);
 						
-					}else if(Ystart < event.getY(0)){
+					}else if(Ystart < event.getY()){
 						Rel.setY(Rel.getY()+distY);
 					}
 					Xstart = event.getX();
@@ -68,6 +69,8 @@ public class OnTouchZoomandMove implements OnTouchListener {
 					
 					
 				}else if(event.getPointerCount() == 2){//if 2 pointers down zoom in or zoom out
+					Rel.setPivotX(-1*Rel.getX()+(event.getX(0)+event.getX(1))/2);//we reverse the offset applied by the coordinates of the graph board so that the coordinates watched on the window and the position of the graph board are reversed
+			        Rel.setPivotY(-1*Rel.getY()+(event.getY(0)+event.getY(1))/2);
 					float distX = Math.abs(event.getX(0)-event.getX(1));
 					float distY = Math.abs(event.getY(0)-event.getY(1));
 					float dist = (float)Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));

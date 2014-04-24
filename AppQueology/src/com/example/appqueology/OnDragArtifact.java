@@ -48,11 +48,17 @@ public class OnDragArtifact implements OnDragListener{
 	@Override
 	public boolean onDrag(View v, DragEvent event) {
 		Artifact touchedArtifact = (Artifact) event.getLocalState();
+		RelativeLayout Main = (RelativeLayout)v.getParent();
+		ViewGroup sladingDrawer = (ViewGroup)Main.findViewById(R.id.slidingDrawer);
+		View owner = (View)touchedArtifact.getParent();
 		switch (event.getAction()) {
 			case DragEvent.ACTION_DRAG_STARTED://when the artifact launches its drag action
 				startX = touchedArtifact.getX();
 				startY = touchedArtifact.getY();
 				startTime = System.currentTimeMillis();
+				if(v == owner){//if the drag event is started by an artifact on the graph board we disable the slading drawer drag listener so it don't interfere in our actions with the artifact
+					sladingDrawer.setEnabled(false);
+				}
 			  break;
 			case DragEvent.ACTION_DRAG_ENTERED:
 			  break;
@@ -60,7 +66,6 @@ public class OnDragArtifact implements OnDragListener{
 			case DragEvent.ACTION_DRAG_EXITED:
 			  break;
 			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
-				View owner = (View)touchedArtifact.getParent();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					Log.v("if: "+(v.getX()+event.getX()), "board: "+v.getX()+" event: "+event.getX());
 					Log.v("if: "+(v.getX()+(event.getX()/v.getScaleX())), "board: "+v.getX()+" event: "+(event.getX()/v.getScaleX()));
@@ -131,6 +136,9 @@ public class OnDragArtifact implements OnDragListener{
 	
 			  break;
 			case DragEvent.ACTION_DRAG_ENDED:
+				if(v == owner){//once we finished the drag event done in the graph board we enable again the drag listener on slading drawer viewgrouo
+					sladingDrawer.setEnabled(true);
+				}
 			break;
 				
 			default:

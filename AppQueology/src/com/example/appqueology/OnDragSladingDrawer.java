@@ -25,16 +25,20 @@ public class OnDragSladingDrawer implements OnDragListener{
 	@Override
 	public boolean onDrag(View v, DragEvent event) {
 		Artifact touchedArtifact = (Artifact) event.getLocalState();
-		
+		View owner = (View) touchedArtifact.getParent().getParent();
 		switch (event.getAction()) {
 			case DragEvent.ACTION_DRAG_STARTED:
 			  break;
 			case DragEvent.ACTION_DRAG_ENTERED://when a tool is dragged in the slading drawer
-				Global.exited = false;
+				if(owner == v){
+					Global.exited = false;
+				}
 			  break;
 			  
 			case DragEvent.ACTION_DRAG_EXITED://when a tool is dragged out the slading drawer
-				Global.exited = true;
+				if(owner == v){
+					Global.exited = true;
+				}
 			  break;
 			case DragEvent.ACTION_DROP:
 				
@@ -46,7 +50,6 @@ public class OnDragSladingDrawer implements OnDragListener{
 			
 			
 			default:
-				Log.v("default", "default");
 			break;
 		}
 		return true;
