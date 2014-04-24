@@ -79,6 +79,8 @@ public class OnTouchZoomandMove implements OnTouchListener {
 						Rel.setScaleY(Rel.getScaleY()-(float)0.01);
 					}
 					lastDist = dist;
+					Rel.setPivotY(-1*graph.getX()+(event.getX(0)+event.getX(1))/2);
+			        Rel.setPivotX(-1*graph.getY()+(event.getY(0)+event.getY(1))/2);
 				}					
 			break;
 			
