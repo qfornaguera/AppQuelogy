@@ -48,14 +48,7 @@ public class XmlReadWriter {
 		this.Rel = Rel;
 	}
 	
-	/**
-	 * readXML
-	 * 
-	 * this method deploys a graph saved into an xml file on the relative layout
-	 * 
-	 * 
-	 * @param xml the name of the file we read
-	 */
+	
 	public void readXML(String xml){
         Rel.removeAllViews();
 		int maxId = 0;
@@ -123,7 +116,7 @@ public class XmlReadWriter {
 	/**
 	 * writeXML
 	 * 
-	 * this method save the graph done with artifacts on the relative layout into a xml file
+	 * this function save the graph done with artifacts on the relative layout into a xml file
 	 * 
 	 * we save in the name of the artifacts, their fathers, their sons in case of having it, and the age
 	 * 
@@ -146,8 +139,8 @@ public class XmlReadWriter {
 					if(Rel.getChildAt(i).getTag().toString().compareTo("node") == 0){
 						Artifact artifact = (Artifact) Rel.getChildAt(i);
 						Element node = addElement(rootElement, "node", document);
-						Element id = addAttribute("id",artifact.getId()+"", document);  //we create an attribute for a node
-						node.appendChild(id);//and then we attach it to the node
+						Element id = addAttribute("id",artifact.getId()+"", document);  
+						node.appendChild(id);
 						if(artifact.getFather() == null){
 							Element nofather = addAttribute("father", "null", document);
 							node.appendChild(nofather);
@@ -158,9 +151,9 @@ public class XmlReadWriter {
 						
 						ArrayList <Artifact> sons = artifact.getSons();
 						if(sons != null){
-							addElement(node, "sons", document);//for complex attribute like array of sons we add an element to the node
+							addElement(node, "sons", document);
 							for(int j=0;j<sons.size();j++){
-								Element son = addAttribute("son",sons.get(j).getId()+"", document);//inside this element created in the node we add all its sons as attributes
+								Element son = addAttribute("son",sons.get(j).getId()+"", document);
 								node.appendChild(son);
 							}
 						}
@@ -191,16 +184,6 @@ public class XmlReadWriter {
 		
 	}
 	
-	/**
-	 * addElement 
-	 * 
-	 * this method appends an element inside the rooElement contained on a document returns the element appended
-	 * 
-	 * @param rootElement
-	 * @param type
-	 * @param document
-	 * @return
-	 */
 	public Element addElement(Element rootElement,String type,Document document){
 		// define school elements  
 		Element node = document.createElement(type);  
@@ -208,16 +191,6 @@ public class XmlReadWriter {
 		return node;
 	}
 	
-	/**
-	 * addAttribute
-	 * 
-	 * this method creates an attribute with its value and returns it
-	 * 
-	 * @param name
-	 * @param value
-	 * @param document
-	 * @return
-	 */
 	public Element addAttribute(String name,String value,Document document){
 		Element attr = document.createElement(name);  
 		attr.appendChild(document.createTextNode(value));
