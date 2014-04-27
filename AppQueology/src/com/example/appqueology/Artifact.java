@@ -33,6 +33,7 @@ public class Artifact extends TextView{
 	/**father is the node's father node (is null when node is root of a tree */
 	Artifact father = null;
 	float width,heigth;
+	long age;
 	
 	/**
 	 * Class constructor sets the artifact with center text align and an empty list of sons
@@ -47,6 +48,26 @@ public class Artifact extends TextView{
 		this.setPadding(10,10,10,10);
 		this.setGravity(Gravity.CENTER);
 		
+	}
+	
+	/**
+	 * setAge
+	 * 
+	 * sets the age of an artifact
+	 */
+	
+	public void setAge(long age){
+		this.age = age;
+	}
+	
+	/**
+	 * getAge
+	 * 
+	 * returns the age of an artifact
+	 */
+	
+	public long getAge(){
+		return this.age;
 	}
 	
 	/**

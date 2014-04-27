@@ -155,6 +155,7 @@ public class MainActivity extends Activity {
         			Artifact artifact = (Artifact)Rel.findViewById(data.getIntExtra("id", -1));
         			if(data.getStringExtra("option").compareTo("save") == 0){
         				artifact.setText(data.getStringExtra("text"));
+        				artifact.setAge(data.getLongExtra("age",0));
         				if("".compareTo((String) artifact.getText()) != 0){
         					artifact.matchWithText();
     					}

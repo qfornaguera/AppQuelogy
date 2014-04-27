@@ -20,6 +20,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.os.Build;
 
@@ -41,7 +43,7 @@ public class ArtifactActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artifact);
-		
+		RadioButton rb;
 		id = getIntent().getIntExtra("id", -1);
 		text = getIntent().getStringExtra("text");
 		EditText t = (EditText)findViewById(R.id.editText1);
@@ -60,17 +62,44 @@ public class ArtifactActivity extends ActionBarActivity {
 			tv.setText("Nothing");
 		else
 			tv.setText(text);
+		
+		long age = getIntent().getLongExtra("age",0);
+		
+		t = (EditText)findViewById(R.id.editText2);
+		t.setText(Long.toString(Math.abs(age)));
+		if(age < 0){
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio0);
+			rb.setChecked(true);
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio1);
+			rb.setChecked(false);
+		}else{
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio0);
+			rb.setChecked(false);
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio1);
+			rb.setChecked(true);
+		}
+		
 		findViewById(R.id.save).setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
+				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
+				RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+				
+				
 				if(event.getAction() == MotionEvent.ACTION_UP){
 					EditText t = (EditText)findViewById(R.id.editText1);
 					text = t.getText().toString();
 					resultIntent.putExtra("text", text);
 					resultIntent.putExtra("id", id);
 					resultIntent.putExtra("option", "save");
+					t = (EditText)findViewById(R.id.editText2);
+					if(rb == rg.findViewById(R.id.radio0)){
+						resultIntent.putExtra("age",-1*Long.parseLong((String) t.getText().toString()));
+					}else{
+						resultIntent.putExtra("age", Long.parseLong((String) t.getText().toString()));
+					}
 					setResult(Activity.RESULT_OK, resultIntent);
 					finish();
 				}
@@ -98,7 +127,6 @@ public class ArtifactActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.artifact, menu);
 		return true;

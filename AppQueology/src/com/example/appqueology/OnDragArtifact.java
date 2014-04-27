@@ -67,8 +67,6 @@ public class OnDragArtifact implements OnDragListener{
 			  break;
 			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
-					Log.v("if: "+(v.getX()+event.getX()), "board: "+v.getX()+" event: "+event.getX());
-					Log.v("if: "+(v.getX()+(event.getX()/v.getScaleX())), "board: "+v.getX()+" event: "+(event.getX()/v.getScaleX()));
 					if(Global.exited){//Check if it has been dropped on the board(aca exited from the slading drawer)
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
 						square.setBackgroundResource(R.drawable.anfora);
@@ -95,10 +93,11 @@ public class OnDragArtifact implements OnDragListener{
 				}else{//else means we want to move or long click the artifact
 					RelativeLayout Rel = (RelativeLayout)v;
 					touchedArtifact.setBackgroundResource(R.drawable.anfora);
-					if(System.currentTimeMillis()-startTime > 500 && Math.abs(startX-event.getX()) < 100 && Math.abs(startY-event.getY()) < 100){//onlongClick artifacts event
+					if(System.currentTimeMillis()-startTime > 500 && Math.abs(startX-event.getX()) < 300 && Math.abs(startY-event.getY()) < 300){//onlongClick artifacts event
 						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
 						toArtifactActivity.putExtra("id",touchedArtifact.getId());
 						toArtifactActivity.putExtra("text",touchedArtifact.getText());
+						toArtifactActivity.putExtra("age",touchedArtifact.getAge());
 						if(touchedArtifact.getFather() == null)
 							toArtifactActivity.putExtra("father", "Nothing");
 						else
