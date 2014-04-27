@@ -65,17 +65,17 @@ public class ArtifactActivity extends ActionBarActivity {
 		
 		long age = getIntent().getLongExtra("age",0);
 		
-		t = (EditText)findViewById(R.id.editText2);
+		t = (EditText)findViewById(R.id.container).findViewById(R.id.editText2);
 		t.setText(Long.toString(Math.abs(age)));
 		if(age < 0){
-			rb = (RadioButton)findViewById(R.id.radio0);
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio0);
 			rb.setChecked(true);
-			rb = (RadioButton)findViewById(R.id.radio1);
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio1);
 			rb.setChecked(false);
 		}else{
-			rb = (RadioButton)findViewById(R.id.radio0);
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio0);
 			rb.setChecked(false);
-			rb = (RadioButton)findViewById(R.id.radio1);
+			rb = (RadioButton)findViewById(R.id.radioGroup1).findViewById(R.id.radio1);
 			rb.setChecked(true);
 		}
 		
