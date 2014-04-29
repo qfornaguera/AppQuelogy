@@ -108,17 +108,27 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-    	XmlReadWriter xmlRW = new XmlReadWriter((RelativeLayout)findViewById(R.id.graph));
+    	RelativeLayout graf = (RelativeLayout)findViewById(R.id.graph);
+    	XmlReadWriter xmlRW = new XmlReadWriter(graf);
         switch (item.getItemId()) {
             case R.id.save:
                 xmlRW.writeXML(getFilesDir()+"graf.xml");
                 return true;
             case R.id.load:
+            	graf.removeAllViews();
             	xmlRW.readXML(getFilesDir()+"graf.xml");
+            	Utility.beautifygraph((RelativeLayout)findViewById(R.id.graph));
+            	Utility.recalculateLines((RelativeLayout)findViewById(R.id.graph));
                 return true;
                 
             case R.id.beautify:
             	Utility.beautifygraph((RelativeLayout)findViewById(R.id.graph));
+            	Utility.recalculateLines((RelativeLayout)findViewById(R.id.graph));
+            	return true;
+            case R.id.timeline:
+            	Intent toTimeLineView = new Intent(this, TimeLineActivity.class);
+				this.startActivityForResult(toTimeLineView, 1);
+            	return true;
             default:
             	return true;
             
@@ -165,7 +175,10 @@ public class MainActivity extends Activity {
         			}
         			Utility.recalculateLines(Rel);
         		} 
-        	break; 
+        	break;
+        	
+        	default:
+        	break;	
         } 
          
     }

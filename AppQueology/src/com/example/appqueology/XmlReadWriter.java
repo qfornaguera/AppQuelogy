@@ -57,7 +57,6 @@ public class XmlReadWriter {
 	 * @param xml the name of the file we read
 	 */
 	public void readXML(String xml){
-        Rel.removeAllViews();
 		int maxId = 0;
 		try {
         	File xmlFile = new File(xml);  
@@ -108,10 +107,6 @@ public class XmlReadWriter {
                 }
                 
             }
-            Utility.beautifygraph(Rel);
-            
-        	
-        	Utility.recalculateLines(Rel);
             
             
         }catch(Exception e){

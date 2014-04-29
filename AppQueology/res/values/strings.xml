@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_prova">ProvaActivity</string>
     <string name="title_activity_artifact">ArtifactActivity</string>
+    <string name="title_activity_time_line">TimeLineActivity</string>
 
 </resources>

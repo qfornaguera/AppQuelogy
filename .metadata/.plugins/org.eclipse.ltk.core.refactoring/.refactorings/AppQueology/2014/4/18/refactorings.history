@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring accessors="true" comment="Delete element from project &apos;AppQueology&apos;&#x0D;&#x0A;- Original project: &apos;AppQueology&apos;&#x0D;&#x0A;- Original element: &apos;fragment_time_line.xml&apos;" description="Delete element" element1="res/layout/fragment_time_line.xml" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1398683963672" subPackages="false" version="1.0"/>&#x0A;<refactoring comment="Remove Container" description="Remove Container" file="/AppQueology/res/layout/activity_time_line.xml" flags="6" id="com.android.ide.eclipse.adt.refactoring.unwrap" proj="/AppQueology" sel-end="723" sel-start="351" stamp="1398705120875"/>
+</session>

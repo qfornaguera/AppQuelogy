@@ -40,7 +40,6 @@ public class Utility {
 			setNodePosition(node,j,1);
 			posX = posX + 1000;
 		}
-		recalculateLines(Rel);
 		
 	}
 	
