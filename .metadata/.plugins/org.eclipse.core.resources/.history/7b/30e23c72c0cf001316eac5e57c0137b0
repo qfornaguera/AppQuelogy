@@ -222,9 +222,6 @@ public class Artifact extends TextView{
 			
 			if(!father.getSons().contains(this))//if the father does not contain already this artifact in his sons list
 				father.addSon(this);
-		}else{
-			if(this.father != null)//and if the artifact has a current father
-				this.father.removeSon(this);//report the father to remove this artifact from his son list
 		}
 
 		this.father = father;
