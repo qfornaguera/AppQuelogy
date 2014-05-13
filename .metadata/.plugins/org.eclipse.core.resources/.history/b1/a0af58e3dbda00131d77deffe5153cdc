@@ -74,11 +74,12 @@ public class TimeLineActivity extends ActionBarActivity {
 		HorizontalScrollView hsv = new HorizontalScrollView(this);
 		TextView textView = new TextView(this);
 		//Lap.setBackground(getResources().getDrawable(R.drawable.bordersblack));
+		Lap.setBackgroundColor(Color.CYAN);
 		Lap.setPadding(20, 10, 20, 0);
 		hsv.addView(Lap);
 		timeline.addView(hsv);
 		Lap.getLayoutParams().height = 300;
-		Lap.getLayoutParams().width = LayoutParams.MATCH_PARENT;
+		Lap.getLayoutParams().width = 2000;
 		Lap.setId(idCounter);
 		textView.setTextColor(Color.BLACK);
 		textView.setText(text);
