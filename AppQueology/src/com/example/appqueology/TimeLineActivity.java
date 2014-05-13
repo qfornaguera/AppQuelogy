@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -67,37 +68,32 @@ public class TimeLineActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void createLap(LinearLayout timeline,String text){
+		LinearLayout Lap = new LinearLayout(this);
+		HorizontalScrollView hsv = new HorizontalScrollView(this);
+		TextView textView = new TextView(this);
+		//Lap.setBackground(getResources().getDrawable(R.drawable.bordersblack));
+		Lap.setBackgroundColor(Color.CYAN);
+		Lap.setPadding(20, 10, 20, 0);
+		hsv.addView(Lap);
+		timeline.addView(hsv);
+		Lap.getLayoutParams().height = 300;
+		Lap.getLayoutParams().width = 2000;
+		Lap.setId(idCounter);
+		textView.setTextColor(Color.BLACK);
+		textView.setText(text);
+		Lap.addView(textView);
+		idCounter++;
+	}
 
 	public void createTimeLaps(long minAge,long maxAge,long offset){
 		int AfterOrBeforeC1,AfterOrBeforeC2;
-		TextView text;
-		LinearLayout Lap;
 		LinearLayout timeline = (LinearLayout)findViewById(R.id.timeline);
-		HorizontalScrollView hsv = new HorizontalScrollView(this);
-		Lap = new LinearLayout(this);
-		hsv.addView(Lap);
-		timeline.addView(hsv);
-		Lap.getLayoutParams().height = 300;
-		Lap.getLayoutParams().width = LayoutParams.MATCH_PARENT;
-		Lap.setId(idCounter);
-		text = new TextView(this);
-		text.setTextColor(Color.BLACK);
-		text.setText("Unseted\n Age \nArtifacts");
-		Lap.addView(text);
-		idCounter++;
+
+		createLap(timeline,"Unseted\n Age \nArtifacts");
 		
-		hsv = new HorizontalScrollView(this);
-		Lap = new LinearLayout(this);
-		hsv.addView(Lap);
-		timeline.addView(hsv);
-		Lap.getLayoutParams().height = 300;
-		Lap.getLayoutParams().width = LayoutParams.MATCH_PARENT;
-		Lap.setId(idCounter);
-		text = new TextView(this);
-		text.setTextColor(Color.BLACK);
-		text.setText("Older");
-		Lap.addView(text);
-		idCounter++;
+		createLap(timeline,"Older");
 		
 		
 		for(long i=minAge;i<maxAge;i+=offset){
@@ -112,45 +108,26 @@ public class TimeLineActivity extends ActionBarActivity {
 			}else{
 				AfterOrBeforeC2 = 1;
 			}
-			text = new TextView(this);
-			hsv = new HorizontalScrollView(this);
-			Lap = new LinearLayout(this);
+			
+			String text;
 			if(i==0){
 				i+=1;
-				text.setText("From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i-1+offset) + " " + BAChrist[AfterOrBeforeC2]);
+				text = "From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i-1+offset) + " " + BAChrist[AfterOrBeforeC2];
 				i-=1;
 			}else if(i+offset == 0){
 				i-=1;
-				text.setText("From " + Math.abs(i+1) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2]);
+				text = "From " + Math.abs(i+1) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2];
 				i+=1;
 			}else{
-				text.setTextColor(Color.BLACK);
-				text.setText("From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2]);
+				text = "From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2];
 			}
-			timeline.addView(hsv);
-			Lap.addView(text);
-			text.setTextColor(Color.BLACK);
-			hsv.addView(Lap);
-			Lap.setId(idCounter);
-			hsv.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
-			hsv.getLayoutParams().width = LayoutParams.MATCH_PARENT;
-			Lap.getLayoutParams().height = 300;
-			Lap.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
-			idCounter++;
+			
+			createLap(timeline,text);
 			
 		}
 		
-		hsv = new HorizontalScrollView(this);
-		Lap = new LinearLayout(this);
-		hsv.addView(Lap);
-		timeline.addView(hsv);
-		Lap.getLayoutParams().height = 300;
-		Lap.getLayoutParams().width = LayoutParams.MATCH_PARENT;
-		Lap.setId(idCounter);
-		text = new TextView(this);
-		text.setTextColor(Color.BLACK);
-		text.setText("Younger");
-		Lap.addView(text);
+		createLap(timeline,"Younger");
+		
 	}
 	
 	public void initArtifactsToTimeLaps(RelativeLayout Rel){
@@ -167,6 +144,13 @@ public class TimeLineActivity extends ActionBarActivity {
 		
 		for(int j=0;j<nodeList.size();j++){//then we iterate and create the lines between artifacts
 			Artifact node = nodeList.get(j);
+			
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			params.setMargins(20,100,0,0);
+			node.setLayoutParams(params);
+			if("".compareTo((String)node.getText())!=0)
+				node.matchWithText();
+			
 			Rel.removeView(node);
 			if(node.getAge() == 0){
 				l = (LinearLayout)findViewById(40000);
@@ -175,10 +159,9 @@ public class TimeLineActivity extends ActionBarActivity {
 				l = (LinearLayout)findViewById(40001);
 				l.addView(node);
 			}else if(node.getAge()>max){
-				l = (LinearLayout)findViewById(idCounter);
+				l = (LinearLayout)findViewById(idCounter-1);
 				l.addView(node);
 			}else{
-				//long dist = Math.abs(max-min);
 				int assignedTimeLap = (int) (((node.getAge()+Math.abs(min))/off) + 40001);
 				l = (LinearLayout)findViewById(assignedTimeLap);
 				l.addView(node);
