@@ -32,7 +32,7 @@ import android.os.Build;
 public class TimeLineActivity extends ActionBarActivity {
 	String [] BAChrist = {"B.C","A.C"};
 	long max,min,off;
-	int idCounter = 40000;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +69,7 @@ public class TimeLineActivity extends ActionBarActivity {
 	}
 
 	public void createTimeLaps(long minAge,long maxAge,long offset){
+		int idCounter = 40000;
 		int AfterOrBeforeC1,AfterOrBeforeC2;
 		TextView text;
 		LinearLayout Lap;
@@ -86,7 +87,7 @@ public class TimeLineActivity extends ActionBarActivity {
 		Lap.addView(text);
 		idCounter++;
 		
-		hsv = new HorizontalScrollView(this);
+		HorizontalScrollView hsv = new HorizontalScrollView(this);
 		Lap = new LinearLayout(this);
 		hsv.addView(Lap);
 		timeline.addView(hsv);
@@ -140,7 +141,7 @@ public class TimeLineActivity extends ActionBarActivity {
 			
 		}
 		
-		hsv = new HorizontalScrollView(this);
+		HorizontalScrollView hsv = new HorizontalScrollView(this);
 		Lap = new LinearLayout(this);
 		hsv.addView(Lap);
 		timeline.addView(hsv);
@@ -171,14 +172,8 @@ public class TimeLineActivity extends ActionBarActivity {
 			if(node.getAge() == 0){
 				l = (LinearLayout)findViewById(40000);
 				l.addView(node);
-			}else if(node.getAge()<min){
-				l = (LinearLayout)findViewById(40001);
-				l.addView(node);
-			}else if(node.getAge()>max){
-				l = (LinearLayout)findViewById(idCounter);
-				l.addView(node);
 			}else{
-				//long dist = Math.abs(max-min);
+				long dist = Math.abs(max-min);
 				int assignedTimeLap = (int) (((node.getAge()+Math.abs(min))/off) + 40001);
 				l = (LinearLayout)findViewById(assignedTimeLap);
 				l.addView(node);
