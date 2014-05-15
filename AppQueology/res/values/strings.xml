@@ -7,5 +7,6 @@
     <string name="title_activity_prova">ProvaActivity</string>
     <string name="title_activity_artifact">ArtifactActivity</string>
     <string name="title_activity_time_line">TimeLineActivity</string>
+    <string name="title_activity_threshold">ThresholdActivity</string>
 
 </resources>

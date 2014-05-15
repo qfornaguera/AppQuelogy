@@ -242,11 +242,11 @@ int id action_context_bar 0x7f05001d
 int id action_menu_divider 0x7f050016
 int id action_menu_presenter 0x7f050017
 int id action_mode_close_button 0x7f050024
-int id action_settings 0x7f050052
+int id action_settings 0x7f050053
 int id activity_chooser_view_content 0x7f050025
 int id activity_main 0x7f05004a
 int id always 0x7f05000b
-int id beautify 0x7f050054
+int id beautify 0x7f050055
 int id beginning 0x7f050011
 int id button1 0x7f05004f
 int id checkbox 0x7f05002d
@@ -260,6 +260,7 @@ int id disableHome 0x7f050008
 int id dropdown 0x7f05000f
 int id editText1 0x7f05003d
 int id editText2 0x7f050044
+int id editText3 0x7f050050
 int id edit_query 0x7f050030
 int id end 0x7f050013
 int id expand_activities_button 0x7f050026
@@ -273,7 +274,7 @@ int id ifRoom 0x7f05000a
 int id image 0x7f050027
 int id listMode 0x7f050001
 int id list_item 0x7f050029
-int id load 0x7f050053
+int id load 0x7f050054
 int id middle 0x7f050012
 int id never 0x7f050009
 int id none 0x7f050010
@@ -309,8 +310,8 @@ int id textView3 0x7f050040
 int id textView4 0x7f050041
 int id textView5 0x7f050042
 int id textView6 0x7f050043
-int id timeline 0x7f050051
-int id timelinebody 0x7f050050
+int id timeline 0x7f050052
+int id timelinebody 0x7f050051
 int id title 0x7f05002b
 int id top_action_bar 0x7f050020
 int id up 0x7f050021
@@ -342,11 +343,13 @@ int layout abc_search_dropdown_item_icons_2line 0x7f030015
 int layout abc_search_view 0x7f030016
 int layout activity_artifact 0x7f030017
 int layout activity_main 0x7f030018
-int layout activity_time_line 0x7f030019
-int layout support_simple_spinner_dropdown_item 0x7f03001a
+int layout activity_threshold 0x7f030019
+int layout activity_time_line 0x7f03001a
+int layout support_simple_spinner_dropdown_item 0x7f03001b
 int menu artifact 0x7f0c0000
 int menu main 0x7f0c0001
-int menu time_line 0x7f0c0002
+int menu threshold 0x7f0c0002
+int menu time_line 0x7f0c0003
 int string abc_action_bar_home_description 0x7f0a0001
 int string abc_action_bar_up_description 0x7f0a0002
 int string abc_action_menu_overflow_description 0x7f0a0003
@@ -365,6 +368,7 @@ int string app_name 0x7f0a000d
 int string hello_world 0x7f0a000f
 int string title_activity_artifact 0x7f0a0011
 int string title_activity_prova 0x7f0a0010
+int string title_activity_threshold 0x7f0a0013
 int string title_activity_time_line 0x7f0a0012
 int style AppBaseTheme 0x7f0b0083
 int style AppTheme 0x7f0b0084
