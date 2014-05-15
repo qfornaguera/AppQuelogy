@@ -126,7 +126,7 @@ public class MainActivity extends Activity {
             	Utility.recalculateLines((RelativeLayout)findViewById(R.id.graph));
             	return true;
             case R.id.timeline:
-            	Intent toTimeLineView = new Intent(this, TimeLineActivity.class);
+            	Intent toTimeLineView = new Intent(this, ThresholdActivity.class);
 				this.startActivityForResult(toTimeLineView, 1);
             	return true;
             default:
