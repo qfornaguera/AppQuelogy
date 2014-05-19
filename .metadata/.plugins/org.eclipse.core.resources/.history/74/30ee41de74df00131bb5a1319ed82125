@@ -38,9 +38,9 @@ public class TimeLineActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_time_line);
-		min = -5000;
-		max = 2000;
-		off = 1000;
+		min = getIntent().getIntExtra("min",0);
+		max = getIntent().getIntExtra("max",0);
+		off = getIntent().getIntExtra("off",0);
 		RelativeLayout Rel = (RelativeLayout)findViewById(R.id.timelinebody);
 		
 		createTimeLaps(min,max,off);
@@ -70,12 +70,14 @@ public class TimeLineActivity extends ActionBarActivity {
 	}
 	
 	public void createLap(LinearLayout timeline,String text){
-		LinearLayout Lap = new LinearLayout(this);;
-		HorizontalScrollView hsv = new HorizontalScrollView(this);;
-		TextView textView = new TextView(this);;
+		LinearLayout Lap = new LinearLayout(this);
+		HorizontalScrollView hsv = new HorizontalScrollView(this);
+		TextView textView = new TextView(this);
+		hsv.setBackground(getResources().getDrawable(R.drawable.bordersblack));
+		Lap.setPadding(20, 10, 20, 0);
 		hsv.addView(Lap);
 		timeline.addView(hsv);
-		Lap.getLayoutParams().height = 300;
+		Lap.getLayoutParams().height = 400;
 		Lap.getLayoutParams().width = LayoutParams.MATCH_PARENT;
 		Lap.setId(idCounter);
 		textView.setTextColor(Color.BLACK);
@@ -88,7 +90,7 @@ public class TimeLineActivity extends ActionBarActivity {
 		int AfterOrBeforeC1,AfterOrBeforeC2;
 		LinearLayout timeline = (LinearLayout)findViewById(R.id.timeline);
 
-		createLap(timeline,"Unseted\n Age \nArtifacts");
+		createLap(timeline,"Unset\n Age \nArtifacts");
 		
 		createLap(timeline,"Older");
 		
@@ -116,7 +118,7 @@ public class TimeLineActivity extends ActionBarActivity {
 				text = "From " + Math.abs(i+1) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2];
 				i+=1;
 			}else{
-				text = "From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2];
+				text = "From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset-1) + " " + BAChrist[AfterOrBeforeC2];
 			}
 			
 			createLap(timeline,text);
@@ -124,6 +126,7 @@ public class TimeLineActivity extends ActionBarActivity {
 		}
 		
 		createLap(timeline,"Younger");
+		
 	}
 	
 	public void initArtifactsToTimeLaps(RelativeLayout Rel){
@@ -140,6 +143,14 @@ public class TimeLineActivity extends ActionBarActivity {
 		
 		for(int j=0;j<nodeList.size();j++){//then we iterate and create the lines between artifacts
 			Artifact node = nodeList.get(j);
+			
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			params.setMargins(20,100,0,0);
+			node.setLayoutParams(params);
+			node.setEnabled(false);
+			if("".compareTo((String)node.getText())!=0)
+				node.matchWithText();
+			
 			Rel.removeView(node);
 			if(node.getAge() == 0){
 				l = (LinearLayout)findViewById(40000);
@@ -148,13 +159,20 @@ public class TimeLineActivity extends ActionBarActivity {
 				l = (LinearLayout)findViewById(40001);
 				l.addView(node);
 			}else if(node.getAge()>max){
-				l = (LinearLayout)findViewById(idCounter);
+				l = (LinearLayout)findViewById(idCounter-1);
 				l.addView(node);
 			}else{
-				int assignedTimeLap = (int) (((node.getAge()+Math.abs(min))/off) + 40001);
-				l = (LinearLayout)findViewById(assignedTimeLap);
+				int assignedTimeLap = findThreshold(node.getAge());//(int) Math.round(((node.getAge()+Math.abs(min))/off) + 40001);
+				l = (LinearLayout)findViewById(assignedTimeLap+40001);
 				l.addView(node);
 			}
 		}
+	}
+	
+	public int findThreshold(float age){
+		int index = 0;
+		index = (int) (((age+Math.abs(min))/off));
+		index +=1;
+		return index;
 	}
 }

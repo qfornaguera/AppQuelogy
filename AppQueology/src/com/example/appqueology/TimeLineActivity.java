@@ -118,7 +118,7 @@ public class TimeLineActivity extends ActionBarActivity {
 				text = "From " + Math.abs(i+1) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2];
 				i+=1;
 			}else{
-				text = "From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset) + " " + BAChrist[AfterOrBeforeC2];
+				text = "From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i+offset-1) + " " + BAChrist[AfterOrBeforeC2];
 			}
 			
 			createLap(timeline,text);
@@ -162,10 +162,17 @@ public class TimeLineActivity extends ActionBarActivity {
 				l = (LinearLayout)findViewById(idCounter-1);
 				l.addView(node);
 			}else{
-				int assignedTimeLap = (int) Math.round(((node.getAge()+Math.abs(min))/off) + 40001);
-				l = (LinearLayout)findViewById(assignedTimeLap);
+				int assignedTimeLap = findThreshold(node.getAge());
+				l = (LinearLayout)findViewById(assignedTimeLap+40001);
 				l.addView(node);
 			}
 		}
+	}
+	
+	public int findThreshold(float age){
+		int index = 0;
+		index = (int) (((age+Math.abs(min))/off));
+		index +=1;
+		return index;
 	}
 }
