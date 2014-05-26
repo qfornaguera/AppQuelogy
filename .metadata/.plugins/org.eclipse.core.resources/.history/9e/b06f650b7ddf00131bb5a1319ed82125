@@ -69,15 +69,6 @@ public class TimeLineActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	
-	/**
-	 * createLap method
-	 * 
-	 * Creates a time Lap in the Layout formed by a horizontal scroll view and a linear layout  with a text view set with the param text
-	 * 
-	 * @param timeline
-	 * @param text
-	 */
 	public void createLap(LinearLayout timeline,String text){
 		LinearLayout Lap = new LinearLayout(this);
 		HorizontalScrollView hsv = new HorizontalScrollView(this);
@@ -94,17 +85,7 @@ public class TimeLineActivity extends ActionBarActivity {
 		Lap.addView(textView);
 		idCounter++;
 	}
-	
-	/**
-	 * 
-	 * createTimeLaps method
-	 *
-	 * Create Time Laps on the layout according the minimum age, the maximum age and the offset
-	 * 
-	 * @param minAge
-	 * @param maxAge
-	 * @param offset
-	 */
+
 	public void createTimeLaps(long minAge,long maxAge,long offset){
 		int AfterOrBeforeC1,AfterOrBeforeC2;
 		LinearLayout timeline = (LinearLayout)findViewById(R.id.timeline);
@@ -148,14 +129,6 @@ public class TimeLineActivity extends ActionBarActivity {
 		
 	}
 	
-	
-	/**
-	 * initArtifactsToTimeLaps method
-	 * 
-	 * Deploy the artifacts of the graph to the time laps acording to it's age.
-	 * 
-	 * @param Rel
-	 */
 	public void initArtifactsToTimeLaps(RelativeLayout Rel){
 		ArrayList<Artifact> nodeList = new ArrayList<Artifact>();
 		LinearLayout l;
@@ -175,12 +148,8 @@ public class TimeLineActivity extends ActionBarActivity {
 			params.setMargins(20,100,0,0);
 			node.setLayoutParams(params);
 			node.setEnabled(false);
-			if("".compareTo((String)node.getText())!=0){
+			if("".compareTo((String)node.getText())!=0)
 				node.matchWithText();
-			}else{
-				node.getLayoutParams().width = 100;
-				node.getLayoutParams().height = 100;
-			}
 			
 			Rel.removeView(node);
 			if(node.getAge() == 0){
@@ -200,15 +169,6 @@ public class TimeLineActivity extends ActionBarActivity {
 		}
 	}
 	
-	
-	/**
-	 * findThreshold method
-	 * 
-	 * Calculates the id of the time lap where an age belong
-	 * 
-	 * @param age
-	 * @return
-	 */
 	public int findThreshold(float age){
 		int index = 0;
 		index = (int) (((age+Math.abs(min))/off));

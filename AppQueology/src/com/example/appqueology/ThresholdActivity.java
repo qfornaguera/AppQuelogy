@@ -20,6 +20,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.os.Build;
 
+/**
+ * This activity receive the threshold and the offset parameters and send it to the TimeLapActivity
+ * 
+ * @author Joaquim Fornaguera
+ *
+ */
 public class ThresholdActivity extends Activity {
 
 	@Override
@@ -51,7 +57,14 @@ public class ThresholdActivity extends Activity {
 				return false;
 				
 			}
-
+			
+			
+			/**
+			 * checkParameters method
+			 * 
+			 * Checks if the parameters are correct for the next step. Reports the error when incorrect
+			 * @return
+			 */
 			private boolean checkParameters() {
 				// TODO Auto-generated method stub
 				

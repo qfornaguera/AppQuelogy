@@ -175,12 +175,8 @@ public class TimeLineActivity extends ActionBarActivity {
 			params.setMargins(20,100,0,0);
 			node.setLayoutParams(params);
 			node.setEnabled(false);
-			if("".compareTo((String)node.getText())!=0){
+			if("".compareTo((String)node.getText())!=0)
 				node.matchWithText();
-			}else{
-				node.getLayoutParams().width = 100;
-				node.getLayoutParams().height = 100;
-			}
 			
 			Rel.removeView(node);
 			if(node.getAge() == 0){
