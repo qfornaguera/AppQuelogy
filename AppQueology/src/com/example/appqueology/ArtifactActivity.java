@@ -49,18 +49,32 @@ public class ArtifactActivity extends ActionBarActivity {
 		t.setText(text);
 		text = getIntent().getStringExtra("father");
 		TextView tv = (TextView)findViewById(R.id.textView3);
-		tv.setText(text);
+		if(text.compareTo("") == 0)
+			tv.setText("Unknown");
+		else
+			tv.setText(text);
 		text = "";
 		tv = (TextView)findViewById(R.id.textView5);
 		ArrayList <String> below = getIntent().getStringArrayListExtra("sons");
 		for(int i = 0;i<below.size();i++){
-			text = text + " | " + below.get(i);
+			if(below.get(i).compareTo("") == 0)
+				text = text + " | " + "Unknown";
+			else
+				text = text + " | " + below.get(i);
 		}
 		
 		if(below.size() == 0)
 			tv.setText("Nothing");
 		else
 			tv.setText(text);
+		
+		tv = (TextView)findViewById(R.id.textView8);
+		text = getIntent().getStringExtra("type");
+		tv.setText(text);
+		
+		t = (EditText)findViewById(R.id.editText3);
+		text = getIntent().getStringExtra("information");
+		t.setText(text);
 		
 		long age = getIntent().getLongExtra("age",0);
 		
@@ -99,6 +113,8 @@ public class ArtifactActivity extends ActionBarActivity {
 					}else{
 						resultIntent.putExtra("age", Long.parseLong((String) t.getText().toString()));
 					}
+					t = (EditText)findViewById(R.id.editText3);
+					resultIntent.putExtra("information", (String) t.getText().toString());
 					setResult(Activity.RESULT_OK, resultIntent);
 					finish();
 				}

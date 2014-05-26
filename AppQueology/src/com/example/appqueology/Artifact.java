@@ -48,7 +48,7 @@ public class Artifact extends TextView{
 		this.setTextColor(Color.BLACK);
 		this.setPadding(10,10,10,10);
 		this.setGravity(Gravity.CENTER);
-		
+		this.information = "";
 	}
 	
 	/**

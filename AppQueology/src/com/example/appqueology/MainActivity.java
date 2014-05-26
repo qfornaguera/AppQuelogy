@@ -232,6 +232,7 @@ public class MainActivity extends Activity {
         			if(data.getStringExtra("option").compareTo("save") == 0){
         				artifact.setText(data.getStringExtra("text"));
         				artifact.setAge(data.getLongExtra("age",0));
+        				artifact.setInformation(data.getStringExtra("information"));
         				if("".compareTo((String) artifact.getText()) != 0){
         					artifact.matchWithText();
     					}
