@@ -17,10 +17,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.os.Build;
 
@@ -37,6 +39,7 @@ public class ArtifactActivity extends ActionBarActivity {
 	int id;
 	String text;
 	Intent resultIntent = new Intent();
+	String [] position = {"Normal","Adosat","Cobreix"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +118,9 @@ public class ArtifactActivity extends ActionBarActivity {
 					}
 					t = (EditText)findViewById(R.id.editText3);
 					resultIntent.putExtra("information", (String) t.getText().toString());
+					Spinner spinner = (Spinner)findViewById(R.id.spinner1);
+					resultIntent.putExtra("position", (String)spinner.getSelectedItem());
+					
 					setResult(Activity.RESULT_OK, resultIntent);
 					finish();
 				}
@@ -137,6 +143,13 @@ public class ArtifactActivity extends ActionBarActivity {
 			}
 		});
 		
+		Spinner spinner = (Spinner)findViewById(R.id.spinner1);
+		
+		ArrayAdapter<String> adapter_position = new ArrayAdapter<String>(this,R.layout.spinner_item, position);
+		adapter_position.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter_position);
+		
+		spinner.setSelection(getIndex(getIntent().getStringExtra("position")));
 		
 	}
 
@@ -157,6 +170,15 @@ public class ArtifactActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public int getIndex(String pos){
+		for(int i=0;i<position.length;i++){
+			if(pos.compareTo(position[i])==0){
+				return i;
+			}
+		}
+		return 0;
 	}
 
 }

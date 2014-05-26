@@ -97,6 +97,7 @@ public class OnDragArtifact implements OnDragListener{
 						toArtifactActivity.putExtra("age",touchedArtifact.getAge());
 						toArtifactActivity.putExtra("type",touchedArtifact.getType());
 						toArtifactActivity.putExtra("information",touchedArtifact.getInformation());
+						toArtifactActivity.putExtra("position",touchedArtifact.getPosition());
 						if(touchedArtifact.getFather() == null)
 							toArtifactActivity.putExtra("father", "Nothing");
 						else

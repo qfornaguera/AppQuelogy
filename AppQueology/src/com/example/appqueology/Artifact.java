@@ -32,7 +32,7 @@ public class Artifact extends TextView{
 	ArrayList <Artifact> sons = null;
 	/**father is the node's father node (is null when node is root of a tree */
 	Artifact father = null;
-	String type,information;
+	String type,information,position;
 	float width,heigth;
 	long age;
 	
@@ -49,6 +49,25 @@ public class Artifact extends TextView{
 		this.setPadding(10,10,10,10);
 		this.setGravity(Gravity.CENTER);
 		this.information = "";
+		this.position = "Normal";
+	}
+	
+	/**
+	 * getPosition
+	 * 
+	 * returns the relative position of an artifact
+	 */
+	public String getPosition(){
+		return this.position;
+	}
+	
+	/**
+	 * setPosition
+	 * 
+	 * sets the relative position of an artifact
+	 */
+	public void setPosition(String position){
+		this.position = position;
 	}
 	
 	/**

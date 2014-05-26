@@ -82,6 +82,7 @@ public class XmlReadWriter {
         			newNode.setType(node.getElementsByTagName("type").item(0).getTextContent());
         			newNode.setBackgroundResource(Utility.getDrawableType(newNode));
         			newNode.setInformation(node.getElementsByTagName("information").item(0).getTextContent());
+        			newNode.setPosition(node.getElementsByTagName("position").item(0).getTextContent());
         			newNode.setAge(Long.parseLong(node.getElementsByTagName("age").item(0).getTextContent()));
         			if("".compareTo((String) newNode.getText()) != 0){
         				newNode.matchWithText();
@@ -173,6 +174,9 @@ public class XmlReadWriter {
 						
 						Element information = addAttribute("information", artifact.getInformation()+"", document);
 						node.appendChild(information);
+						
+						Element position = addAttribute("position", artifact.getPosition()+"", document);
+						node.appendChild(position);
 
 					}
 				}

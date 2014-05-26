@@ -233,6 +233,7 @@ public class MainActivity extends Activity {
         				artifact.setText(data.getStringExtra("text"));
         				artifact.setAge(data.getLongExtra("age",0));
         				artifact.setInformation(data.getStringExtra("information"));
+        				artifact.setPosition(data.getStringExtra("position"));
         				if("".compareTo((String) artifact.getText()) != 0){
         					artifact.matchWithText();
     					}

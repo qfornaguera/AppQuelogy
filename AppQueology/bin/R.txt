@@ -264,7 +264,7 @@ int id disableHome 0x7f050008
 int id dropdown 0x7f05000f
 int id editText1 0x7f05003f
 int id editText2 0x7f050044
-int id editText3 0x7f05004d
+int id editText3 0x7f05004c
 int id edit_query 0x7f050030
 int id end 0x7f050013
 int id expand_activities_button 0x7f050026
@@ -306,7 +306,7 @@ int id showCustom 0x7f050007
 int id showHome 0x7f050004
 int id showTitle 0x7f050006
 int id slidingDrawer 0x7f050052
-int id spinner1 0x7f05004c
+int id spinner1 0x7f05004d
 int id split_action_bar 0x7f05001e
 int id submit_area 0x7f050039
 int id tabMode 0x7f050002
@@ -355,7 +355,8 @@ int layout activity_artifact 0x7f030017
 int layout activity_main 0x7f030018
 int layout activity_threshold 0x7f030019
 int layout activity_time_line 0x7f03001a
-int layout support_simple_spinner_dropdown_item 0x7f03001b
+int layout spinner_item 0x7f03001b
+int layout support_simple_spinner_dropdown_item 0x7f03001c
 int menu artifact 0x7f0c0000
 int menu main 0x7f0c0001
 int menu threshold 0x7f0c0002
