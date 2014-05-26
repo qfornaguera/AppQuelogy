@@ -69,7 +69,8 @@ public class OnDragArtifact implements OnDragListener{
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					if(Global.exited){//Check if it has been dropped on the board(aca exited from the slading drawer)
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
-						square.setBackgroundResource(R.drawable.anfora);
+						square.setBackgroundResource(Utility.getDrawableType(touchedArtifact));
+						square.setType(touchedArtifact.getType());
 				        RelativeLayout Rel = (RelativeLayout)v;
 				        Rel.addView(square,100,100);
 				        square.setPrevWidth(100);
@@ -81,10 +82,7 @@ public class OnDragArtifact implements OnDragListener{
 				        Global.ID++;
 				        square.seekFather(Rel);
 				        Utility.recalculateLines(Rel);
-				        touchedArtifact.setBackgroundResource(R.drawable.anfora);
 				        Global.exited = false;
-					}else{//else 
-						touchedArtifact.setBackgroundResource(R.drawable.anfora);
 					}
 
 					View slideDrawer = (View)owner.getParent();//ensure the SlideDrawer overlaps all the views
@@ -92,12 +90,13 @@ public class OnDragArtifact implements OnDragListener{
 					
 				}else{//else means we want to move or long click the artifact
 					RelativeLayout Rel = (RelativeLayout)v;
-					touchedArtifact.setBackgroundResource(R.drawable.anfora);
 					if(System.currentTimeMillis()-startTime > 1000 && Math.abs(startX-event.getX()) < 300 && Math.abs(startY-event.getY()) < 300){//onlongClick artifacts event
 						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
 						toArtifactActivity.putExtra("id",touchedArtifact.getId());
 						toArtifactActivity.putExtra("text",touchedArtifact.getText());
 						toArtifactActivity.putExtra("age",touchedArtifact.getAge());
+						toArtifactActivity.putExtra("type",touchedArtifact.getType());
+						toArtifactActivity.putExtra("information",touchedArtifact.getInformation());
 						if(touchedArtifact.getFather() == null)
 							toArtifactActivity.putExtra("father", "Nothing");
 						else

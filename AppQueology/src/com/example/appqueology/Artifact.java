@@ -32,6 +32,7 @@ public class Artifact extends TextView{
 	ArrayList <Artifact> sons = null;
 	/**father is the node's father node (is null when node is root of a tree */
 	Artifact father = null;
+	String type,information;
 	float width,heigth;
 	long age;
 	
@@ -49,6 +50,44 @@ public class Artifact extends TextView{
 		this.setGravity(Gravity.CENTER);
 		
 	}
+	
+	/**
+	 * getInformation
+	 * 
+	 * returns the description of an artifact
+	 */
+	public String getInformation(){
+		return this.information;
+	}
+	
+	/**
+	 * setInformation
+	 * 
+	 * sets the information of an artifact
+	 */
+	public void setInformation(String information){
+		this.information = information;
+	}
+	
+	/**
+	 * setType
+	 * 
+	 * sets the type of an artifact
+	 */
+	public void setType(String type){
+		this.type = type;
+	}
+	
+	
+	/**
+	 * getType
+	 * 
+	 * returns the Type of an artifact
+	 */
+	public String getType(){
+		return this.type;
+	}
+	
 	
 	/**
 	 * setAge

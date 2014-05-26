@@ -80,9 +80,75 @@ public class MainActivity extends Activity {
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
         square.setY(50);
+        square.setText("Artefacte");
+        square.setType("Artefacte");
         square.setBackgroundResource(R.drawable.anfora);
         LinearLayout slideContent = (LinearLayout)findViewById(R.id.content);
-        slideContent.addView(square, 50, 50);
+        slideContent.addView(square, 150, 150);
+        
+        square = new Artifact(getApplicationContext());
+        square.setBackgroundColor(Color.BLACK);
+        square.setX(50);
+        square.setY(100);
+        square.setText("Estrat");
+        square.setType("Estrat");
+        square.setBackgroundResource(R.drawable.estrat);
+        slideContent.addView(square, 150, 150);
+        
+        square = new Artifact(getApplicationContext());
+        square.setBackgroundColor(Color.BLACK);
+        square.setX(50);
+        square.setY(150);
+        square.setText("Mur");
+        square.setType("Mur");
+        square.setBackgroundResource(R.drawable.mur);
+        slideContent.addView(square, 150, 150);
+        
+        square = new Artifact(getApplicationContext());
+        square.setBackgroundColor(Color.BLACK);
+        square.setX(50);
+        square.setY(200);
+        square.setText("Negativa");
+        square.setType("Negativa");
+        square.setBackgroundResource(R.drawable.negativa);
+        slideContent.addView(square, 150, 150);
+        
+        square = new Artifact(getApplicationContext());
+        square.setBackgroundColor(Color.BLACK);
+        square.setX(50);
+        square.setY(250);
+        square.setText("Interfase");
+        square.setType("Interfase");
+        square.setBackgroundResource(R.drawable.interfase);
+        slideContent.addView(square, 150, 150);
+        
+        /*slideContent.setOnTouchListener(new OnTouchListener() {
+        	float Ystart;
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				
+				switch(event.getAction()){
+					case MotionEvent.ACTION_DOWN:
+						Ystart = event.getY();
+					break;
+					
+					case  MotionEvent.ACTION_MOVE:
+						float distY = Math.abs(event.getY()-Ystart);
+						
+						if(Ystart > event.getY()){
+							v.setY(v.getY()-distY);
+							
+						}else if(Ystart < event.getY()){
+							v.setY(v.getY()+distY);
+						}
+						Ystart = event.getY();
+						
+					break;
+					
+				}
+				return true;
+			}
+		});*/
 
     }
     

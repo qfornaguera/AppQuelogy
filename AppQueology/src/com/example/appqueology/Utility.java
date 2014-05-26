@@ -96,7 +96,6 @@ public class Utility {
 			if(Rel.getChildAt(i).getTag() != null){
 				if(Rel.getChildAt(i).getTag().toString().compareTo("node") == 0){//then we get all the artifact views of the board
 					nodeList.add((Artifact)Rel.getChildAt(i));
-					//nodeList.get(nodeList.size()-1).seekFather(Rel);
 				}
 			}
 			
@@ -114,6 +113,33 @@ public class Utility {
 					slideDrawer.bringToFront();
 				}
 		}
+		
+	}
+	
+	public static int getDrawableType(Artifact artifact){
+		String type = artifact.getType();
+		
+		if(type.compareTo("Artefacte") == 0){
+			return R.drawable.anfora;
+		}
+		
+		if(type.compareTo("Mur") == 0){
+			return R.drawable.mur;
+		}
+		
+		if(type.compareTo("Interfase") == 0){
+			return R.drawable.interfase;
+		}
+		
+		if(type.compareTo("Negativa") == 0){
+			return R.drawable.negativa;
+		}
+		
+		if(type.compareTo("Estrat") == 0){
+			return R.drawable.estrat;
+		}
+		
+		return 0;
 		
 	}
 

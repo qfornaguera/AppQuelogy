@@ -77,9 +77,11 @@ public class XmlReadWriter {
         			newNode.setId(Integer.parseInt(node.getElementsByTagName("id").item(0).getTextContent()));
         			newNode.setPrevWidth(100);
         			newNode.setPrevHeight(100);
-        			newNode.setBackgroundResource(R.drawable.anfora);
         			newNode.setTag("node");
         			newNode.setText(node.getElementsByTagName("label").item(0).getTextContent());
+        			newNode.setType(node.getElementsByTagName("type").item(0).getTextContent());
+        			newNode.setBackgroundResource(Utility.getDrawableType(newNode));
+        			newNode.setInformation(node.getElementsByTagName("information").item(0).getTextContent());
         			newNode.setAge(Long.parseLong(node.getElementsByTagName("age").item(0).getTextContent()));
         			if("".compareTo((String) newNode.getText()) != 0){
         				newNode.matchWithText();
@@ -165,6 +167,12 @@ public class XmlReadWriter {
 						
 						Element age = addAttribute("age", artifact.getAge()+"", document);
 						node.appendChild(age);
+						
+						Element type = addAttribute("type", artifact.getType()+"", document);
+						node.appendChild(type);
+						
+						Element information = addAttribute("information", artifact.getInformation()+"", document);
+						node.appendChild(information);
 
 					}
 				}
