@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.View.OnDragListener;
 import android.webkit.WebView;
 import android.webkit.WebView.FindListener;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -49,7 +50,7 @@ public class OnDragArtifact implements OnDragListener{
 	public boolean onDrag(View v, DragEvent event) {
 		Artifact touchedArtifact = (Artifact) event.getLocalState();
 		RelativeLayout Main = (RelativeLayout)v.getParent();
-		ViewGroup sladingDrawer = (ViewGroup)Main.findViewById(R.id.slidingDrawer);
+		View sladingDrawer = Main.findViewById(R.id.content);
 		View owner = (View)touchedArtifact.getParent();
 		switch (event.getAction()) {
 			case DragEvent.ACTION_DRAG_STARTED://when the artifact launches its drag action
@@ -115,7 +116,7 @@ public class OnDragArtifact implements OnDragListener{
 						if(touchedArtifact.seekFather(Rel)){//if the father found is compatible 
 							Utility.recalculateLines(Rel);
 							touchedArtifact.bringToFront();
-							View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
+							View slideDrawer = Main.findViewById(R.id.content);//ensure the SlideDrawer overlaps all the views
 							slideDrawer.bringToFront();
 						}else{
 							AlertDialog.Builder alertDialog = new AlertDialog.Builder(touchedArtifact.getContext());

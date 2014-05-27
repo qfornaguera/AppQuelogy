@@ -109,7 +109,7 @@ public class Utility {
 					Rel.addView(line);
 					node.bringToFront();
 					node.getFather().bringToFront();
-					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.slidingDrawer);//ensure the SlideDrawer overlaps all the views
+					View slideDrawer = ((View) Rel.getParent()).findViewById(R.id.content);//ensure the SlideDrawer overlaps all the views
 					slideDrawer.bringToFront();
 				}
 		}
