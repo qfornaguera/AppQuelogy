@@ -92,7 +92,6 @@ public class MainActivity extends Activity {
         square.setY(100);
         square.setText("Estrat");
         square.setType("Estrat");
-        square.setTextSize(20);
         square.setBackgroundResource(R.drawable.estrat);
         slideContent.addView(square, 150, 150);
         
@@ -102,7 +101,6 @@ public class MainActivity extends Activity {
         square.setY(150);
         square.setText("Mur");
         square.setType("Mur");
-        square.setTextSize(20);
         square.setBackgroundResource(R.drawable.mur);
         slideContent.addView(square, 150, 150);
         
@@ -121,6 +119,7 @@ public class MainActivity extends Activity {
         square.setY(250);
         square.setText("Interfase");
         square.setType("Interfase");
+        square.setTextSize(10);
         square.setBackgroundResource(R.drawable.interfase);
         slideContent.addView(square, 150, 150);
 
