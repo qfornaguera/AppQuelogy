@@ -15,7 +15,7 @@
 		    android:layout_height="594dp"
 		    android:background="#ffffff"
 		    tools:ignore="MergeRootFrame" >
-
+		
 		    <TextView
 		        android:id="@+id/textView1"
 		        android:layout_width="wrap_content"
@@ -26,7 +26,9 @@
 		        android:layout_marginTop="24dp"
 		        android:text="Name: "
 		        android:textColor="#000000" />
-
+		
+		    
+			
 		    <TextView
 		        android:id="@+id/textView2"
 		        android:layout_width="wrap_content"
@@ -37,7 +39,7 @@
 		        android:text="Found Below: "
 		        android:textAppearance="?android:attr/textAppearanceSmall"
 		        android:textColor="#000000" />
-
+		    
 		    <HorizontalScrollView
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
@@ -45,8 +47,14 @@
 		        android:layout_alignBottom="@+id/textView2"
 		        android:layout_alignRight="@+id/editText1"
 		        android:layout_toRightOf="@+id/textView2" >
-		    </HorizontalScrollView>
 
+			    <TextView
+			        android:id="@+id/textView3"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:ems="10"
+			        android:textColor="#000000" />
+			</HorizontalScrollView>
 		    <TextView
 		        android:id="@+id/textView4"
 		        android:layout_width="wrap_content"
@@ -57,7 +65,6 @@
 		        android:text="Found Above: "
 		        android:textAppearance="?android:attr/textAppearanceSmall"
 		        android:textColor="#000000" />
-
 		    <TextView
 		        android:id="@+id/textView6"
 		        android:layout_width="wrap_content"
@@ -67,7 +74,7 @@
 		        android:layout_marginTop="30dp"
 		        android:text="Age: "
 		        android:textColor="#000000" />
-
+		
 		    <EditText
 		        android:id="@+id/editText2"
 		        android:layout_width="wrap_content"
@@ -127,6 +134,7 @@
 		        android:paddingLeft="10dp"
 		        android:textColor="#000000"
 		        android:textSize="10sp" >
+
 		    </EditText>
 
 		    <EditText
@@ -147,9 +155,9 @@
 		        android:id="@+id/spinner1"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_alignTop="@+id/textView10"
 		        android:layout_marginLeft="1dp"
 		        android:layout_marginTop="-9dp"
+		        android:layout_alignTop="@+id/textView10"
 		        android:layout_toRightOf="@+id/textView10" />
 
 		    <RadioGroup
@@ -177,7 +185,6 @@
 		    </RadioGroup>
 
 		    <HorizontalScrollView
-		        android:id="@+id/horizontalScrollView1"
 		        android:layout_width="match_parent"
 		        android:layout_height="match_parent"
 		        android:layout_above="@+id/radioGroup1"
@@ -200,19 +207,8 @@
 		        android:layout_alignTop="@+id/textView7"
 		        android:layout_toRightOf="@+id/textView1"
 		        android:textColor="#000000" />
-
-		    <TextView
-		        android:id="@+id/textView3"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_above="@+id/textView4"
-		        android:layout_alignLeft="@+id/horizontalScrollView1"
-		        android:layout_alignParentRight="true"
-		        android:ems="10"
-		        android:textColor="#000000" />
-
+		    
 		</RelativeLayout>
-
 	</ScrollView>
 
     <Button
