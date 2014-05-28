@@ -46,11 +46,6 @@ public class Line extends View{
 	}
 	
 	@Override
-	public boolean dispatchTouchEvent(MotionEvent event) {
-		return false;
-	}
-	
-	@Override
     public void onDraw(Canvas canvas) {
             canvas.drawLine(p1.x,p1.y,p2.x,p2.y,paint);
     }

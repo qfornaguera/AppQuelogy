@@ -45,10 +45,10 @@ public class Line extends View{
 		});
 	}
 	
-	@Override
+	/*@Override
 	public boolean dispatchTouchEvent(MotionEvent event) {
 		return false;
-	}
+	}*/
 	
 	@Override
     public void onDraw(Canvas canvas) {
