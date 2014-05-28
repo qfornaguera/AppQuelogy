@@ -274,7 +274,7 @@ public class MainActivity extends Activity {
 						if(slader.getVisibility() == View.VISIBLE){
 							slader.setVisibility(View.INVISIBLE);
 							handler.setX(0);
-							handler.setText(">");
+							handler.setText("<");
 						}else if(slader.getVisibility() == View.INVISIBLE){
 							slader.setVisibility(View.VISIBLE);
 							handler.setX(290);

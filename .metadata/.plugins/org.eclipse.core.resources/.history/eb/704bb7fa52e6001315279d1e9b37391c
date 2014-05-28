@@ -228,9 +228,7 @@ public class MainActivity extends Activity {
          RelativeLayout Main = (RelativeLayout)findViewById(R.id.activity_main);
          Button lockUnlock = (Button)findViewById(R.id.button1);
          Button handler = (Button)findViewById(R.id.handler);
-         RelativeLayout sladingContent = (RelativeLayout)findViewById(R.id.content);
-         RelativeLayout slader = (RelativeLayout)findViewById(R.id.slader);
-         
+         RelativeLayout sladingDrawer = (RelativeLayout)findViewById(R.id.content);
          
          Main.getLayoutParams().height = 10000;
          Main.getLayoutParams().width = 10000;
@@ -246,8 +244,7 @@ public class MainActivity extends Activity {
          lockUnlock.setTag("UNLOCKED");
          lockUnlock.setBackgroundResource(R.drawable.unlock);
          
-         handler.setX(0);
-         slader.setVisibility(View.INVISIBLE);
+         handler.setX(300);
          
          startSlider();
          
@@ -257,7 +254,7 @@ public class MainActivity extends Activity {
          Rel.setOnDragListener(new OnDragArtifact());
          
          Main.setOnTouchListener(new OnTouchZoomandMove(Rel));
-         sladingContent.setOnDragListener(new OnDragSladingDrawer());
+         sladingDrawer.setOnDragListener(new OnDragSladingDrawer());
          
          handler.setOnTouchListener(new OnTouchListener() {
 			
@@ -265,7 +262,6 @@ public class MainActivity extends Activity {
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				RelativeLayout slader = (RelativeLayout) findViewById(R.id.slader);
-				Button handler = (Button)v;
 				switch(event.getAction()){
 					case MotionEvent.ACTION_DOWN:
 					break;
@@ -273,12 +269,8 @@ public class MainActivity extends Activity {
 					case MotionEvent.ACTION_UP:
 						if(slader.getVisibility() == View.VISIBLE){
 							slader.setVisibility(View.INVISIBLE);
-							handler.setX(0);
-							handler.setText(">");
 						}else if(slader.getVisibility() == View.INVISIBLE){
 							slader.setVisibility(View.VISIBLE);
-							handler.setX(290);
-							handler.setText("<");
 						}
 							
 					break;
