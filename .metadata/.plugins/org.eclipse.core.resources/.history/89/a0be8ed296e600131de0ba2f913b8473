@@ -49,8 +49,6 @@ public class Line extends View{
 	public boolean dispatchTouchEvent(MotionEvent event) {
 		int x,x1,x2,y,y1,y2;
 		int minX,maxX,minY,maxY;
-		float Xmid,Ymid;
-		double dist;
 		x = (int) event.getX();
 		y = (int) event.getY();
 		x1 = (int) p1.x;
@@ -58,29 +56,20 @@ public class Line extends View{
 		x2 = (int) p2.x;
 		y2 = (int) p2.y;
 		
-		Xmid = (p1.x + p2.x)/2;
-		Ymid = (p1.y + p2.y)/2;
-		
-		dist = Math.sqrt(Math.pow(Xmid-event.getX(),2)+Math.pow(Ymid-event.getY(),2));
-		
 		minX = Math.min(x1, x2);
 		maxX = Math.max(x1, x2);
 		minY = Math.min(y1, y2);
 		maxY = Math.max(y1, y2);
 		
 		try{
-			if(event.getAction() == MotionEvent.ACTION_DOWN){
-				if((x-x1)/(x1-x2) == (y-y1)/(y1-y2)){
-					if(x > minX && x < maxX && y > minY && y < maxY && dist <= 50){
-						Log.v("True","True");
-						return true;
-					}else{
-						return false;
-					}
-					
+			Log.v("x1-x2 "+(x1-x2),"y1-y2 "+(y1-y2));
+			if((x-x1)/(x1-x2) == (y-y1)/(y1-y2)){
+				if(x > minX && x < maxX && y > minY && y < maxY){
+					return true;
 				}else{
 					return false;
 				}
+				
 			}else{
 				return false;
 			}

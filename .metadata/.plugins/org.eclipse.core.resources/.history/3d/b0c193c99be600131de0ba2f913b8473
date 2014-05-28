@@ -61,7 +61,7 @@ public class Line extends View{
 		Xmid = (p1.x + p2.x)/2;
 		Ymid = (p1.y + p2.y)/2;
 		
-		dist = Math.sqrt(Math.pow(Xmid-event.getX(),2)+Math.pow(Ymid-event.getY(),2));
+		dist = Math.sqrt(Math.pow(p1.x-p2.x,2)+Math.pow(p1.y-p2.y,2));
 		
 		minX = Math.min(x1, x2);
 		maxX = Math.max(x1, x2);
@@ -72,7 +72,6 @@ public class Line extends View{
 			if(event.getAction() == MotionEvent.ACTION_DOWN){
 				if((x-x1)/(x1-x2) == (y-y1)/(y1-y2)){
 					if(x > minX && x < maxX && y > minY && y < maxY && dist <= 50){
-						Log.v("True","True");
 						return true;
 					}else{
 						return false;

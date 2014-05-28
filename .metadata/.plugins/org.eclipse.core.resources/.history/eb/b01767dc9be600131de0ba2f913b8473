@@ -72,7 +72,6 @@ public class Line extends View{
 			if(event.getAction() == MotionEvent.ACTION_DOWN){
 				if((x-x1)/(x1-x2) == (y-y1)/(y1-y2)){
 					if(x > minX && x < maxX && y > minY && y < maxY && dist <= 50){
-						Log.v("True","True");
 						return true;
 					}else{
 						return false;
