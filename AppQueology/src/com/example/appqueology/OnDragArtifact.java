@@ -99,10 +99,13 @@ public class OnDragArtifact implements OnDragListener{
 						toArtifactActivity.putExtra("type",touchedArtifact.getType());
 						toArtifactActivity.putExtra("information",touchedArtifact.getInformation());
 						toArtifactActivity.putExtra("position",touchedArtifact.getPosition());
-						if(touchedArtifact.getFather() == null)
-							toArtifactActivity.putExtra("father", "Nothing");
-						else
-							toArtifactActivity.putExtra("father", touchedArtifact.getFather().getText());
+						
+						ArrayList <String> fathersText = new ArrayList<String>();
+						for(int i=0;i<touchedArtifact.getFathers().size();i++){
+							fathersText.add((String) touchedArtifact.getFathers().get(i).getText());
+						}
+						toArtifactActivity.putStringArrayListExtra("father", fathersText);
+
 						ArrayList <String> sonsText = new ArrayList<String>();
 						for(int i=0;i<touchedArtifact.getSons().size();i++){
 							sonsText.add((String) touchedArtifact.getSons().get(i).getText());

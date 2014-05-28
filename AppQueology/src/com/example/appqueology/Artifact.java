@@ -30,8 +30,8 @@ import android.widget.TextView;
 public class Artifact extends TextView{
 	/**sons field is a list with the sons of this node */
 	ArrayList <Artifact> sons = null;
-	/**father is the node's father node (is null when node is root of a tree */
-	Artifact father = null;
+	/**fathers is the node's father node (is null when node is root of a tree */
+	ArrayList <Artifact>fathers = null;
 	String type,information,position;
 	float width,heigth;
 	long age;
@@ -43,6 +43,7 @@ public class Artifact extends TextView{
 	public Artifact(Context context) {
 		super(context);
 		sons = new ArrayList<Artifact>();
+		fathers = new ArrayList<Artifact>();
 		Global.touchedArtifact = this;
 		this.setOnTouchListener(new OnTouchArtifact());
 		this.setTextColor(Color.BLACK);
@@ -172,14 +173,37 @@ public class Artifact extends TextView{
 	}
 	
 	/**
-	 * setFather
+	 * getFather
+	 * 
+	 * returns the artifact that is father of this artifact
+	 * 
+	 * @return
+	 */
+	public ArrayList<Artifact> getFathers(){
+		return fathers;
+	}
+	
+	/**
+	 * addFather
 	 * 
 	 * sets the father of a node
 	 * 
 	 * @param father
 	 */
-	public void setFather(Artifact father){
-		this.father = father;
+	public void addFather(Artifact father){
+		this.fathers.add(father);
+	}
+	
+	public void removeAllFathers(){
+		fathers = new ArrayList<Artifact>();
+	}
+	
+	public void removeFather(int index){
+		sons.remove(index);
+	}
+	
+	public void removeFather(Artifact son){
+		fathers.remove(son);
 	}
 	
 	/**
@@ -201,17 +225,6 @@ public class Artifact extends TextView{
 	 */
 	public void removeAllSons(){
 		sons = new ArrayList<Artifact>();
-	}
-	
-	/**
-	 * getFather
-	 * 
-	 * returns the artifact that is father of this artifact
-	 * 
-	 * @return
-	 */
-	public Artifact getFather(){
-		return father;
 	}
 	
 	/**
@@ -275,17 +288,25 @@ public class Artifact extends TextView{
 			if(!McFlyYouHadOneJob(father)){
 				return false;
 			}
-			if(this.father != null)//and if the artifact has a current father
-				this.father.removeSon(this);//report the father to remove this artifact from his son list
+			if(this.getFathers().size() != 0)//and if the artifact has a current father
+				for(int i=0;i<fathers.size();i++){
+					fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
+				}
+				
 			
 			if(!father.getSons().contains(this))//if the father does not contain already this artifact in his sons list
 				father.addSon(this);
 		}else{
-			if(this.father != null)//and if the artifact has a current father
-				this.father.removeSon(this);//report the father to remove this artifact from his son list
+			if(this.getFathers().size() != 0){//and if the artifact has a current father
+				for(int i=0;i<fathers.size();i++){
+					fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
+				}
+			}
 		}
-
-		this.father = father;
+		
+		if(father != null)
+			if(!this.getFathers().contains(father))
+				this.addFather(father);
 		return true;
 		
 	}
@@ -302,12 +323,16 @@ public class Artifact extends TextView{
 	public void kill(RelativeLayout Rel){
 		ArrayList <Artifact> aux = (ArrayList<Artifact>) sons.clone();
 		for(int i = 0;i<aux.size();i++){
+			//if(aux.get(i).getFathers().size() == 0)
 			aux.get(i).seekFather(Rel);
 		}
 		
-		if(this.father != null)//and if the artifact has a current father
-			this.father.removeSon(this);//report the father to remove this artifact from his son list
 		
+		if(this.getFathers().size() != 0){//and if the artifact has a current father
+			for(int i=0;i<fathers.size();i++){
+				fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
+			}
+		}
 		Utility.recalculateLines(Rel);
 		removeAllSons();
 	}
@@ -341,15 +366,35 @@ public class Artifact extends TextView{
 	public boolean McFlyYouHadOneJob(Artifact maybeFather){
 		if(this.getSons().size() == 0)
 			return true;
-		Artifact next = maybeFather.getFather();
-		while(next != null){
-			if(this == next){
+		
+		for(int i=0;i<this.getFathers().size();i++){
+			Artifact next = this.getFathers().get(i);
+			if(foundMyselfAsFather(next,this)){
 				return false;
 			}
-			next = next.getFather();
 		}
+
 		
 		return true;
+	}
+	
+	
+	
+	boolean foundMyselfAsFather(Artifact artifact,Artifact Myself){
+		if(artifact.getFathers().size() == 0){
+			return false;
+		}
+		
+		for(int i=0;i<this.getFathers().size();i++){
+			Artifact next = this.getFathers().get(i);
+			if(next == Myself){
+				return true;
+			}
+			else if(foundMyselfAsFather(next,Myself)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

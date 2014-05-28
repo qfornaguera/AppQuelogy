@@ -34,7 +34,12 @@ public class Line extends View{
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				Log.v("touched","touched");
+				
+				switch(event.getAction()){
+					case MotionEvent.ACTION_DOWN:
+						Log.v("touched","touched "+event.getX()+" "+event.getY());
+					break;
+				}
 				return false;
 			}
 		});

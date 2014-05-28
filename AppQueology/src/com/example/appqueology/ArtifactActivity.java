@@ -50,12 +50,21 @@ public class ArtifactActivity extends ActionBarActivity {
 		text = getIntent().getStringExtra("text");
 		EditText t = (EditText)findViewById(R.id.editText1);
 		t.setText(text);
-		text = getIntent().getStringExtra("father");
 		TextView tv = (TextView)findViewById(R.id.textView3);
-		if(text.compareTo("") == 0)
-			tv.setText("Unknown");
+		text = "";
+		ArrayList <String> above = getIntent().getStringArrayListExtra("father");
+		for(int i = 0;i<above.size();i++){
+			if(above.get(i).compareTo("") == 0)
+				text = text + " | " + "Unknown";
+			else
+				text = text + " | " + above.get(i);
+		}
+		
+		if(above.size() == 0)
+			tv.setText("Nothing");
 		else
 			tv.setText(text);
+		
 		text = "";
 		tv = (TextView)findViewById(R.id.textView5);
 		ArrayList <String> below = getIntent().getStringArrayListExtra("sons");
