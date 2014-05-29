@@ -104,7 +104,6 @@ public class Line extends View{
     		
     		paint.setColor(Color.GREEN);
     		canvas.drawCircle(Xmid, Ymid, 5, paint);
-    		paint.setColor(Color.BLACK);
             
     }
 
