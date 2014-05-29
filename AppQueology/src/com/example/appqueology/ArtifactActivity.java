@@ -6,6 +6,8 @@ import java.util.zip.Inflater;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,12 +42,16 @@ public class ArtifactActivity extends ActionBarActivity {
 	String text;
 	Intent resultIntent = new Intent();
 	String [] position = {"Normal","Adosat","Cobreix"};
+	ArrayList <String> sonsAges,fathersAges;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_artifact);
 		RadioButton rb;
+		sonsAges = getIntent().getStringArrayListExtra("sonsAges");
+		fathersAges = getIntent().getStringArrayListExtra("fathersAges");
 		id = getIntent().getIntExtra("id", -1);
 		text = getIntent().getStringExtra("text");
 		EditText t = (EditText)findViewById(R.id.editText1);
@@ -112,8 +118,7 @@ public class ArtifactActivity extends ActionBarActivity {
 				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
 				RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
 				
-				
-				if(event.getAction() == MotionEvent.ACTION_UP){
+				if(event.getAction() == MotionEvent.ACTION_UP && checkAges()){
 					EditText t = (EditText)findViewById(R.id.editText1);
 					text = t.getText().toString();
 					resultIntent.putExtra("text", text);
@@ -132,6 +137,48 @@ public class ArtifactActivity extends ActionBarActivity {
 					
 					setResult(Activity.RESULT_OK, resultIntent);
 					finish();
+				}
+				return true;
+			}
+			
+			public boolean checkAges(){
+				long age;
+				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
+				RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+				EditText et = (EditText) findViewById(R.id.editText2);
+				if(rb == rg.findViewById(R.id.radio0)){
+					age = -1*Long.parseLong((String) et.getText().toString());
+				}else{
+					age = Long.parseLong((String) et.getText().toString());
+				}
+				for(int i = 0;i<sonsAges.size();i++){
+					if(age < Long.parseLong(sonsAges.get(i))){
+						AlertDialog.Builder alertDialog = new AlertDialog.Builder(et.getContext());
+						alertDialog.setTitle("Invalid Age");
+						alertDialog.setMessage("Nodes can't be older than his sons(Son's Age: "+sonsAges.get(i)+" Node's Age: "+age+")");
+						alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+							// here you can add functions
+							}
+						});
+						alertDialog.show();
+						return false;
+					}
+				}
+				
+				for(int i = 0;i<fathersAges.size();i++){
+					if(age > Long.parseLong(fathersAges.get(i))){
+						AlertDialog.Builder alertDialog = new AlertDialog.Builder(et.getContext());
+						alertDialog.setTitle("Invalid Age");
+						alertDialog.setMessage("Nodes can't be younger than his fathers(Father's Age: "+fathersAges.get(i)+" Node's Age: "+age+")");
+						alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+							// here you can add functions
+							}
+						});
+						alertDialog.show();
+						return false;
+					}
 				}
 				return true;
 			}
@@ -161,6 +208,7 @@ public class ArtifactActivity extends ActionBarActivity {
 		spinner.setSelection(getIndex(getIntent().getStringExtra("position")));
 		
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -185,6 +185,7 @@ public class MainActivity extends Activity {
         				Rel.removeView(artifact);
         				artifact.kill(Rel);
         			}
+        			artifact.setEnabled(true);
         			Utility.recalculateLines(Rel);
         		} 
         	break;

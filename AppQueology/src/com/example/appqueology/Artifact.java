@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -69,7 +71,7 @@ public class Artifact extends TextView{
 			case DragEvent.ACTION_DROP:
 				View parent = (View)touchedArtifact.getParent();
 				if(this != touchedArtifact && parent.getId() == R.id.graph){
-					if(!touchedArtifact.getFathers().contains(this)){
+					if(!touchedArtifact.getFathers().contains(this) && checkAges(touchedArtifact)){
 						this.addSon(touchedArtifact);
 						touchedArtifact.addFather(this);
 						Line line = new Line(parent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
@@ -89,6 +91,23 @@ public class Artifact extends TextView{
 		}
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public boolean checkAges(Artifact maybeSon){
+		if(maybeSon.getAge()<=this.getAge()){
+			return true;
+		}else{
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(maybeSon.getContext());
+			alertDialog.setTitle("Illegal Move");
+			alertDialog.setMessage("You cannot Link a node to another node older than him");	
+			alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				// here you can add functions
+				}
+			});
+			alertDialog.show();
+			return false;
+		}
 	}
 	
 	/**
@@ -425,7 +444,6 @@ public class Artifact extends TextView{
 		
 		for(int i=0;i<artifact.getFathers().size();i++){
 			Artifact next = artifact.getFathers().get(i);
-			Log.v(""+next.getId(),""+Myself.getId());
 			if(next == Myself){
 				return true;
 			}else if(foundMyselfAsFather(next,Myself)){

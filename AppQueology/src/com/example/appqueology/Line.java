@@ -98,6 +98,13 @@ public class Line extends View{
 	@Override
     public void onDraw(Canvas canvas) {
             canvas.drawLine(p1.x,p1.y,p2.x,p2.y,paint);
+            float Xmid,Ymid;
+            Xmid = (p1.x + p2.x)/2;
+    		Ymid = (p1.y + p2.y)/2;
+    		
+    		paint.setColor(Color.GREEN);
+    		canvas.drawCircle(Xmid, Ymid, 5, paint);
+            
     }
 
 }

@@ -97,16 +97,23 @@ public class OnDragArtifact implements OnDragListener{
 						toArtifactActivity.putExtra("information",touchedArtifact.getInformation());
 						toArtifactActivity.putExtra("position",touchedArtifact.getPosition());
 						ArrayList <String> fathersText = new ArrayList<String>();
+						ArrayList <String> fathersAges = new ArrayList <String>();
 						for(int i=0;i<touchedArtifact.getFathers().size();i++){
 							fathersText.add((String) touchedArtifact.getFathers().get(i).getText());
+							fathersAges.add(""+touchedArtifact.getFathers().get(i).getAge());
 						}
 						toArtifactActivity.putStringArrayListExtra("father", fathersText);
-
+						toArtifactActivity.putStringArrayListExtra("fathersAges", fathersAges);
+						
+						
 						ArrayList <String> sonsText = new ArrayList<String>();
+						ArrayList <String> sonsAges = new ArrayList<String>();
 						for(int i=0;i<touchedArtifact.getSons().size();i++){
 							sonsText.add((String) touchedArtifact.getSons().get(i).getText());
+							sonsAges.add(""+touchedArtifact.getSons().get(i).getAge());
 						}
 						toArtifactActivity.putStringArrayListExtra("sons", sonsText);
+						toArtifactActivity.putStringArrayListExtra("sonsAges", sonsAges);
 						Activity a = (Activity)Rel.getContext();
 						a.startActivityForResult(toArtifactActivity, 0);
 					}else{//else we want to move the artifact
