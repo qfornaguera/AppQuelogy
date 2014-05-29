@@ -88,7 +88,9 @@ public class OnDragArtifact implements OnDragListener{
 					
 				}else{//else means we want to move or long click the artifact
 					RelativeLayout Rel = (RelativeLayout)v;
+					Log.v("it's me","mario");
 					if(System.currentTimeMillis()-Global.longClickTimer > 1000 && Math.abs(startX-event.getX()) < 300 && Math.abs(startY-event.getY()) < 300){//onlongClick artifacts event
+						Log.v("it's me","luigi");
 						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
 						toArtifactActivity.putExtra("id",touchedArtifact.getId());
 						toArtifactActivity.putExtra("text",touchedArtifact.getText());

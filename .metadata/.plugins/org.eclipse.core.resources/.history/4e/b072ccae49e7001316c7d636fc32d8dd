@@ -37,6 +37,17 @@ public class OnTouchZoomandMove implements OnTouchListener {
 				Ystart = event.getY();
 			break;
 			
+			case MotionEvent.ACTION_POINTER_DOWN://when two pointers are down(initialize the pinch zoom in or out)
+				/*lastX = event.getX(0);
+				lastY = event.getY(0);
+				lastX2 = event.getX(1);
+				lastY2 = event.getY(1);
+				Rel.setPivotX(-1*Rel.getX()*Rel.getScaleX()+(event.getX(0)+event.getX(1))/2);
+		        Rel.setPivotY(-1*Rel.getY()*Rel.getScaleY()+(event.getY(0)+event.getY(1))/2);
+		        Log.v("pivotX "+Rel.getPivotX(),"pivotY "+Rel.getPivotY());
+				lastDist = (float)Math.sqrt(Math.pow(lastX-lastX2, 2)+Math.pow(lastY-lastY2, 2));*/
+			break;
+			
 			case  MotionEvent.ACTION_MOVE://when the pointer(or pointers) move
 				
 				if(event.getPointerCount() == 1){//if just one pointer down move the board
