@@ -8,6 +8,7 @@ import android.graphics.PointF;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 /**
  * 
@@ -22,44 +23,35 @@ public class Line extends View{
 	Paint paint = new Paint();
 	PointF p1 = new PointF();
 	PointF p2 = new PointF();
+	Artifact father,son;
+	long startTime;
 	
-	public Line(Context context,PointF p1,PointF p2) {
+	public Line(Context context,PointF p1,PointF p2,Artifact father,Artifact son) {
 		super(context);
 		this.p1=p1;
 		this.p2=p2;
+		this.father = father;
+		this.son = son;
 		paint.setColor(Color.BLACK);
 		paint.setStrokeWidth(5);
-		this.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				
-				switch(event.getAction()){
-					case MotionEvent.ACTION_DOWN:
-						Log.v("touched","touched "+event.getX()+" "+event.getY());
-					break;
-				}
-				return false;
-			}
-		});
 	}
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent event) {
-		int x,x1,x2,y,y1,y2;
-		int minX,maxX,minY,maxY;
+		float x,x1,x2,y,y1,y2;
+		float minX,maxX,minY,maxY;
 		float Xmid,Ymid;
 		double dist;
-		x = (int) event.getX();
-		y = (int) event.getY();
-		x1 = (int) p1.x;
-		y1 = (int) p1.y;
-		x2 = (int) p2.x;
-		y2 = (int) p2.y;
+		RelativeLayout Rel= (RelativeLayout)this.getParent();
+		x = event.getX();
+		y = event.getY();
+		x1 = p1.x;
+		y1 = p1.y;
+		x2 = p2.x;
+		y2 = p2.y;
 		
-		Xmid = (p1.x + p2.x)/2;
-		Ymid = (p1.y + p2.y)/2;
+		Xmid = (x1 + x2)/2;
+		Ymid = (y1 + y2)/2;
 		
 		dist = Math.sqrt(Math.pow(Xmid-event.getX(),2)+Math.pow(Ymid-event.getY(),2));
 		
@@ -68,25 +60,44 @@ public class Line extends View{
 		minY = Math.min(y1, y2);
 		maxY = Math.max(y1, y2);
 		
-		try{
-			if(event.getAction() == MotionEvent.ACTION_DOWN){
-				if((x-x1)/(x1-x2) == (y-y1)/(y1-y2)){
-					if(x > minX && x < maxX && y > minY && y < maxY && dist <= 50){
-						Log.v("True","True");
-						return true;
-					}else{
-						return false;
-					}
-					
-				}else{
-					return false;
+		switch(event.getAction()){
+			case MotionEvent.ACTION_DOWN:
+				if(x > minX && x < maxX && y > minY && y < maxY && dist <= 50){
+					startTime = System.currentTimeMillis();
+					paint.setColor(Color.RED);
+					this.invalidate();
+					return true;
 				}
-			}else{
-				return false;
-			}
-		}catch(Exception e){
-			return false;
+			break;
+			
+			case MotionEvent.ACTION_UP:
+				if(System.currentTimeMillis()-startTime > 1000 && dist <= 50){
+					this.son.removeFather(this.father);
+					this.father.removeSon(this.son);
+					Rel.removeView(this);
+				}else{
+					paint.setColor(Color.BLACK);
+					this.invalidate();
+				}
+				startTime = 0;
+				return true;
+			
+			case MotionEvent.ACTION_MOVE:
+				if(dist > 50){
+					startTime = 0;
+					paint.setColor(Color.BLACK);
+					this.invalidate();
+				}
+					
+			break;
+			
+			default:
+				startTime = 0;
+				paint.setColor(Color.BLACK);
+				this.invalidate();
 		}
+		return false;
+
 	}
 	
 	@Override

@@ -106,7 +106,7 @@ public class Utility {
 				Artifact node = nodeList.get(j);
 				if(node.getFathers().size() != 0){
 					for(int u=0;u<node.getFathers().size();u++){
-						Line line = new Line(Rel.getContext(),new PointF(node.getCenterX(),node.getCenterY()),new PointF(node.getFathers().get(u).getCenterX(),node.getFathers().get(u).getCenterY()));
+						Line line = new Line(Rel.getContext(),new PointF(node.getCenterX(),node.getCenterY()),new PointF(node.getFathers().get(u).getCenterX(),node.getFathers().get(u).getCenterY()),node.getFathers().get(u),node);
 						line.setTag("line");
 						Rel.addView(line);
 						node.bringToFront();
