@@ -59,10 +59,8 @@ public class Utility {
 	public static void setNodePosition(Artifact node,int treeNum,int level){		
 		ArrayList<Artifact> sons = node.getSons();
 		for(int i=0;i<sons.size();i++){//we iterate the sons
-			if(!visited.contains(sons.get(i))){//if the node is not visited we set him a position
-				visited.add(sons.get(i));
+			if(!visited.contains(sons.get(i)))
 				setNodePosition(sons.get(i),treeNum,level+1);//and call to set the positions of the sons
-			}
 			if((sons.size()-1)/2 == i){//if it was the middle son
 				if(sons.size()%2 != 0){//if the number of sons is odd put the artifact at the same offset of his middle son
 					if(sons.size() == 1){
@@ -73,6 +71,8 @@ public class Utility {
 				}else{//else increment the offset and set the x position of the artifact
 					posX = posX + 200;
 					node.setX(posX);
+					/*if(!visited.contains(node))
+						visited.add(node);*/
 				}
 			}
 		}

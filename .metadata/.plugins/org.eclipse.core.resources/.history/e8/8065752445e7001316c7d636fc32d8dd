@@ -63,6 +63,7 @@ public class Utility {
 				visited.add(sons.get(i));
 				setNodePosition(sons.get(i),treeNum,level+1);//and call to set the positions of the sons
 			}
+				
 			if((sons.size()-1)/2 == i){//if it was the middle son
 				if(sons.size()%2 != 0){//if the number of sons is odd put the artifact at the same offset of his middle son
 					if(sons.size() == 1){
@@ -72,7 +73,7 @@ public class Utility {
 					}
 				}else{//else increment the offset and set the x position of the artifact
 					posX = posX + 200;
-					node.setX(posX);
+					node.setX(posX);/
 				}
 			}
 		}
