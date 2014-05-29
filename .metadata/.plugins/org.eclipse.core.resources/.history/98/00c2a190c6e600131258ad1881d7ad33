@@ -288,12 +288,11 @@ public class Artifact extends TextView{
 			if(!McFlyYouHadOneJob(father)){
 				return false;
 			}
-			if(this.getFathers().size() != 0){//and if the artifact has  current fathers
+			if(this.getFathers().size() != 0)//and if the artifact has a current father
 				for(int i=0;i<fathers.size();i++){
 					fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
 				}
-				removeAllFathers();
-			}	
+				
 			
 			if(!father.getSons().contains(this))//if the father does not contain already this artifact in his sons list
 				father.addSon(this);
@@ -302,7 +301,6 @@ public class Artifact extends TextView{
 				for(int i=0;i<fathers.size();i++){
 					fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
 				}
-				removeAllFathers();
 			}
 		}
 		
