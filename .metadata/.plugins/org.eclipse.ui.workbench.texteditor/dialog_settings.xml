@@ -13,19 +13,23 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="startTime" key="selection"/>
 		<list key="findhistory">
+			<item value="startTime"/>
+			<item value="setEnabled"/>
 			<item value="&quot;touched&quot;"/>
 			<item value="setFather"/>
 			<item value="addFathers"/>
 			<item value="addFather"/>
 			<item value="size()"/>
 			<item value="IsEmpty"/>
-			<item value="getF"/>
-			<item value="getF "/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
 		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item value="404" key="DIALOG_Y_ORIGIN"/>
+		<item value="729" key="DIALOG_X_ORIGIN"/>
 	</section>
 </section>

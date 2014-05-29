@@ -27,6 +27,7 @@ public class OnTouchArtifact implements OnTouchListener{
 		if(event.getAction()==MotionEvent.ACTION_DOWN){
 			ClipData data = ClipData.newPlainText("", "");
 			DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+			v.setEnabled(false);
 			v.startDrag(data, shadowBuilder, v, 0);
 		}	
 		return true;

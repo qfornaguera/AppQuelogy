@@ -1,0 +1,428 @@
+package com.example.appqueology;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+/**
+ * 
+ * @author Joaquim Fornaguera
+ * 
+ * this class is a custom text view that represents a node of a graph
+ *
+ */
+
+public class Artifact extends TextView{
+	/**sons field is a list with the sons of this node */
+	ArrayList <Artifact> sons = null;
+	/**fathers is the node's father node (is null when node is root of a tree */
+	ArrayList <Artifact>fathers = null;
+	String type,information,position;
+	float width,heigth;
+	long age;
+	
+	/**
+	 * Class constructor sets the artifact with center text align and an empty list of sons
+	 * @param context
+	 **/
+	public Artifact(Context context) {
+		super(context);
+		sons = new ArrayList<Artifact>();
+		fathers = new ArrayList<Artifact>();
+		Global.touchedArtifact = this;
+		this.setOnTouchListener(new OnTouchArtifact());
+		this.setTextColor(Color.BLACK);
+		this.setPadding(10,10,10,10);
+		this.setGravity(Gravity.CENTER);
+		this.information = "";
+		this.position = "Normal";
+		
+		this.setOnDragListener(new OnDragListener() {
+			
+			@Override
+			public boolean onDrag(View v, DragEvent event) {
+				Artifact touchedArtifact = (Artifact) event.getLocalState();
+				Artifact me = (Artifact)v;
+				switch(event.getAction()){
+					case DragEvent.ACTION_DRAG_STARTED:
+						Global.longClickTimer = System.currentTimeMillis();
+						return true;
+					
+					case DragEvent.ACTION_DROP:
+						Log.v("drop","artifact");
+						if(me == touchedArtifact){
+							return false;
+						}else{
+							Log.v("artifact over artifact","artifact droped");
+						}
+
+					break;
+					
+					case DragEvent.ACTION_DRAG_ENDED:
+						touchedArtifact.setEnabled(true);
+						return false;
+				}
+				// TODO Auto-generated method stub
+				return true;
+			}
+		});
+	}
+	
+	/**
+	 * getPosition
+	 * 
+	 * returns the relative position of an artifact
+	 */
+	public String getPosition(){
+		return this.position;
+	}
+	
+	/**
+	 * setPosition
+	 * 
+	 * sets the relative position of an artifact
+	 */
+	public void setPosition(String position){
+		this.position = position;
+	}
+	
+	/**
+	 * getInformation
+	 * 
+	 * returns the description of an artifact
+	 */
+	public String getInformation(){
+		return this.information;
+	}
+	
+	/**
+	 * setInformation
+	 * 
+	 * sets the information of an artifact
+	 */
+	public void setInformation(String information){
+		this.information = information;
+	}
+	
+	/**
+	 * setType
+	 * 
+	 * sets the type of an artifact
+	 */
+	public void setType(String type){
+		this.type = type;
+	}
+	
+	
+	/**
+	 * getType
+	 * 
+	 * returns the Type of an artifact
+	 */
+	public String getType(){
+		return this.type;
+	}
+	
+	
+	/**
+	 * setAge
+	 * 
+	 * sets the age of an artifact
+	 */
+	
+	public void setAge(long age){
+		this.age = age;
+	}
+	
+	/**
+	 * getAge
+	 * 
+	 * returns the age of an artifact
+	 */
+	
+	public long getAge(){
+		return this.age;
+	}
+	
+	/**
+	 * setPrevWidth 
+	 * 
+	 * sets the width of the artifact, this is needed so, the width in layoutParams hasn't been set until activity draw method is launched
+	 * and we need width and height to set correctly the node position
+	 * @param width
+	 */
+	public void setPrevWidth(float width){
+		this.width = width;
+		getLayoutParams().width = (int) width;
+	}
+	
+	/**
+	 * setPrevHeight
+	 * 
+	 * sets the height of an artifact
+	 * @param heigth
+	 */
+	public void setPrevHeight(float heigth){
+		this.heigth = heigth;
+		getLayoutParams().height = (int) heigth;
+	}
+	
+	/**
+	 * getCenterX
+	 * 
+	 * Gets the center x position of an artifact
+	 * @return
+	 */
+	public float getCenterX(){
+		return this.getX() + this.width/2;
+	}
+	
+	/**
+	 * getCenterY
+	 * 
+	 * Gets the center Y position of an artifact
+	 * @return
+	 */
+	public float getCenterY(){
+		return this.getY() + this.heigth/2;
+	}
+	
+	/**
+	 * getFather
+	 * 
+	 * returns the artifact that is father of this artifact
+	 * 
+	 * @return
+	 */
+	public ArrayList<Artifact> getFathers(){
+		return fathers;
+	}
+	
+	/**
+	 * addFather
+	 * 
+	 * sets the father of a node
+	 * 
+	 * @param father
+	 */
+	public void addFather(Artifact father){
+		this.fathers.add(father);
+	}
+	
+	public void removeAllFathers(){
+		fathers = new ArrayList<Artifact>();
+	}
+	
+	public void removeFather(int index){
+		sons.remove(index);
+	}
+	
+	public void removeFather(Artifact son){
+		fathers.remove(son);
+	}
+	
+	/**
+	 * addSon
+	 * 
+	 * adds a son to sons list
+	 * 
+	 * @param son
+	 */
+	public void addSon(Artifact son){
+		sons.add(son);
+	}
+	
+	/**
+	 * removeAllSons
+	 * 
+	 * empties the sons list of an artifact
+	 * 
+	 */
+	public void removeAllSons(){
+		sons = new ArrayList<Artifact>();
+	}
+	
+	/**
+	 * getSons
+	 * 
+	 * returns the list of sons of an artifact
+	 * @return
+	 */
+	public ArrayList<Artifact> getSons(){
+		return sons;
+	}
+	
+	/**
+	 * removeSon
+	 * 
+	 * Removes son by index
+	 * @param index
+	 */
+	public void removeSon(int index){
+		sons.remove(index);
+	}
+	
+	/**
+	 * removeSon
+	 * 
+	 * removes son by object
+	 * 
+	 * @param son
+	 */
+	public void removeSon(Artifact son){
+		sons.remove(son);
+	}
+	
+	
+	/**
+	 * seekFather
+	 * 
+	 * seeks its father by distance checking all the other artifacts on the board (Rel)
+	 * 
+	 * @param Rel is the board where the artifact is seeking his father
+	 */
+	public boolean seekFather(RelativeLayout Rel){
+		Artifact father = null;
+		float minDist = Float.MAX_VALUE;
+		for(int i=0;i<Rel.getChildCount();i++){
+			View maybeFather = Rel.getChildAt(i);
+			if(maybeFather.getTag() != null){
+				if(maybeFather.getTag().toString().compareTo("node") == 0 && this != maybeFather){//if the possible father is a node and it's not itself
+					float dist = (float)Math.sqrt(Math.pow(maybeFather.getX()-this.getX(),2)+Math.pow(maybeFather.getY()-this.getY(),2));
+					if(minDist > dist && maybeFather.getY() < this.getY()){
+						if(Math.abs(maybeFather.getY()-this.getY()) >= 100){
+							minDist = dist;
+							father = (Artifact) maybeFather;
+						}
+					}
+				}
+			}
+		}
+		
+		if(father!=null){//if a father has been found
+			if(!McFlyYouHadOneJob(father)){
+				return false;
+			}
+			if(this.getFathers().size() != 0){//and if the artifact has  current fathers
+				for(int i=0;i<fathers.size();i++){
+					fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
+				}
+				removeAllFathers();
+			}	
+			
+			if(!father.getSons().contains(this))//if the father does not contain already this artifact in his sons list
+				father.addSon(this);
+		}else{
+			if(this.getFathers().size() != 0){//and if the artifact has a current father
+				for(int i=0;i<fathers.size();i++){
+					fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
+				}
+				removeAllFathers();
+			}
+		}
+		
+		if(father != null)
+			if(!this.getFathers().contains(father))
+				this.addFather(father);
+		return true;
+		
+	}
+	
+	/**
+	 * kill
+	 * 
+	 * this method makes the artifact to tell sons to find a new father
+	 * and and tell it's father to remove this artifact from sons list
+	 * then the lines are recalculated
+	 * 
+	 * @param Rel is the board where the artifact is
+	 */
+	public void kill(RelativeLayout Rel){
+		ArrayList <Artifact> aux = (ArrayList<Artifact>) sons.clone();
+		for(int i = 0;i<aux.size();i++){
+			//if(aux.get(i).getFathers().size() == 0)
+			aux.get(i).seekFather(Rel);
+		}
+		
+		
+		if(this.getFathers().size() != 0){//and if the artifact has a current father
+			for(int i=0;i<fathers.size();i++){
+				fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
+			}
+		}
+		Utility.recalculateLines(Rel);
+		removeAllSons();
+	}
+	
+	/**
+	 * matchWithText
+	 * 
+	 * Changes the with and the height of the artifact to match with the inner text
+	 */
+	public void matchWithText(){
+		String text = (String) getText();
+		String[] words = text.split(" ");
+		int maxLength = 0;
+		for(int i=0;i<words.length;i++){
+			maxLength = Math.max(maxLength, words[i].length());
+		}
+		setPrevWidth(maxLength*16+getPaddingLeft()+getPaddingRight());
+		setPrevHeight(words.length*35+getPaddingTop()+getPaddingBottom());
+		requestLayout();
+	}
+	
+	/**
+	 * McFlyYouHadOneJob
+	 * 
+	 * avoids that a node could be father of a node already related with. this is made to avoid a infinite buckle at beautify
+	 * recursion
+	 * 
+	 * @return returns True if node and maybeFather are not related or if is a node without siblings, returns False if yes 
+	 */
+	
+	public boolean McFlyYouHadOneJob(Artifact maybeFather){
+		if(this.getSons().size() == 0)
+			return true;
+		
+		for(int i=0;i<this.getFathers().size();i++){
+			Artifact next = this.getFathers().get(i);
+			if(foundMyselfAsFather(next,this)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	boolean foundMyselfAsFather(Artifact artifact,Artifact Myself){
+		if(artifact.getFathers().size() == 0){
+			return false;
+		}
+		
+		for(int i=0;i<artifact.getFathers().size();i++){
+			Artifact next = artifact.getFathers().get(i);
+			if(next == Myself){
+				return true;
+			}else if(foundMyselfAsFather(next,Myself)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+}

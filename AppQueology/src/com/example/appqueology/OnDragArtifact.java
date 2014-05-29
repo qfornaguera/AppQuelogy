@@ -54,12 +54,10 @@ public class OnDragArtifact implements OnDragListener{
 		View owner = (View)touchedArtifact.getParent();
 		switch (event.getAction()) {
 			case DragEvent.ACTION_DRAG_STARTED://when the artifact launches its drag action
-				startX = touchedArtifact.getX();
-				startY = touchedArtifact.getY();
-				startTime = System.currentTimeMillis();
 				if(v == owner){//if the drag event is started by an artifact on the graph board we disable the slading drawer drag listener so it don't interfere in our actions with the artifact
 					sladingDrawer.setEnabled(false);
 				}
+				//the timer for the long click is set in dispatchDragEvent on ACTION_DRAG_STARTED at Artifact class
 			  break;
 			case DragEvent.ACTION_DRAG_ENTERED:
 			  break;
@@ -67,6 +65,8 @@ public class OnDragArtifact implements OnDragListener{
 			case DragEvent.ACTION_DRAG_EXITED:
 			  break;
 			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
+				startX = touchedArtifact.getX();
+				startY = touchedArtifact.getY();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					if(Global.exited){//Check if it has been dropped on the board(aca exited from the slading drawer)
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
@@ -91,7 +91,9 @@ public class OnDragArtifact implements OnDragListener{
 					
 				}else{//else means we want to move or long click the artifact
 					RelativeLayout Rel = (RelativeLayout)v;
-					if(System.currentTimeMillis()-startTime > 1000 && Math.abs(startX-event.getX()) < 300 && Math.abs(startY-event.getY()) < 300){//onlongClick artifacts event
+					Log.v("it's me","mario");
+					if(System.currentTimeMillis()-Global.longClickTimer > 1000 && Math.abs(startX-event.getX()) < 300 && Math.abs(startY-event.getY()) < 300){//onlongClick artifacts event
+						Log.v("it's me","luigi");
 						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
 						toArtifactActivity.putExtra("id",touchedArtifact.getId());
 						toArtifactActivity.putExtra("text",touchedArtifact.getText());
@@ -99,7 +101,6 @@ public class OnDragArtifact implements OnDragListener{
 						toArtifactActivity.putExtra("type",touchedArtifact.getType());
 						toArtifactActivity.putExtra("information",touchedArtifact.getInformation());
 						toArtifactActivity.putExtra("position",touchedArtifact.getPosition());
-						
 						ArrayList <String> fathersText = new ArrayList<String>();
 						for(int i=0;i<touchedArtifact.getFathers().size();i++){
 							fathersText.add((String) touchedArtifact.getFathers().get(i).getText());
@@ -134,6 +135,7 @@ public class OnDragArtifact implements OnDragListener{
 							touchedArtifact.setX(startX);
 							touchedArtifact.setY(startY);
 						}
+						
 					}
 				}
 	
@@ -142,6 +144,7 @@ public class OnDragArtifact implements OnDragListener{
 				if(v == owner){//once we finished the drag event done in the graph board we enable again the drag listener on slading drawer viewgrouo
 					sladingDrawer.setEnabled(true);
 				}
+				touchedArtifact.setEnabled(true);
 			break;
 				
 			default:

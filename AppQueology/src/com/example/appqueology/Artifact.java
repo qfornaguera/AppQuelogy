@@ -10,12 +10,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,6 +54,41 @@ public class Artifact extends TextView{
 		this.setGravity(Gravity.CENTER);
 		this.information = "";
 		this.position = "Normal";
+		
+	}
+	
+	@Override
+	public boolean dispatchDragEvent(DragEvent event){
+		Artifact touchedArtifact = (Artifact) event.getLocalState();
+		switch(event.getAction()){
+			case DragEvent.ACTION_DRAG_STARTED:
+				
+				Global.longClickTimer = System.currentTimeMillis();
+				return true;
+			
+			case DragEvent.ACTION_DROP:
+				View parent = (View)touchedArtifact.getParent();
+				if(this != touchedArtifact && parent.getId() == R.id.graph){
+					if(!touchedArtifact.getFathers().contains(this)){
+						this.addSon(touchedArtifact);
+						touchedArtifact.addFather(this);
+						Line line = new Line(parent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
+						line.setTag("line");
+						((RelativeLayout) parent).addView(line);
+						touchedArtifact.bringToFront();
+						this.bringToFront();
+					}
+					return true;
+				}
+
+			break;
+			
+			case DragEvent.ACTION_DRAG_ENDED:
+				touchedArtifact.setEnabled(true);
+			break;
+		}
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	/**
