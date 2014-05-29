@@ -304,7 +304,7 @@ public class Artifact extends TextView{
 	 * 
 	 * @param Rel is the board where the artifact is seeking his father
 	 */
-	public int seekFather(RelativeLayout Rel){
+	public boolean seekFather(RelativeLayout Rel){
 		Artifact father = null;
 		float minDist = Float.MAX_VALUE;
 		for(int i=0;i<Rel.getChildCount();i++){
@@ -324,10 +324,7 @@ public class Artifact extends TextView{
 		
 		if(father!=null){//if a father has been found
 			if(!McFlyYouHadOneJob(father)){
-				return 1;
-			}
-			if(this.getAge()>father.getAge()){
-				return 2;
+				return false;
 			}
 			if(this.getFathers().size() != 0){//and if the artifact has  current fathers
 				for(int i=0;i<fathers.size();i++){
@@ -350,7 +347,7 @@ public class Artifact extends TextView{
 		if(father != null)
 			if(!this.getFathers().contains(father))
 				this.addFather(father);
-		return 0;
+		return true;
 		
 	}
 	
@@ -407,14 +404,15 @@ public class Artifact extends TextView{
 	 */
 	
 	public boolean McFlyYouHadOneJob(Artifact maybeFather){
-		if(maybeFather.getFathers().size() == 0){
+		if(this.getSons().size() == 0)
 			return true;
-		}
 		
-		if(foundMyselfAsFather(maybeFather, this)){
-			return false;
+		for(int i=0;i<this.getFathers().size();i++){
+			Artifact next = this.getFathers().get(i);
+			if(foundMyselfAsFather(next,this)){
+				return false;
+			}
 		}
-		
 		return true;
 	}
 	
@@ -425,7 +423,6 @@ public class Artifact extends TextView{
 		
 		for(int i=0;i<artifact.getFathers().size();i++){
 			Artifact next = artifact.getFathers().get(i);
-			Log.v(""+next.getId(),""+Myself.getId());
 			if(next == Myself){
 				return true;
 			}else if(foundMyselfAsFather(next,Myself)){

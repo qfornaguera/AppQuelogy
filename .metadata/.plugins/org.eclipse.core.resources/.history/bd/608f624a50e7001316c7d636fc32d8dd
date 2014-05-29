@@ -121,9 +121,9 @@ public class OnDragArtifact implements OnDragListener{
 							AlertDialog.Builder alertDialog = new AlertDialog.Builder(touchedArtifact.getContext());
 							alertDialog.setTitle("Illegal Move");
 							if(SeekFatherResult == 1)
-								alertDialog.setMessage("You cannot put a node  below another node already related to it at one of his branches");
+								alertDialog.setMessage("You cannot put a node  below an another node already related to it at one of his branches");
 							else if(SeekFatherResult == 2)
-								alertDialog.setMessage("You cannot put a node  below another node older than him");
+								alertDialog.setMessage("You cannot put a node  below an another node already related to it at one of his branches");
 								
 							alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {

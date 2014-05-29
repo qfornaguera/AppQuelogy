@@ -407,14 +407,15 @@ public class Artifact extends TextView{
 	 */
 	
 	public boolean McFlyYouHadOneJob(Artifact maybeFather){
-		if(maybeFather.getFathers().size() == 0){
+		if(this.getSons().size() == 0)
 			return true;
-		}
 		
-		if(foundMyselfAsFather(maybeFather, this)){
-			return false;
+		for(int i=0;i<this.getFathers().size();i++){
+			Artifact next = this.getFathers().get(i);
+			if(foundMyselfAsFather(next,this)){
+				return false;
+			}
 		}
-		
 		return true;
 	}
 	
@@ -425,7 +426,6 @@ public class Artifact extends TextView{
 		
 		for(int i=0;i<artifact.getFathers().size();i++){
 			Artifact next = artifact.getFathers().get(i);
-			Log.v(""+next.getId(),""+Myself.getId());
 			if(next == Myself){
 				return true;
 			}else if(foundMyselfAsFather(next,Myself)){

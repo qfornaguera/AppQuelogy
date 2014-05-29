@@ -407,7 +407,9 @@ public class Artifact extends TextView{
 	 */
 	
 	public boolean McFlyYouHadOneJob(Artifact maybeFather){
-		if(maybeFather.getFathers().size() == 0){
+		Log.v("Hola","Hola");
+		if(maybeFather.getFathers().size() == 0 || maybeFather.getSons().size() == 0){
+			Log.v("Hola1","Hola1");
 			return true;
 		}
 		

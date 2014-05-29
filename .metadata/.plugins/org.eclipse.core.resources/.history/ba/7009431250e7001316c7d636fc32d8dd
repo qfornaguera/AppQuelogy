@@ -110,21 +110,15 @@ public class OnDragArtifact implements OnDragListener{
 						Activity a = (Activity)Rel.getContext();
 						a.startActivityForResult(toArtifactActivity, 0);
 					}else{//else we want to move the artifact
-						int SeekFatherResult;
 						touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
 						touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
-						SeekFatherResult = touchedArtifact.seekFather(Rel);
-						if(SeekFatherResult == 0){//if the father found is compatible 
+						if(touchedArtifact.seekFather(Rel) == 0){//if the father found is compatible 
 							Utility.recalculateLines(Rel);
 							touchedArtifact.bringToFront();
 						}else{
 							AlertDialog.Builder alertDialog = new AlertDialog.Builder(touchedArtifact.getContext());
 							alertDialog.setTitle("Illegal Move");
-							if(SeekFatherResult == 1)
-								alertDialog.setMessage("You cannot put a node  below another node already related to it at one of his branches");
-							else if(SeekFatherResult == 2)
-								alertDialog.setMessage("You cannot put a node  below another node older than him");
-								
+							alertDialog.setMessage("You cannot put a node  below an another node already related to it at one of his branches");
 							alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 								// here you can add functions
