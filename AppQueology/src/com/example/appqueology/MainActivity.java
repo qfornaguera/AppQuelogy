@@ -302,13 +302,20 @@ public class MainActivity extends Activity {
  					b.setBackgroundResource(R.drawable.lock);
  					b.setTag("LOCKED");
  					Rel.setEnabled(false);
+ 					Utility.beautifygraph(Rel);
  					Utility.setPositionByAge(Rel);
  				}else{
  					b.setBackgroundResource(R.drawable.unlock);
  					b.setTag("UNLOCKED");
  					Rel.setEnabled(true);
  					Utility.beautifygraph(Rel);
+ 					for(int u=0;u<Rel.getChildCount();u++){
+ 						if(Rel.getChildAt(u).getTag() != null){
+ 								Rel.getChildAt(u).setEnabled(true);
+ 						}
+ 					}
  					Utility.recalculateLines(Rel);
+ 					
  				}
  				
  			}

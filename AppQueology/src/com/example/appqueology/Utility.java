@@ -187,6 +187,12 @@ public class Utility {
 		
 		recalculateLines(Rel);
 		
+
+		for(int u=0;u<Rel.getChildCount();u++){
+			if(Rel.getChildAt(u).getTag() != null){
+					Rel.getChildAt(u).setEnabled(false);
+			}
+		}
 		
 	}
 

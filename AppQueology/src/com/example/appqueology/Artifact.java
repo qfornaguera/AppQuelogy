@@ -57,6 +57,7 @@ public class Artifact extends TextView{
 		this.information = "";
 		this.position = "Normal";
 		
+		
 	}
 	
 	@Override

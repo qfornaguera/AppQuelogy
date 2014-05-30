@@ -38,6 +38,10 @@ public class Line extends View{
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent event) {
+		
+		if(!this.isEnabled())
+			return false;
+		
 		float x,x1,x2,y,y1,y2;
 		float Xmid,Ymid;
 		double dist;
