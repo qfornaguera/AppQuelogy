@@ -72,13 +72,25 @@ public class Artifact extends TextView{
 				View parent = (View)touchedArtifact.getParent();
 				if(this != touchedArtifact && parent.getId() == R.id.graph){
 					if(!touchedArtifact.getFathers().contains(this) && checkAges(touchedArtifact)){
-						this.addSon(touchedArtifact);
-						touchedArtifact.addFather(this);
-						Line line = new Line(parent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
-						line.setTag("line");
-						((RelativeLayout) parent).addView(line);
-						touchedArtifact.bringToFront();
-						this.bringToFront();
+						if(McFlyYouHadOneJob(this,touchedArtifact)){
+							this.addSon(touchedArtifact);
+							touchedArtifact.addFather(this);
+							Line line = new Line(parent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
+							line.setTag("line");
+							((RelativeLayout) parent).addView(line);
+							touchedArtifact.bringToFront();
+							this.bringToFront();
+						}else{
+							AlertDialog.Builder alertDialog = new AlertDialog.Builder(touchedArtifact.getContext());
+							alertDialog.setTitle("Illegal Move");
+							alertDialog.setMessage("You cannot Link a node to another node already related to it at one of his branches");	
+							alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+								// here you can add functions
+								}
+							});
+							alertDialog.show();
+						}
 					}
 					return true;
 				}
@@ -342,7 +354,7 @@ public class Artifact extends TextView{
 		}
 		
 		if(father!=null){//if a father has been found
-			if(!McFlyYouHadOneJob(father)){
+			if(!McFlyYouHadOneJob(father,this)){
 				return 1;
 			}
 			if(this.getAge()>father.getAge()){
@@ -425,12 +437,12 @@ public class Artifact extends TextView{
 	 * @return returns True if node and maybeFather are not related or if is a node without siblings, returns False if yes 
 	 */
 	
-	public boolean McFlyYouHadOneJob(Artifact maybeFather){
+	public boolean McFlyYouHadOneJob(Artifact maybeFather,Artifact artifact){
 		if(maybeFather.getFathers().size() == 0){
 			return true;
 		}
 		
-		if(foundMyselfAsFather(maybeFather, this)){
+		if(foundMyselfAsFather(maybeFather, artifact)){
 			return false;
 		}
 		

@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PointF;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,35 +57,57 @@ public class Artifact extends TextView{
 		this.information = "";
 		this.position = "Normal";
 		
-		this.setOnDragListener(new OnDragListener() {
-			
-			@Override
-			public boolean onDrag(View v, DragEvent event) {
-				Artifact touchedArtifact = (Artifact) event.getLocalState();
-				Artifact me = (Artifact)v;
-				switch(event.getAction()){
-					case DragEvent.ACTION_DRAG_STARTED:
-						Global.longClickTimer = System.currentTimeMillis();
-						return true;
-					
-					case DragEvent.ACTION_DROP:
-						Log.v("drop","artifact");
-						if(me == touchedArtifact){
-							return false;
-						}else{
-							Log.v("artifact over artifact","artifact droped");
-						}
-
-					break;
-					
-					case DragEvent.ACTION_DRAG_ENDED:
-						touchedArtifact.setEnabled(true);
-						return false;
-				}
-				// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public boolean dispatchDragEvent(DragEvent event){
+		Artifact touchedArtifact = (Artifact) event.getLocalState();
+		switch(event.getAction()){
+			case DragEvent.ACTION_DRAG_STARTED:
+				
+				Global.longClickTimer = System.currentTimeMillis();
 				return true;
-			}
-		});
+			
+			case DragEvent.ACTION_DROP:
+				View parent = (View)touchedArtifact.getParent();
+				if(this != touchedArtifact && parent.getId() == R.id.graph){
+					if(!touchedArtifact.getFathers().contains(this) && checkAges(touchedArtifact)){
+						this.addSon(touchedArtifact);
+						touchedArtifact.addFather(this);
+						Line line = new Line(parent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
+						line.setTag("line");
+						((RelativeLayout) parent).addView(line);
+						touchedArtifact.bringToFront();
+						this.bringToFront();
+					}
+					return true;
+				}
+
+			break;
+			
+			case DragEvent.ACTION_DRAG_ENDED:
+				touchedArtifact.setEnabled(true);
+			break;
+		}
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public boolean checkAges(Artifact maybeSon){
+		if(maybeSon.getAge()<=this.getAge()){
+			return true;
+		}else{
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(maybeSon.getContext());
+			alertDialog.setTitle("Illegal Move");
+			alertDialog.setMessage("You cannot Link a node to another node older than him");	
+			alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				// here you can add functions
+				}
+			});
+			alertDialog.show();
+			return false;
+		}
 	}
 	
 	/**
@@ -297,7 +323,7 @@ public class Artifact extends TextView{
 	 * 
 	 * @param Rel is the board where the artifact is seeking his father
 	 */
-	public boolean seekFather(RelativeLayout Rel){
+	public int seekFather(RelativeLayout Rel){
 		Artifact father = null;
 		float minDist = Float.MAX_VALUE;
 		for(int i=0;i<Rel.getChildCount();i++){
@@ -317,7 +343,10 @@ public class Artifact extends TextView{
 		
 		if(father!=null){//if a father has been found
 			if(!McFlyYouHadOneJob(father)){
-				return false;
+				return 1;
+			}
+			if(this.getAge()>father.getAge()){
+				return 2;
 			}
 			if(this.getFathers().size() != 0){//and if the artifact has  current fathers
 				for(int i=0;i<fathers.size();i++){
@@ -340,7 +369,7 @@ public class Artifact extends TextView{
 		if(father != null)
 			if(!this.getFathers().contains(father))
 				this.addFather(father);
-		return true;
+		return 0;
 		
 	}
 	
@@ -397,15 +426,14 @@ public class Artifact extends TextView{
 	 */
 	
 	public boolean McFlyYouHadOneJob(Artifact maybeFather){
-		if(this.getSons().size() == 0)
+		if(maybeFather.getFathers().size() == 0){
 			return true;
-		
-		for(int i=0;i<this.getFathers().size();i++){
-			Artifact next = this.getFathers().get(i);
-			if(foundMyselfAsFather(next,this)){
-				return false;
-			}
 		}
+		
+		if(foundMyselfAsFather(maybeFather, this)){
+			return false;
+		}
+		
 		return true;
 	}
 	
