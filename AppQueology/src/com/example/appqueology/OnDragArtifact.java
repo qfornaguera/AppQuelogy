@@ -81,7 +81,11 @@ public class OnDragArtifact implements OnDragListener{
 				        square.setTag("node");
 				        square.setId(Global.ID);
 				        Global.ID++;
-				        square.seekFather(Rel);
+				        square.seekFather(Rel,true);
+				        if(square.getFathers().size()!=0){
+				        	Artifact father = (Artifact)square.getFathers().get(0);
+				        	square.setAge(father.getAge());
+				        }
 				        Utility.recalculateLines(Rel);
 				        Global.exited = false;
 					}
@@ -120,7 +124,7 @@ public class OnDragArtifact implements OnDragListener{
 						int SeekFatherResult;
 						touchedArtifact.setX(event.getX()-touchedArtifact.getWidth()/2);
 						touchedArtifact.setY(event.getY()-touchedArtifact.getHeight()/2);
-						SeekFatherResult = touchedArtifact.seekFather(Rel);
+						SeekFatherResult = touchedArtifact.seekFather(Rel,false);
 						if(SeekFatherResult == 0){//if the father found is compatible 
 							Utility.recalculateLines(Rel);
 							touchedArtifact.bringToFront();

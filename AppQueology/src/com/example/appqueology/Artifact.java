@@ -335,7 +335,7 @@ public class Artifact extends TextView{
 	 * 
 	 * @param Rel is the board where the artifact is seeking his father
 	 */
-	public int seekFather(RelativeLayout Rel){
+	public int seekFather(RelativeLayout Rel,boolean justCreated){
 		Artifact father = null;
 		float minDist = Float.MAX_VALUE;
 		for(int i=0;i<Rel.getChildCount();i++){
@@ -357,7 +357,8 @@ public class Artifact extends TextView{
 			if(!McFlyYouHadOneJob(father,this)){
 				return 1;
 			}
-			if(this.getAge()>father.getAge()){
+			
+			if(this.getAge()>father.getAge() && !justCreated){
 				return 2;
 			}
 			if(this.getFathers().size() != 0){//and if the artifact has  current fathers
@@ -398,7 +399,7 @@ public class Artifact extends TextView{
 		ArrayList <Artifact> aux = (ArrayList<Artifact>) sons.clone();
 		for(int i = 0;i<aux.size();i++){
 			//if(aux.get(i).getFathers().size() == 0)
-			aux.get(i).seekFather(Rel);
+			aux.get(i).seekFather(Rel,false);
 		}
 		
 		

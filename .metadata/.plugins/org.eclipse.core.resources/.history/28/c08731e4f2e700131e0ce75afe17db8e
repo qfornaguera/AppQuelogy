@@ -1,51 +1,22 @@
 package com.example.appqueology;
 
-
-
-import java.util.ArrayList;
-
 import android.os.Bundle;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import android.graphics.Path;
 import android.graphics.Point;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.text.Layout;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
-import android.view.DragEvent;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
-import android.view.View.OnKeyListener;
-import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SlidingDrawer;
-import android.widget.ZoomControls;
+
 
 /**
  * @author Joaquim Fornaguera
@@ -56,8 +27,6 @@ import android.widget.ZoomControls;
  * 
  * */
 public class MainActivity extends Activity {
-	ScaleGestureDetector mScaleDetector;
-
 	/**
 	 * OnCreate method
 	 * 
@@ -77,6 +46,7 @@ public class MainActivity extends Activity {
 	 * Starts the SlidingDrawer view and its tools
 	 */
     public void startSlider(){
+    	
     	Artifact square = new Artifact(getApplicationContext());
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
@@ -84,13 +54,13 @@ public class MainActivity extends Activity {
         square.setText("Artefacte");
         square.setType("Artefacte");
         square.setBackgroundResource(R.drawable.anfora);
-        LinearLayout slideContent = (LinearLayout)findViewById(R.id.content);
+        RelativeLayout slideContent = (RelativeLayout)findViewById(R.id.content);
         slideContent.addView(square, 150, 150);
         
         square = new Artifact(getApplicationContext());
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
-        square.setY(100);
+        square.setY(250);
         square.setText("Estrat");
         square.setType("Estrat");
         square.setTextSize(20);
@@ -100,7 +70,7 @@ public class MainActivity extends Activity {
         square = new Artifact(getApplicationContext());
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
-        square.setY(150);
+        square.setY(450);
         square.setText("Mur");
         square.setType("Mur");
         square.setTextSize(20);
@@ -110,7 +80,7 @@ public class MainActivity extends Activity {
         square = new Artifact(getApplicationContext());
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
-        square.setY(200);
+        square.setY(650);
         square.setText("Negativa");
         square.setType("Negativa");
         square.setBackgroundResource(R.drawable.negativa);
@@ -119,12 +89,11 @@ public class MainActivity extends Activity {
         square = new Artifact(getApplicationContext());
         square.setBackgroundColor(Color.BLACK);
         square.setX(50);
-        square.setY(250);
+        square.setY(850);
         square.setText("Interfase");
         square.setType("Interfase");
         square.setBackgroundResource(R.drawable.interfase);
         slideContent.addView(square, 150, 150);
-
     }
     
     
@@ -216,6 +185,7 @@ public class MainActivity extends Activity {
         				Rel.removeView(artifact);
         				artifact.kill(Rel);
         			}
+        			artifact.setEnabled(true);
         			Utility.recalculateLines(Rel);
         		} 
         	break;
@@ -234,6 +204,7 @@ public class MainActivity extends Activity {
     public void configurationsChanged(){
     	Configuration config = getResources().getConfiguration();
     	Button lockUnlock = (Button)findViewById(R.id.button1);
+    	Button handler = (Button)findViewById(R.id.handler);
     	Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -242,6 +213,7 @@ public class MainActivity extends Activity {
     	lockUnlock.bringToFront();
     	lockUnlock.setX(size.x-150);
         lockUnlock.setY(size.y-250);
+        handler.setY((size.y/2)-100);
     }
     
     /**
@@ -256,6 +228,10 @@ public class MainActivity extends Activity {
          RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
          RelativeLayout Main = (RelativeLayout)findViewById(R.id.activity_main);
          Button lockUnlock = (Button)findViewById(R.id.button1);
+         Button handler = (Button)findViewById(R.id.handler);
+         RelativeLayout sladingContent = (RelativeLayout)findViewById(R.id.content);
+         RelativeLayout slader = (RelativeLayout)findViewById(R.id.slader);
+         
          
          Main.getLayoutParams().height = 10000;
          Main.getLayoutParams().width = 10000;
@@ -271,34 +247,68 @@ public class MainActivity extends Activity {
          lockUnlock.setTag("UNLOCKED");
          lockUnlock.setBackgroundResource(R.drawable.unlock);
          
-         configurationsChanged();
+         handler.setX(0);
+         slader.setVisibility(View.INVISIBLE);
          
          startSlider();
-         LinearLayout sladingDrawer = (LinearLayout)findViewById(R.id.content);
+         
+         configurationsChanged();
+         
+         
          Rel.setOnDragListener(new OnDragArtifact());
          
          Main.setOnTouchListener(new OnTouchZoomandMove(Rel));
-         sladingDrawer.getLayoutParams().height = 2000;
-         sladingDrawer.setOnDragListener(new OnDragSladingDrawer());
+         sladingContent.setOnDragListener(new OnDragSladingDrawer());
          
-         lockUnlock.setOnClickListener(new OnClickListener() {
-        	RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+         handler.setOnTouchListener(new OnTouchListener() {
+			
 			@Override
-			public void onClick(View v) {
+			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				Button b = (Button)v;
-				String tag = (String)b.getTag();
-				if(tag.compareTo("UNLOCKED") == 0){
-					b.setBackgroundResource(R.drawable.lock);
-					b.setTag("LOCKED");
-					Rel.setEnabled(false);
-				}else{
-					b.setBackgroundResource(R.drawable.unlock);
-					b.setTag("UNLOCKED");
-					Rel.setEnabled(true);
+				RelativeLayout slader = (RelativeLayout) findViewById(R.id.slader);
+				Button handler = (Button)v;
+				switch(event.getAction()){
+					case MotionEvent.ACTION_DOWN:
+					break;
+					
+					case MotionEvent.ACTION_UP:
+						if(slader.getVisibility() == View.VISIBLE){
+							slader.setVisibility(View.INVISIBLE);
+							handler.setX(0);
+							handler.setText(">");
+						}else if(slader.getVisibility() == View.INVISIBLE){
+							slader.setVisibility(View.VISIBLE);
+							handler.setX(290);
+							handler.setText("<");
+						}
+							
+					break;
+					
+					case MotionEvent.ACTION_MOVE:
+					break;
 				}
-				
+				return false;
 			}
 		});
+         
+        lockUnlock.setOnClickListener(new OnClickListener() {
+         	RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
+ 			@Override
+ 			public void onClick(View v) {
+ 				// TODO Auto-generated method stub
+ 				Button b = (Button)v;
+ 				String tag = (String)b.getTag();
+ 				if(tag.compareTo("UNLOCKED") == 0){
+ 					b.setBackgroundResource(R.drawable.lock);
+ 					b.setTag("LOCKED");
+ 					Rel.setEnabled(false);
+ 				}else{
+ 					b.setBackgroundResource(R.drawable.unlock);
+ 					b.setTag("UNLOCKED");
+ 					Rel.setEnabled(true);
+ 				}
+ 				
+ 			}
+ 		});
     }
 }

@@ -109,7 +109,6 @@ public class ArtifactActivity extends ActionBarActivity {
 			rb = (RadioButton)findViewById(R.id.radio1);
 			rb.setChecked(true);
 		}
-		
 		findViewById(R.id.save).setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -117,7 +116,6 @@ public class ArtifactActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
 				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
 				RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
-				
 				if(event.getAction() == MotionEvent.ACTION_UP && checkAges()){
 					EditText t = (EditText)findViewById(R.id.editText1);
 					text = t.getText().toString();
@@ -125,11 +123,17 @@ public class ArtifactActivity extends ActionBarActivity {
 					resultIntent.putExtra("id", id);
 					resultIntent.putExtra("option", "save");
 					t = (EditText)findViewById(R.id.editText2);
-					if(rb == rg.findViewById(R.id.radio0)){
-						resultIntent.putExtra("age",-1*Long.parseLong((String) t.getText().toString()));
+					Log.v(""+t.getText().toString().compareTo(""),"");
+					if(t.getText().toString().compareTo("") != 0){
+						if(rb == rg.findViewById(R.id.radio0)){
+							resultIntent.putExtra("age",-1*Long.parseLong((String) t.getText().toString()));
+						}else{
+							resultIntent.putExtra("age", Long.parseLong((String) t.getText().toString()));
+						}
 					}else{
-						resultIntent.putExtra("age", Long.parseLong((String) t.getText().toString()));
+						resultIntent.putExtra("age", 0);
 					}
+					
 					t = (EditText)findViewById(R.id.editText3);
 					resultIntent.putExtra("information", (String) t.getText().toString());
 					Spinner spinner = (Spinner)findViewById(R.id.spinner1);
@@ -146,10 +150,14 @@ public class ArtifactActivity extends ActionBarActivity {
 				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
 				RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
 				EditText et = (EditText) findViewById(R.id.editText2);
-				if(rb == rg.findViewById(R.id.radio0)){
-					age = -1*Long.parseLong((String) et.getText().toString());
+				if(et.getText().toString().compareTo("") != 0){
+					if(rb == rg.findViewById(R.id.radio0)){
+						age = -1*Long.parseLong((String) et.getText().toString());
+					}else{
+						age = Long.parseLong((String) et.getText().toString());
+					}
 				}else{
-					age = Long.parseLong((String) et.getText().toString());
+					age = 0;
 				}
 				for(int i = 0;i<sonsAges.size();i++){
 					if(age < Long.parseLong(sonsAges.get(i))){

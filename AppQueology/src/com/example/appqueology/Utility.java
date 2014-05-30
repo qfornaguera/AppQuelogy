@@ -152,5 +152,42 @@ public class Utility {
 		return 0;
 		
 	}
+	
+	public static void setPositionByAge(RelativeLayout Rel){
+		long maxAge = Long.MIN_VALUE,minAge = Long.MAX_VALUE;
+		long threshold,layoutThreshhold;
+		float Ystart = 200;
+		ArrayList<Artifact> nodeList = new ArrayList<Artifact>();
+		for(int i=0;i<Rel.getChildCount();i++){
+			if(Rel.getChildAt(i).getTag() != null){
+				if(Rel.getChildAt(i).getTag().toString().compareTo("node") == 0){//then we get all the artifact views of the board
+					Artifact node = (Artifact)Rel.getChildAt(i);
+					nodeList.add(node);
+					maxAge = Math.max(maxAge, node.getAge());
+					minAge = Math.min(minAge, node.getAge());
+				}
+			}
+			
+		}
+		
+		threshold = maxAge-minAge;
+		layoutThreshhold = 9600;
+		
+		for(int j=0;j<nodeList.size();j++){
+			Artifact node = nodeList.get(j);
+			long age = Math.abs(minAge) + node.getAge();
+			if(node.getAge() == 0){
+				node.setY(Ystart);
+			}else{
+				node.setY(Ystart+(layoutThreshhold-(age*layoutThreshhold/threshold)));
+				Log.v(""+(age*layoutThreshhold/threshold),""+(layoutThreshhold-(age*layoutThreshhold/threshold)));
+			}
+		}
+		
+		
+		recalculateLines(Rel);
+		
+		
+	}
 
 }
