@@ -74,7 +74,7 @@ public class Utility {
 					node.setX(posX);
 				}
 			}
-			if(!visited.contains(sons.get(i))){//when we finish the treatment with this son we add it as visited
+			if(!visited.contains(sons.get(i))){//if the son is not visited we set him a position
 				visited.add(sons.get(i));
 			}
 			
