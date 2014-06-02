@@ -175,7 +175,7 @@ public class Utility {
 		
 		for(int j=0;j<nodeList.size();j++){
 			Artifact node = nodeList.get(j);
-			long age = node.getAge() - minAge;
+			long age = Math.abs(minAge) + node.getAge();
 			if(node.getAge() == 0){
 				node.setY(Ystart);
 			}else{

@@ -194,7 +194,7 @@ public class TimeLineActivity extends ActionBarActivity {
 				l.addView(node);
 			}else{
 				int assignedTimeLap = findThreshold(node.getAge());
-				l = (LinearLayout)findViewById(assignedTimeLap+40002);//40002 is the id of the 'older' level so we add this offset to the assignedTimeLap that goes from 0 to (max - min)/off
+				l = (LinearLayout)findViewById(assignedTimeLap+40001);
 				l.addView(node);
 			}
 		}
@@ -212,6 +212,7 @@ public class TimeLineActivity extends ActionBarActivity {
 	public int findThreshold(float age){
 		int index = 0;
 		index = (int) (((age - min)/off));
+		index +=1;
 		return index;
 	}
 }
