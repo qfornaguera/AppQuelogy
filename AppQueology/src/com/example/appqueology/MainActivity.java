@@ -178,6 +178,7 @@ public class MainActivity extends Activity {
         				artifact.setAge(data.getLongExtra("age",0));
         				artifact.setInformation(data.getStringExtra("information"));
         				artifact.setPosition(data.getStringExtra("position"));
+        				artifact.setBackgroundResource(Utility.getDrawableType(artifact));
         				if("".compareTo((String) artifact.getText()) != 0){
         					artifact.matchWithText();
     					}
@@ -208,7 +209,6 @@ public class MainActivity extends Activity {
     	Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-    	//findViewById(R.id.content).getLayoutParams().height = size.y-100;
     	findViewById(R.id.content).bringToFront();
     	lockUnlock.bringToFront();
     	lockUnlock.setX(size.x-150);

@@ -65,7 +65,6 @@ public class Artifact extends TextView{
 		Artifact touchedArtifact = (Artifact) event.getLocalState();
 		switch(event.getAction()){
 			case DragEvent.ACTION_DRAG_STARTED:
-				
 				Global.longClickTimer = System.currentTimeMillis();
 				return true;
 			

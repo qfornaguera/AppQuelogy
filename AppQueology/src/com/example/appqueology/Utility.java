@@ -130,23 +130,38 @@ public class Utility {
 		String type = artifact.getType();
 		
 		if(type.compareTo("Artefacte") == 0){
-			return R.drawable.anfora;
+			if(artifact.getAge() == 0)
+				return R.drawable.anfora_age0;
+			else
+				return R.drawable.anfora;
 		}
 		
 		if(type.compareTo("Mur") == 0){
-			return R.drawable.mur;
+			if(artifact.getAge() == 0)
+				return R.drawable.mur_age0;
+			else
+				return R.drawable.mur;
 		}
 		
 		if(type.compareTo("Interfase") == 0){
-			return R.drawable.interfase;
+			if(artifact.getAge() == 0)
+				return R.drawable.interfase_age0;
+			else
+				return R.drawable.interfase;
 		}
 		
 		if(type.compareTo("Negativa") == 0){
-			return R.drawable.negativa;
+			if(artifact.getAge() == 0)
+				return R.drawable.negativa_age0;
+			else
+				return R.drawable.negativa;
 		}
 		
 		if(type.compareTo("Estrat") == 0){
-			return R.drawable.estrat;
+			if(artifact.getAge() == 0)
+				return R.drawable.estrat_age0;
+			else
+				return R.drawable.estrat;
 		}
 		
 		return 0;
@@ -177,10 +192,9 @@ public class Utility {
 			Artifact node = nodeList.get(j);
 			long age = node.getAge() - minAge;
 			if(node.getAge() == 0){
-				node.setY(Ystart);
+				node.setY(10);
 			}else{
 				node.setY(Ystart+(layoutThreshhold-(age*layoutThreshhold/threshold)));
-				Log.v(""+(age*layoutThreshhold/threshold),""+(layoutThreshhold-(age*layoutThreshhold/threshold)));
 			}
 		}
 		

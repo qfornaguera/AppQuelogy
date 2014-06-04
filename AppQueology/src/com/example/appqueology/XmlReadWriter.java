@@ -80,10 +80,10 @@ public class XmlReadWriter {
         			newNode.setTag("node");
         			newNode.setText(node.getElementsByTagName("label").item(0).getTextContent());
         			newNode.setType(node.getElementsByTagName("type").item(0).getTextContent());
-        			newNode.setBackgroundResource(Utility.getDrawableType(newNode));
         			newNode.setInformation(node.getElementsByTagName("information").item(0).getTextContent());
         			newNode.setPosition(node.getElementsByTagName("position").item(0).getTextContent());
         			newNode.setAge(Long.parseLong(node.getElementsByTagName("age").item(0).getTextContent()));
+        			newNode.setBackgroundResource(Utility.getDrawableType(newNode));
         			if("".compareTo((String) newNode.getText()) != 0){
         				newNode.matchWithText();
         			}
@@ -112,10 +112,6 @@ public class XmlReadWriter {
 	                	artifactTable.get(pairs.getKey()).addFather(artifactTable.get(Integer.parseInt(fathersList.item(j).getTextContent())));
 	                }
                 }
-                /*String father = nodeTable.get(pairs.getKey()).getElementsByTagName("father").item(0).getTextContent();
-                if(father.compareTo("null") != 0){
-                	artifactTable.get(pairs.getKey()).setFather(artifactTable.get(Integer.parseInt(father)));
-                }*/
                 
             }
             
@@ -154,13 +150,6 @@ public class XmlReadWriter {
 						Element node = addElement(rootElement, "node", document);
 						Element id = addAttribute("id",artifact.getId()+"", document);  //we create an attribute for a node
 						node.appendChild(id);//and then we attach it to the node
-						/*if(artifact.getFather() == null){
-							Element nofather = addAttribute("father", "null", document);
-							node.appendChild(nofather);
-						}else{
-							Element father = addAttribute("father", artifact.getFather().getId()+"", document);
-							node.appendChild(father);
-						}*/
 						
 						ArrayList <Artifact> fathers = artifact.getFathers();
 						if(fathers != null){

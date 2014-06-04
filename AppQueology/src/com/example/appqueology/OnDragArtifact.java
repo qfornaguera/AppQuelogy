@@ -41,7 +41,6 @@ import android.widget.RelativeLayout;
  */
 public class OnDragArtifact implements OnDragListener{
 	float startX,startY;
-	long startTime;
 	public OnDragArtifact() {
 		// TODO Auto-generated constructor stub
 	}
@@ -70,7 +69,6 @@ public class OnDragArtifact implements OnDragListener{
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact
 					if(Global.exited){//Check if it has been dropped on the board(aca exited from the slading drawer)
 						Artifact square = new Artifact(v.getContext());//then create a new Artifact at the main frame where it was dropped
-						square.setBackgroundResource(Utility.getDrawableType(touchedArtifact));
 						square.setType(touchedArtifact.getType());
 				        RelativeLayout Rel = (RelativeLayout)v;
 				        Rel.addView(square,100,100);
@@ -86,6 +84,7 @@ public class OnDragArtifact implements OnDragListener{
 				        	Artifact father = (Artifact)square.getFathers().get(0);
 				        	square.setAge(father.getAge());
 				        }
+				        square.setBackgroundResource(Utility.getDrawableType(touchedArtifact));
 				        Utility.recalculateLines(Rel);
 				        Global.exited = false;
 					}

@@ -55,9 +55,9 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.example.appqueology.ArtifactActivity"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
-<fullyQualifiedTypeName name="com.example.appqueology.Utility"/>
 <fullyQualifiedTypeName name="com.example.appqueology.Artifact"/>
 <fullyQualifiedTypeName name="com.example.appqueology.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.OnDragListener"/>
 <fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
+<fullyQualifiedTypeName name="com.example.appqueology.Utility"/>
 </qualifiedTypeNameHistroy>

@@ -986,14 +986,19 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int anfora=0x7f020057;
-        public static final int bordersblack=0x7f020058;
-        public static final int estrat=0x7f020059;
-        public static final int ic_launcher=0x7f02005a;
-        public static final int interfase=0x7f02005b;
-        public static final int lock=0x7f02005c;
-        public static final int mur=0x7f02005d;
-        public static final int negativa=0x7f02005e;
-        public static final int unlock=0x7f02005f;
+        public static final int anfora_age0=0x7f020058;
+        public static final int bordersblack=0x7f020059;
+        public static final int estrat=0x7f02005a;
+        public static final int estrat_age0=0x7f02005b;
+        public static final int ic_launcher=0x7f02005c;
+        public static final int interfase=0x7f02005d;
+        public static final int interfase_age0=0x7f02005e;
+        public static final int lock=0x7f02005f;
+        public static final int mur=0x7f020060;
+        public static final int mur_age0=0x7f020061;
+        public static final int negativa=0x7f020062;
+        public static final int negativa_age0=0x7f020063;
+        public static final int unlock=0x7f020064;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
