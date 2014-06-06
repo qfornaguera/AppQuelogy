@@ -30,6 +30,7 @@ public class OnTouchZoomandMove implements OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
+		Global.touchedArtifact = null;
 		switch(event.getAction()){
 			case MotionEvent.ACTION_DOWN://when one pointer is down(initialize the move of the board)
 				Xstart = event.getX();

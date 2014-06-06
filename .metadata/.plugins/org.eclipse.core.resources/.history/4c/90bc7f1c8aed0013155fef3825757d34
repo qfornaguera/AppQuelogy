@@ -34,7 +34,7 @@ import android.os.Build;
  * 
  * At this activity we are able to check the properties of and artifact and modify some of them
  * 
- * We can save the properties or delete the artifact. Check activity_artifact.xml to check the fields id
+ * We can save the properties or delete the artifact
  *
  */
 public class ArtifactActivity extends ActionBarActivity {
@@ -44,11 +44,7 @@ public class ArtifactActivity extends ActionBarActivity {
 	String [] position = {"Normal","Adosat","Cobreix"};
 	ArrayList <String> sonsAges,fathersAges;
 	
-	/**
-	 * onCreate method
-	 * 
-	 * Initialization of the form fields
-	 */
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -113,11 +109,10 @@ public class ArtifactActivity extends ActionBarActivity {
 			rb = (RadioButton)findViewById(R.id.radio1);
 			rb.setChecked(true);
 		}
-		
-		findViewById(R.id.save).setOnTouchListener(new OnTouchListener() {// touch listener of the save button
+		findViewById(R.id.save).setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {//field form control and pass of the values to the previous activity
+			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
 				RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
@@ -150,13 +145,6 @@ public class ArtifactActivity extends ActionBarActivity {
 				return true;
 			}
 			
-			/**
-			 * checkAges method check if the age is lower or equal to the fathers and higher or equal of the sons
-			 * 
-			 * if the age don't accomplish this feats an error is reported
-			 * 
-			 * @return
-			 */
 			public boolean checkAges(){
 				long age;
 				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
@@ -230,14 +218,7 @@ public class ArtifactActivity extends ActionBarActivity {
 	}
 	
 
-	/**
-	 * getIndex method
-	 * 
-	 * returns the position of the spinner according to the value 'position' of the artifact must be set at the start
-	 * 
-	 * @param pos
-	 * @return
-	 */
+	
 	
 	public int getIndex(String pos){
 		for(int i=0;i<position.length;i++){

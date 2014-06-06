@@ -49,6 +49,7 @@ public class Artifact extends TextView{
 		super(context);
 		sons = new ArrayList<Artifact>();
 		fathers = new ArrayList<Artifact>();
+		Global.touchedArtifact = this;
 		this.setOnTouchListener(new OnTouchArtifact());
 		this.setTextColor(Color.BLACK);
 		this.setPadding(10,10,10,10);
@@ -59,33 +60,27 @@ public class Artifact extends TextView{
 		
 	}
 	
-	/**
-	 * dispatchDragEvent method
-	 * 
-	 * This acts like an OnDragListener, making the artifact able to catch a drag event
-	 */
 	@Override
 	public boolean dispatchDragEvent(DragEvent event){
-		//**NOTE**: 'this' is the artifact where the dragged artifact is dropped
 		Artifact touchedArtifact = (Artifact) event.getLocalState();
 		switch(event.getAction()){
-			case DragEvent.ACTION_DRAG_STARTED://when a drag of an any single artifact starts
+			case DragEvent.ACTION_DRAG_STARTED:
 				Global.longClickTimer = System.currentTimeMillis();
 				return true;
 			
 			case DragEvent.ACTION_DROP:
 				View parent = (View)touchedArtifact.getParent();
-				if(this != touchedArtifact && parent.getId() == R.id.graph){//if the dropped artifact is not itself and is an artifact on the board
-					if(!touchedArtifact.getFathers().contains(this) && checkAges(touchedArtifact)){//if the dropped artifact haven't this artifact as father yet and the dropped is younger than this
-						if(McFlyYouHadOneJob(this,touchedArtifact)){//if the dropped artifact is not father or related parent of this
-							this.addSon(touchedArtifact);//add sons
-							touchedArtifact.addFather(this);// and fathers
+				if(this != touchedArtifact && parent.getId() == R.id.graph){
+					if(!touchedArtifact.getFathers().contains(this) && checkAges(touchedArtifact)){
+						if(McFlyYouHadOneJob(this,touchedArtifact)){
+							this.addSon(touchedArtifact);
+							touchedArtifact.addFather(this);
 							Line line = new Line(parent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
-							line.setTag("line");//draw the link
+							line.setTag("line");
 							((RelativeLayout) parent).addView(line);
 							touchedArtifact.bringToFront();
 							this.bringToFront();
-						}else{//if this was related parent of the dropped artifact show that is illegal move
+						}else{
 							AlertDialog.Builder alertDialog = new AlertDialog.Builder(touchedArtifact.getContext());
 							alertDialog.setTitle("Illegal Move");
 							alertDialog.setMessage("You cannot Link a node to another node already related to it at one of his branches");	
@@ -110,18 +105,10 @@ public class Artifact extends TextView{
 		return false;
 	}
 	
-	/**
-	 * checkAges method
-	 * 
-	 * Checks if an a possible son is truly older than father
-	 * 
-	 * @param maybeSon
-	 * @return
-	 */
 	public boolean checkAges(Artifact maybeSon){
 		if(maybeSon.getAge()<=this.getAge()){
 			return true;
-		}else{//if not display as illegal move
+		}else{
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(maybeSon.getContext());
 			alertDialog.setTitle("Illegal Move");
 			alertDialog.setMessage("You cannot Link a node to another node older than him");	
@@ -276,34 +263,14 @@ public class Artifact extends TextView{
 		this.fathers.add(father);
 	}
 	
-	/**
-	 * removeAllFathers method
-	 * 
-	 * flushes the fathers array list
-	 */
 	public void removeAllFathers(){
 		fathers = new ArrayList<Artifact>();
 	}
 	
-	/**
-	 * removeFather method
-	 * 
-	 * removes father at fathers list by index
-	 * 
-	 * @param index
-	 */
 	public void removeFather(int index){
 		sons.remove(index);
 	}
 	
-	
-	/**
-	 * removeFather method
-	 * 
-	 * removes father at fathers list by Object
-	 * 
-	 * @param index
-	 */
 	public void removeFather(Artifact son){
 		fathers.remove(son);
 	}
@@ -466,13 +433,13 @@ public class Artifact extends TextView{
 	 * McFlyYouHadOneJob
 	 * 
 	 * avoids that a node could be father of a node already related with. this is made to avoid a infinite buckle at beautify
-	 * recursion, and also an illegal relation
+	 * recursion
 	 * 
 	 * @return returns True if node and maybeFather are not related or if is a node without siblings, returns False if yes 
 	 */
 	
 	public boolean McFlyYouHadOneJob(Artifact maybeFather,Artifact artifact){
-		if(maybeFather.getFathers().size() == 0){//if the possible father has no fathers, we don't have to worry about to check this and we avoid uneeded run time
+		if(maybeFather.getFathers().size() == 0){
 			return true;
 		}
 		
@@ -483,17 +450,6 @@ public class Artifact extends TextView{
 		return true;
 	}
 	
-	
-	/**
-	 * foundMyselfAsFather method 
-	 * 
-	 * checks if the Myself artifact is found on the above branches of 'artifact' as father, so we can check if MySelf is already a related parent of 'artifact', 
-	 * the artifact we trying to put at Myself sons list
-	 * 
-	 * @param artifact
-	 * @param Myself
-	 * @return
-	 */
 	boolean foundMyselfAsFather(Artifact artifact,Artifact Myself){
 		if(artifact.getFathers().size() == 0){
 			return false;

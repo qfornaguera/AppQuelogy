@@ -49,6 +49,7 @@ public class Artifact extends TextView{
 		super(context);
 		sons = new ArrayList<Artifact>();
 		fathers = new ArrayList<Artifact>();
+		Global.touchedArtifact = this;
 		this.setOnTouchListener(new OnTouchArtifact());
 		this.setTextColor(Color.BLACK);
 		this.setPadding(10,10,10,10);
@@ -466,13 +467,13 @@ public class Artifact extends TextView{
 	 * McFlyYouHadOneJob
 	 * 
 	 * avoids that a node could be father of a node already related with. this is made to avoid a infinite buckle at beautify
-	 * recursion, and also an illegal relation
+	 * recursion
 	 * 
 	 * @return returns True if node and maybeFather are not related or if is a node without siblings, returns False if yes 
 	 */
 	
 	public boolean McFlyYouHadOneJob(Artifact maybeFather,Artifact artifact){
-		if(maybeFather.getFathers().size() == 0){//if the possible father has no fathers, we don't have to worry about to check this and we avoid uneeded run time
+		if(maybeFather.getFathers().size() == 0){
 			return true;
 		}
 		
@@ -487,8 +488,7 @@ public class Artifact extends TextView{
 	/**
 	 * foundMyselfAsFather method 
 	 * 
-	 * checks if the Myself artifact is found on the above branches of 'artifact' as father, so we can check if MySelf is already a related parent of 'artifact', 
-	 * the artifact we trying to put at Myself sons list
+	 * checks if the Myself artifact is found on the above branches of 'artifact' as father, so we can check if MySelf is already a related parent of 'artifact'
 	 * 
 	 * @param artifact
 	 * @param Myself
