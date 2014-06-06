@@ -167,7 +167,6 @@ public class MainActivity extends Activity {
      */
     @Override 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	//super.onActivityResult(requestCode, resultCode, data);
     	RelativeLayout Rel = (RelativeLayout)findViewById(R.id.graph);
         switch(requestCode) {
         	case 0:
@@ -309,7 +308,7 @@ public class MainActivity extends Activity {
  					b.setTag("UNLOCKED");
  					Rel.setEnabled(true);
  					Utility.beautifygraph(Rel);
- 					for(int u=0;u<Rel.getChildCount();u++){
+ 					for(int u=0;u<Rel.getChildCount();u++){//when we unlock, we enable all the artifacts disabled
  						if(Rel.getChildAt(u).getTag() != null){
  								Rel.getChildAt(u).setEnabled(true);
  						}

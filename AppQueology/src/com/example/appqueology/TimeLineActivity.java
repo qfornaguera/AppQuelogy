@@ -33,7 +33,7 @@ import android.os.Build;
 public class TimeLineActivity extends ActionBarActivity {
 	String [] BAChrist = {"B.C","A.C"};
 	long max,min,off;
-	int idCounter = 40000;
+	int idCounter = 40000;//we set the idCounter to 40000, this will be the id for the time laps, we could put any other number, but for this first stage of the app i've set it to 40000, that means that the artifacts could go from 0 to 39999 id
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,7 +108,7 @@ public class TimeLineActivity extends ActionBarActivity {
 			}
 			
 			String text;
-			if(i==0){
+			if(i==0){//this if sets the correct age label for every Time Lap
 				i+=1;
 				text = "From " + Math.abs(i) + " " + BAChrist[AfterOrBeforeC1] + "\n to \n"+ Math.abs(i-1+offset) + " " + BAChrist[AfterOrBeforeC2];
 				i-=1;

@@ -126,6 +126,15 @@ public class Utility {
 		
 	}
 	
+	
+	/**
+	 * getDrawableType method
+	 * 
+	 * this method returns the correct drawable id according to the type of the artifact and if it's age is 0 or not
+	 * 
+	 * @param artifact
+	 * @return
+	 */
 	public static int getDrawableType(Artifact artifact){
 		String type = artifact.getType();
 		
@@ -168,12 +177,20 @@ public class Utility {
 		
 	}
 	
+	
+	/**
+	 * setPositionByAge method
+	 * 
+	 * sets the Y position of the artifacts according to it's age on the board, from younger (lower Y) to older(higher Y)
+	 * 
+	 * @param Rel
+	 */
 	public static void setPositionByAge(RelativeLayout Rel){
 		long maxAge = Long.MIN_VALUE,minAge = Long.MAX_VALUE;
 		long threshold,layoutThreshhold;
 		float Ystart = 200;
 		ArrayList<Artifact> nodeList = new ArrayList<Artifact>();
-		for(int i=0;i<Rel.getChildCount();i++){
+		for(int i=0;i<Rel.getChildCount();i++){//first we need to get the nodes, and know what's the threshold between the maximum age and the minimum age
 			if(Rel.getChildAt(i).getTag() != null){
 				if(Rel.getChildAt(i).getTag().toString().compareTo("node") == 0){//then we get all the artifact views of the board
 					Artifact node = (Artifact)Rel.getChildAt(i);
@@ -186,22 +203,22 @@ public class Utility {
 		}
 		
 		threshold = maxAge-minAge;
-		layoutThreshhold = 9600;
+		layoutThreshhold = 9600;//graph relative layout does 10000, we start at Ystart(200) so the maximum age will go to 9800
 		
-		for(int j=0;j<nodeList.size();j++){
+		for(int j=0;j<nodeList.size();j++){//we iterate all the nodes at set its age
 			Artifact node = nodeList.get(j);
-			long age = node.getAge() - minAge;
-			if(node.getAge() == 0){
+			long age = node.getAge() - minAge;//we subtract minAge to the node age to translate it between 0 and the threshold
+			if(node.getAge() == 0){//for now we set the unset age nodes to Y = 10 
 				node.setY(10);
 			}else{
-				node.setY(Ystart+(layoutThreshhold-(age*layoutThreshhold/threshold)));
+				node.setY(Ystart+(layoutThreshhold-(age*layoutThreshhold/threshold)));//Finally we translate from the age threshold to the layout threshold to set the correct Y for the node
 			}
 		}
 		
 		
 		recalculateLines(Rel);
 		
-
+		//we disable all views on the graph board, so we use this method when we lock the graph
 		for(int u=0;u<Rel.getChildCount();u++){
 			if(Rel.getChildAt(u).getTag() != null){
 					Rel.getChildAt(u).setEnabled(false);

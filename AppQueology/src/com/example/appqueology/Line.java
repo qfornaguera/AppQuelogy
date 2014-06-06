@@ -61,16 +61,16 @@ public class Line extends View{
 		
 		switch(event.getAction()){
 			case MotionEvent.ACTION_DOWN:
-				if(dist <= 50){
+				if(dist <= 50){//if the touch is less or equal than 50 of distance of the middle point of the line we catch the event 
 					startTime = System.currentTimeMillis();
 					paint.setColor(Color.RED);
-					this.invalidate();
+					this.invalidate();//invalidate to refresh it on the screen so we can see the line red as feedback
 					return true;
 				}
 			break;
 			
 			case MotionEvent.ACTION_UP:
-				if(System.currentTimeMillis()-startTime > 1000 && dist <= 50){
+				if(System.currentTimeMillis()-startTime > 1000 && dist <= 50){//long click at the middle of the line
 					this.son.removeFather(this.father);
 					this.father.removeSon(this.son);
 					Rel.removeView(this);
@@ -99,15 +99,21 @@ public class Line extends View{
 
 	}
 	
+	/**
+	 * onDraw method
+	 * 
+	 * here is where we draw the line between the artifacts 
+	 * 
+	 */
 	@Override
     public void onDraw(Canvas canvas) {
-            canvas.drawLine(p1.x,p1.y,p2.x,p2.y,paint);
+            canvas.drawLine(p1.x,p1.y,p2.x,p2.y,paint);//draws the line
             float Xmid,Ymid;
             Xmid = (p1.x + p2.x)/2;
     		Ymid = (p1.y + p2.y)/2;
     		
     		paint.setColor(Color.GREEN);
-    		canvas.drawCircle(Xmid, Ymid, 5, paint);
+    		canvas.drawCircle(Xmid, Ymid, 5, paint);//set a green dot at the middle
     		paint.setColor(Color.BLACK);
             
     }

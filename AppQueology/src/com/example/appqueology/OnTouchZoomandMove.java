@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
  * 
  * this custom onTouchListener is set for main relativeLayout of MainActivity class.
  * Implements the move of the board and the pinch zoom in and out
+ * 
+ * we will set it at the main relativeLayout due to a accuracy problems when the graph board relativelayout was scaled down to 1.0
  *
  *
  */
@@ -44,7 +46,7 @@ public class OnTouchZoomandMove implements OnTouchListener {
 					}
 					float distX = Math.abs(event.getX()-Xstart);
 					float distY = Math.abs(event.getY()-Ystart);
-					if(Xstart > event.getX()){
+					if(Xstart > event.getX()){//we translate the board according where we moved the pointer from the start, for X and Y axis
 						Rel.setX(Rel.getX()-distX);
 					}else if(Xstart < event.getX() && Rel.getX()+distX < 0){
 						Rel.setX(Rel.getX()+distX);

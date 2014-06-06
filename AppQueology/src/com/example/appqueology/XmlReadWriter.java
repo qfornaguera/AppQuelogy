@@ -96,6 +96,7 @@ public class XmlReadWriter {
         		
         	}
         	
+        	//once we created all the artifacts now we can set the fathers and sons for every node with the artifact and xmlnode tables we have filled while reading
         	Iterator it = artifactTable.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pairs = (Map.Entry)it.next();

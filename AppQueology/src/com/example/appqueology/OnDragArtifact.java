@@ -52,17 +52,7 @@ public class OnDragArtifact implements OnDragListener{
 		View sladingDrawer = Main.findViewById(R.id.content);
 		View owner = (View)touchedArtifact.getParent();
 		switch (event.getAction()) {
-			case DragEvent.ACTION_DRAG_STARTED://when the artifact launches its drag action
-				if(v == owner){//if the drag event is started by an artifact on the graph board we disable the slading drawer drag listener so it don't interfere in our actions with the artifact
-					sladingDrawer.setEnabled(false);
-				}
-				//the timer for the long click is set in dispatchDragEvent on ACTION_DRAG_STARTED at Artifact class
-			  break;
-			case DragEvent.ACTION_DRAG_ENTERED:
-			  break;
-			  
-			case DragEvent.ACTION_DRAG_EXITED:
-			  break;
+		
 			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
 				startX = touchedArtifact.getX();
 				startY = touchedArtifact.getY();
@@ -93,7 +83,7 @@ public class OnDragArtifact implements OnDragListener{
 					RelativeLayout Rel = (RelativeLayout)v;
 					if(System.currentTimeMillis()-Global.longClickTimer > 1000 && Math.abs(startX-event.getX()) < 300 && Math.abs(startY-event.getY()) < 300){//onlongClick artifacts event
 						Intent toArtifactActivity = new Intent(Rel.getContext(), ArtifactActivity.class);
-						toArtifactActivity.putExtra("id",touchedArtifact.getId());
+						toArtifactActivity.putExtra("id",touchedArtifact.getId());//pass of the artifact information to ArtifactActivity
 						toArtifactActivity.putExtra("text",touchedArtifact.getText());
 						toArtifactActivity.putExtra("age",touchedArtifact.getAge());
 						toArtifactActivity.putExtra("type",touchedArtifact.getType());
@@ -130,10 +120,10 @@ public class OnDragArtifact implements OnDragListener{
 						}else{
 							AlertDialog.Builder alertDialog = new AlertDialog.Builder(touchedArtifact.getContext());
 							alertDialog.setTitle("Illegal Move");
-							if(SeekFatherResult == 1)
-								alertDialog.setMessage("You cannot put a node  below another node already related to it at one of his branches");
-							else if(SeekFatherResult == 2)
-								alertDialog.setMessage("You cannot put a node  below another node older than him");
+							if(SeekFatherResult == 1)//if the found father was already related 
+								alertDialog.setMessage("You cannot put a node below another node already related to it at one of his branches");
+							else if(SeekFatherResult == 2)//if the found father was older in age
+								alertDialog.setMessage("You cannot put a node below another node older than him");
 								
 							alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
@@ -150,9 +140,6 @@ public class OnDragArtifact implements OnDragListener{
 	
 			  break;
 			case DragEvent.ACTION_DRAG_ENDED:
-				if(v == owner){//once we finished the drag event done in the graph board we enable again the drag listener on slading drawer viewgrouo
-					sladingDrawer.setEnabled(true);
-				}
 				touchedArtifact.setEnabled(true);
 			break;
 				

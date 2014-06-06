@@ -55,7 +55,7 @@ public class Artifact extends TextView{
 		this.setGravity(Gravity.CENTER);
 		this.information = "";
 		this.position = "Normal";
-		
+		this.age = 0;
 		
 	}
 	
@@ -74,15 +74,16 @@ public class Artifact extends TextView{
 				return true;
 			
 			case DragEvent.ACTION_DROP:
-				View parent = (View)touchedArtifact.getParent();
-				if(this != touchedArtifact && parent.getId() == R.id.graph){//if the dropped artifact is not itself and is an artifact on the board
+				View touchedParent = (View)touchedArtifact.getParent();
+				View myParent = (View)this.getParent();
+				if(this != touchedArtifact && touchedParent.getId() == R.id.graph && myParent.getId() == R.id.graph){//if the dropped artifact is not itself and they are artifacts on the board
 					if(!touchedArtifact.getFathers().contains(this) && checkAges(touchedArtifact)){//if the dropped artifact haven't this artifact as father yet and the dropped is younger than this
 						if(McFlyYouHadOneJob(this,touchedArtifact)){//if the dropped artifact is not father or related parent of this
 							this.addSon(touchedArtifact);//add sons
 							touchedArtifact.addFather(this);// and fathers
-							Line line = new Line(parent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
+							Line line = new Line(touchedParent.getContext(),new PointF(touchedArtifact.getCenterX(),touchedArtifact.getCenterY()),new PointF(this.getCenterX(),this.getCenterY()),this,touchedArtifact);
 							line.setTag("line");//draw the link
-							((RelativeLayout) parent).addView(line);
+							((RelativeLayout) touchedParent).addView(line);
 							touchedArtifact.bringToFront();
 							this.bringToFront();
 						}else{//if this was related parent of the dropped artifact show that is illegal move
@@ -387,11 +388,11 @@ public class Artifact extends TextView{
 		}
 		
 		if(father!=null){//if a father has been found
-			if(!McFlyYouHadOneJob(father,this)){
+			if(!McFlyYouHadOneJob(father,this)){//we can't allow that the father found to be a related parent so we check it 
 				return 1;
 			}
 			
-			if(this.getAge()>father.getAge() && !justCreated){
+			if(this.getAge()>father.getAge() && !justCreated){//we can't allow a father be older than his sons, so we check it. We check this just when the artifact is already in the board, and not when just created
 				return 2;
 			}
 			if(this.getFathers().size() != 0){//and if the artifact has  current fathers
