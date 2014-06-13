@@ -56,71 +56,74 @@ public class ThresholdActivity extends Activity {
 				
 				return false;
 				
-			}
 			
 			
-			/**
-			 * checkParameters method
-			 * 
-			 * Checks if the parameters are correct for the next step. Reports the error when incorrect
-			 * @return
-			 */
-			private boolean checkParameters() {
-				// TODO Auto-generated method stub
-				
-				int min = 0,max = 0,off = 0;
-				
-				try{
-					EditText aux = (EditText)findViewById(R.id.editText1);
-					min = Integer.parseInt(aux.getText().toString());
-					aux = (EditText)findViewById(R.id.editText2);
-					max = Integer.parseInt(aux.getText().toString());
-					aux = (EditText)findViewById(R.id.editText3);
-					off = Integer.parseInt(aux.getText().toString());
-				}catch(NumberFormatException e){
-					AlertDialog.Builder alertDialog = new AlertDialog.Builder(ThresholdActivity.this);
-					alertDialog.setTitle("Parameter Error");
-					alertDialog.setMessage("There are parameters that remain unset");
-					alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-						// here you can add functions
-						}
-					});
-					alertDialog.show();
-					return false;
-				}
-				
-				
-				if(min > max){
-					AlertDialog.Builder alertDialog = new AlertDialog.Builder(ThresholdActivity.this);
-					alertDialog.setTitle("Parameter Error");
-					alertDialog.setMessage("Maxium age cannot be lower than Minium age");
-					alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-						// here you can add functions
-						}
-					});
-					alertDialog.show();
-					return false;
-				}
-				
-				if((max-min)%off != 0){
-					AlertDialog.Builder alertDialog = new AlertDialog.Builder(ThresholdActivity.this);
-					alertDialog.setTitle("Parameter Error");
-					alertDialog.setMessage("The Threshold("+(max-min)+"years) must be divisible by the Lap size ("+off+")");
-					alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-						// here you can add functions
-						}
-					});
-					alertDialog.show();
-					return false;
-				}
-				
-				return true;
 			}
+			
 		});
+		
 
+	}
+	
+	/**
+	 * checkParameters method
+	 * 
+	 * Checks if the parameters are correct for the next step. Reports the error when incorrect
+	 * @return
+	 */
+	public boolean checkParameters(){
+		// TODO Auto-generated method stub
+		
+		int min = 0,max = 0,off = 0;
+		
+		try{
+			EditText aux = (EditText)findViewById(R.id.editText1);
+			min = Integer.parseInt(aux.getText().toString());
+			aux = (EditText)findViewById(R.id.editText2);
+			max = Integer.parseInt(aux.getText().toString());
+			aux = (EditText)findViewById(R.id.editText3);
+			off = Integer.parseInt(aux.getText().toString());
+		}catch(NumberFormatException e){
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(ThresholdActivity.this);
+			alertDialog.setTitle("Parameter Error");
+			alertDialog.setMessage("There are parameters that remain unset");
+			alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				// here you can add functions
+				}
+			});
+			alertDialog.show();
+			return false;
+		}
+		
+		
+		if(min > max){
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(ThresholdActivity.this);
+			alertDialog.setTitle("Parameter Error");
+			alertDialog.setMessage("Maxium age cannot be lower than Minium age");
+			alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				// here you can add functions
+				}
+			});
+			alertDialog.show();
+			return false;
+		}
+		
+		if((max-min)%off != 0){
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(ThresholdActivity.this);
+			alertDialog.setTitle("Parameter Error");
+			alertDialog.setMessage("The Threshold("+(max-min)+"years) must be divisible by the Lap size ("+off+")");
+			alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				// here you can add functions
+				}
+			});
+			alertDialog.show();
+			return false;
+		}
+		
+		return true;
 	}
 
 

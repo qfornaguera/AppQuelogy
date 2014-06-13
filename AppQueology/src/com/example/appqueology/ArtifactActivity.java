@@ -150,58 +150,7 @@ public class ArtifactActivity extends ActionBarActivity {
 				return true;
 			}
 			
-			/**
-			 * checkAges method check if the age is lower or equal to the fathers and higher or equal of the sons
-			 * 
-			 * if the age don't accomplish this feats an error is reported
-			 * 
-			 * @return
-			 */
-			public boolean checkAges(){
-				long age;
-				RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
-				RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
-				EditText et = (EditText) findViewById(R.id.editText2);
-				if(et.getText().toString().compareTo("") != 0){
-					if(rb == rg.findViewById(R.id.radio0)){
-						age = -1*Long.parseLong((String) et.getText().toString());
-					}else{
-						age = Long.parseLong((String) et.getText().toString());
-					}
-				}else{
-					age = 0;
-				}
-				for(int i = 0;i<sonsAges.size();i++){
-					if(age < Long.parseLong(sonsAges.get(i))){
-						AlertDialog.Builder alertDialog = new AlertDialog.Builder(et.getContext());
-						alertDialog.setTitle("Invalid Age");
-						alertDialog.setMessage("Nodes can't be older than his sons(Son's Age: "+sonsAges.get(i)+" Node's Age: "+age+")");
-						alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-							// here you can add functions
-							}
-						});
-						alertDialog.show();
-						return false;
-					}
-				}
-				
-				for(int i = 0;i<fathersAges.size();i++){
-					if(age > Long.parseLong(fathersAges.get(i))){
-						AlertDialog.Builder alertDialog = new AlertDialog.Builder(et.getContext());
-						alertDialog.setTitle("Invalid Age");
-						alertDialog.setMessage("Nodes can't be younger than his fathers(Father's Age: "+fathersAges.get(i)+" Node's Age: "+age+")");
-						alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-							// here you can add functions
-							}
-						});
-						alertDialog.show();
-						return false;
-					}
-				}
-				return true;
-			}
+			
 		});
 		
 		findViewById(R.id.delete).setOnTouchListener(new OnTouchListener() {
@@ -227,6 +176,59 @@ public class ArtifactActivity extends ActionBarActivity {
 		
 		spinner.setSelection(getIndex(getIntent().getStringExtra("position")));
 		
+	}
+	
+	/**
+	 * checkAges method check if the age is lower or equal to the fathers and higher or equal of the sons
+	 * 
+	 * if the age don't accomplish this feats an error is reported
+	 * 
+	 * @return
+	 */
+	public boolean checkAges(){
+		long age;
+		RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup1);
+		RadioButton rb = (RadioButton) findViewById(rg.getCheckedRadioButtonId());
+		EditText et = (EditText) findViewById(R.id.editText2);
+		if(et.getText().toString().compareTo("") != 0){
+			if(rb == rg.findViewById(R.id.radio0)){
+				age = -1*Long.parseLong((String) et.getText().toString());
+			}else{
+				age = Long.parseLong((String) et.getText().toString());
+			}
+		}else{
+			age = 0;
+		}
+		for(int i = 0;i<sonsAges.size();i++){
+			if(age < Long.parseLong(sonsAges.get(i))){
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(et.getContext());
+				alertDialog.setTitle("Invalid Age");
+				alertDialog.setMessage("Nodes can't be older than his sons(Son's Age: "+sonsAges.get(i)+" Node's Age: "+age+")");
+				alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+					// here you can add functions
+					}
+				});
+				alertDialog.show();
+				return false;
+			}
+		}
+		
+		for(int i = 0;i<fathersAges.size();i++){
+			if(age > Long.parseLong(fathersAges.get(i))){
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(et.getContext());
+				alertDialog.setTitle("Invalid Age");
+				alertDialog.setMessage("Nodes can't be younger than his fathers(Father's Age: "+fathersAges.get(i)+" Node's Age: "+age+")");
+				alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+					// here you can add functions
+					}
+				});
+				alertDialog.show();
+				return false;
+			}
+		}
+		return true;
 	}
 	
 

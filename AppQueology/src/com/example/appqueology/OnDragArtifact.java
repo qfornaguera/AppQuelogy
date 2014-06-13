@@ -31,8 +31,10 @@ import android.widget.RelativeLayout;
  * 
  * @author Joaquim Fornaguera
  * 
- * this custom OnDragListener that implements the drag and drop of the artifact views. From the slidingDrawer to create a new node
- * and for the creation of a new artifact, from the board to move the artifact. 
+ * this custom OnDragListener that implements the drag and drop of the artifact views. To create a new node dragging from the tool bar 
+ * and to move nodes on the board
+ * 
+ * 
  * 
  * Also detects the long click to modify an artifact properties 
  * 
@@ -40,7 +42,7 @@ import android.widget.RelativeLayout;
  *
  */
 public class OnDragArtifact implements OnDragListener{
-	float startX,startY;
+	
 	public OnDragArtifact() {
 		// TODO Auto-generated constructor stub
 	}
@@ -48,12 +50,11 @@ public class OnDragArtifact implements OnDragListener{
 	@Override
 	public boolean onDrag(View v, DragEvent event) {
 		Artifact touchedArtifact = (Artifact) event.getLocalState();
-		RelativeLayout Main = (RelativeLayout)v.getParent();
-		View sladingDrawer = Main.findViewById(R.id.content);
 		View owner = (View)touchedArtifact.getParent();
 		switch (event.getAction()) {
 		
 			case DragEvent.ACTION_DROP://when the artifact is droped somewhere
+				float startX,startY;
 				startX = touchedArtifact.getX();
 				startY = touchedArtifact.getY();
 				if(v != owner){//if the drag and drop started at a SlideDrawer Artifact

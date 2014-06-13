@@ -442,7 +442,6 @@ public class Artifact extends TextView{
 				fathers.get(i).removeSon(this);//report the father to remove this artifact from his son list
 			}
 		}
-		Utility.recalculateLines(Rel);
 		removeAllSons();
 	}
 	
