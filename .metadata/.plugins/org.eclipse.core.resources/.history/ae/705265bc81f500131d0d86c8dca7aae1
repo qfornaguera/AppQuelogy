@@ -74,9 +74,9 @@ public class Utility {
 					node.setX(posX);
 				}
 			}
-			if(!visited.contains(sons.get(i))){//when we finish the treatment with this son we add it as visited
+			/*if(!visited.contains(sons.get(i))){//when we finish the treatment with this son we add it as visited
 				visited.add(sons.get(i));
-			}
+			}*/
 			
 		}
 		
@@ -85,6 +85,10 @@ public class Utility {
 			node.setX(posX);
 		}
 		node.setY(level*400);//set the Y position depending on the depth of the artifact on the graph
+		
+		if(!visited.contains(node)){//when we finish the treatment with this son we add it as visited
+			visited.add(node);
+		}
 
 	}
 	
@@ -130,7 +134,7 @@ public class Utility {
 	/**
 	 * getDrawableType method
 	 * 
-	 * this method returns the correct drawable id accordig to the type of the artifact and if it's age is 0 or not
+	 * this method returns the correct drawable id according to the type of the artifact and if it's age is 0 or not
 	 * 
 	 * @param artifact
 	 * @return
