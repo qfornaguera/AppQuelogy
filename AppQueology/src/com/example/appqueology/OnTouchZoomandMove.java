@@ -19,11 +19,11 @@ import android.widget.RelativeLayout;
  */
 public class OnTouchZoomandMove implements OnTouchListener {
 
-	float lastX,lastX2,Xstart;
-	float lastY,lastY2,Ystart;
-	float lastDist;
-	RelativeLayout Rel;//Rel is the graph board
-	boolean zooming = false;
+	private float Xstart;
+	private float Ystart;
+	private float lastDist;
+	private RelativeLayout Rel;//Rel is the graph board
+	private boolean zooming = false;
 	
 	public OnTouchZoomandMove(RelativeLayout Rel){
 		this.Rel = Rel;

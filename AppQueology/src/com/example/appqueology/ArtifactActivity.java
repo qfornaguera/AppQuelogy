@@ -38,11 +38,11 @@ import android.os.Build;
  *
  */
 public class ArtifactActivity extends ActionBarActivity {
-	int id;
-	String text;
-	Intent resultIntent = new Intent();
-	String [] position = {"Normal","Adosat","Cobreix"};
-	ArrayList <String> sonsAges,fathersAges;
+	private int id;
+	private String text;
+	private Intent resultIntent = new Intent();
+	private String [] position = {"Normal","Adosat","Cobreix"};
+	private ArrayList <String> sonsAges,fathersAges;
 	
 	/**
 	 * onCreate method

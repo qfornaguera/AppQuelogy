@@ -1012,11 +1012,10 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f05005a;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int activity_main=0x7f050051;
         public static final int always=0x7f05000b;
-        public static final int beautify=0x7f05005c;
+        public static final int beautify=0x7f05005b;
         public static final int beginning=0x7f050011;
         public static final int button1=0x7f050056;
         public static final int checkbox=0x7f05002d;
@@ -1046,7 +1045,7 @@ containing a value of this type.
         public static final int image=0x7f050027;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
-        public static final int load=0x7f05005b;
+        public static final int load=0x7f05005a;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
@@ -1152,10 +1151,7 @@ containing a value of this type.
         public static final int support_simple_spinner_dropdown_item=0x7f03001c;
     }
     public static final class menu {
-        public static final int artifact=0x7f0c0000;
-        public static final int main=0x7f0c0001;
-        public static final int threshold=0x7f0c0002;
-        public static final int time_line=0x7f0c0003;
+        public static final int main=0x7f0c0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

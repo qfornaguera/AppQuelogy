@@ -36,7 +36,7 @@ import android.widget.RelativeLayout;
 
 public class XmlReadWriter {
 	
-	RelativeLayout Rel;
+	private RelativeLayout Rel;
 	/**
 	 * Constructor
 	 * 

@@ -17,8 +17,8 @@ public class Utility {
 	/**
 	 * posX is the offset X coordinate where an artifact must stand
 	 */
-	static float nodeCounter,posX;
-	static ArrayList <Artifact> visited;
+	private static float nodeCounter,posX;
+	private static ArrayList <Artifact> visited;
 	
 	/**
 	 * beautifygraph is the method that sort on positions the artifacts of the board(Rel) 
@@ -65,7 +65,7 @@ public class Utility {
 			if((sons.size()-1)/2 == i){//if it was the middle son
 				if(sons.size()%2 != 0 && !visited.contains(sons.get(i))){//if the number of sons is odd and the son is still not visited, put the artifact at the same offset of his middle son
 					if(sons.size() == 1){
-						node.setX(sons.get(i).getX()-(node.width-sons.get(i).width)/2);//align in case of just one son (this puts father and son at the same center X)
+						node.setX(sons.get(i).getX()-(node.getWidth()-sons.get(i).getWidth())/2);//align in case of just one son (this puts father and son at the same center X)
 					}else{
 						node.setX(sons.get(i).getX());
 					}

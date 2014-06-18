@@ -20,10 +20,10 @@ import android.widget.RelativeLayout;
  */
 public class Line extends View{
 	
-	Paint paint = new Paint();
-	PointF p1 = new PointF();
-	PointF p2 = new PointF();
-	Artifact father,son;
+	private Paint paint = new Paint();
+	private PointF p1 = new PointF();
+	private PointF p2 = new PointF();
+	private Artifact father,son;
 	long startTime;
 	
 	public Line(Context context,PointF p1,PointF p2,Artifact father,Artifact son) {

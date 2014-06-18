@@ -34,12 +34,12 @@ import android.widget.TextView;
 
 public class Artifact extends TextView{
 	/**sons field is a list with the sons of this node */
-	ArrayList <Artifact> sons = null;
+	private ArrayList <Artifact> sons = null;
 	/**fathers is the node's father node (is null when node is root of a tree */
-	ArrayList <Artifact>fathers = null;
-	String type,information,position;
-	float width,heigth;
-	long age;
+	private ArrayList <Artifact>fathers = null;
+	private String type,information,position;
+	private float width,heigth;
+	private long age;
 	
 	/**
 	 * Class constructor sets the artifact with center text align and an empty list of sons
